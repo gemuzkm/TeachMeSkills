@@ -112,7 +112,7 @@ public class Home06 {
         int point = area[yPoint][xPoint];
 
         if (point != 0) {
-            System.out.println("Точкак с данными координатами занята, введите нвоые координаты");
+            System.out.println("Точкак с данными координатами занята, введите новые координаты");
         }
         return point == 0 ? true : false;
     }
