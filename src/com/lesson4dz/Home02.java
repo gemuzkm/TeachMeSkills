@@ -19,13 +19,6 @@ public class Home02 {
             }
         }
 
-//        for (int i = 0; i < sizeY; i++) {
-//            for (int j = 0; j < sizeX; j++) {
-//                System.out.print(array[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//
         for (int i = 0; i < sizeX; i++) {
             System.out.println(Arrays.toString(array[i]));
         }
