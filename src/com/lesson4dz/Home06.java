@@ -6,11 +6,14 @@ package com.lesson4dz;
 // состоянием. Игра продолжается до победы одного из игроков или ничьи.
 //
 // Проверку вводимых дынные не реализовывал
+// Координа вводить как матрице: Х - это строка, У - это столбел
+//
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Home06 {
 
@@ -23,16 +26,31 @@ public class Home06 {
         area = new int[size][size];
     }
 
-    public static void SetPointOne (int xPoint, int yPoint, int Point) {
-        area[xPoint][yPoint] = Point;
+    public static void SetPoint(int xPoint, int yPoint, int Point) {
+        area[yPoint][xPoint] = Point;
     }
 
     public static boolean CheckLine (int Point) {
         int cout;
+
+        //line
         for (int i = 0; i < size; i++) {
             cout = 0;
             for (int j = 0; j < size; j++) {
                 if (area[i][j] == Point) {
+                    cout++;
+                }
+            }
+            if (cout == size) {
+                return true;
+            }
+        }
+
+        //vertical
+        for (int i = 0; i < size; i++) {
+            cout = 0;
+            for (int j = 0; j < size; j++) {
+                if (area[j][i] == Point) {
                     cout++;
                 }
             }
@@ -46,6 +64,7 @@ public class Home06 {
     public static boolean CheckDioganal (int Point) {
         int count = 0;
 
+        //main
         for (int i = 0; i < size; i++) {
             if (area[i][i] == Point) {
                 count++;
@@ -58,6 +77,7 @@ public class Home06 {
 
         count = 0;
 
+        //side
         for (int i = 0; i < size; i++) {
             for (int j = size - i - 1; j >= 0; j--) {
                 if (area[i][j] == Point) {
@@ -73,8 +93,9 @@ public class Home06 {
         return false;
     }
 
-    public static boolean CheckPoint (int xPoint, int yPoint, int Point) {
+    public static boolean CheckPoint (int xPoint, int yPoint) {
         int cout = 0;
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (area[i][j] == 0) {
@@ -89,6 +110,7 @@ public class Home06 {
         }
 
         int point = area[yPoint][xPoint];
+
         if (point != 0) {
             System.out.println("Точкак с данными координатами занята, введите нвоые координаты");
         }
@@ -96,8 +118,11 @@ public class Home06 {
     }
 
     public static String ReaderString () throws IOException {
+//        Random random = new Random();
+//        return String.valueOf(random.nextInt(3));
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         return reader.readLine();
+
     }
 
     public static void UserOne () throws IOException {
@@ -109,9 +134,9 @@ public class Home06 {
             x = Integer.parseInt(ReaderString());
             System.out.println(nameUserOne +  " - введите координату Y (от 0 до " + (size - 1) + ")");
             y = Integer.parseInt(ReaderString());
-        } while (!CheckPoint(x,y,1));
+        } while (!CheckPoint(x,y));
 
-        SetPointOne(x, y,1);
+        SetPoint(x, y,1);
 
         if (CheckLine(1) || CheckDioganal(1)) {
             System.out.println("Победил - " + nameUserOne);
@@ -130,9 +155,9 @@ public class Home06 {
             x = Integer.parseInt(ReaderString());
             System.out.println(nameUserTwo +  " - введите координату Y (от 0 до " + (size - 1) + ")");
             y = Integer.parseInt(ReaderString());
-        } while (!CheckPoint(x,y,2));
+        } while (!CheckPoint(x,y));
 
-        SetPointOne(x, y, 2);
+        SetPoint(x, y, 2);
 
         if (CheckLine(2) || CheckDioganal(2)) {
             System.out.println("Победил - " + nameUserTwo);
@@ -149,16 +174,17 @@ public class Home06 {
 
     public static void main(String[] args) throws IOException {
 
-
-
         System.out.println("Ввдите имя первого игрока");
         nameUserOne = ReaderString();
+//        nameUserOne = "Игрок 1";
 
         System.out.println("Введите имя второго игрока");
         nameUserTwo = ReaderString();
+//        nameUserTwo = "Игрок 2";
 
-        System.out.println("Введите размер игрового поля");
+        System.out.println("Введите размер игрового поля 2 или более");
         size = Integer.parseInt(ReaderString());
+//        size = 3;
 
         CreateArea(size);
 
@@ -168,7 +194,11 @@ public class Home06 {
             UserOne();
             DrawingFields(size);
             UserTwo();
-
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
 
     }
