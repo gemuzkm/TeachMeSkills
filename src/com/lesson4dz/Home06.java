@@ -17,20 +17,20 @@ import java.util.Random;
 
 public class Home06 {
 
-    public static String nameUserOne;
-    public static String nameUserTwo;
-    public static int size;
-    public static int[][] area;
+    private static String nameUserOne;
+    private static String nameUserTwo;
+    private static int size;
+    private static int[][] area;
 
-    public  static void CreateArea (int size) {
+    private static void CreateArea (int size) {
         area = new int[size][size];
     }
 
-    public static void SetPoint(int xPoint, int yPoint, int Point) {
+    private static void SetPoint(int xPoint, int yPoint, int Point) {
         area[yPoint][xPoint] = Point;
     }
 
-    public static boolean CheckLine (int Point) {
+    private static boolean CheckLine (int Point) {
         int cout;
 
         //line
@@ -61,7 +61,7 @@ public class Home06 {
         return false;
     }
 
-    public static boolean CheckDioganal (int Point) {
+    private static boolean CheckDioganal (int Point) {
         int count = 0;
 
         //main
@@ -93,7 +93,7 @@ public class Home06 {
         return false;
     }
 
-    public static boolean CheckPoint (int xPoint, int yPoint) {
+    private static boolean CheckPoint (int xPoint, int yPoint) {
         int cout = 0;
 
         for (int i = 0; i < size; i++) {
@@ -117,7 +117,7 @@ public class Home06 {
         return point == 0 ? true : false;
     }
 
-    public static String ReaderString () throws IOException {
+    private static String ReaderString () throws IOException {
 //        Random random = new Random();
 //        return String.valueOf(random.nextInt(3));
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -125,7 +125,7 @@ public class Home06 {
 
     }
 
-    public static void UserOne () throws IOException {
+    private static void UserOne () throws IOException {
         int x;
         int y;
 
@@ -146,7 +146,7 @@ public class Home06 {
 
     }
 
-    public static void UserTwo () throws IOException {
+    private static void UserTwo () throws IOException {
         int x;
         int y;
 
@@ -166,7 +166,7 @@ public class Home06 {
         }
     }
 
-    public static void DrawingFields (int input) {
+    private static void DrawingFields (int input) {
         for (int i = 0; i < input; i++) {
             System.out.println(Arrays.toString(area[i]));
         }
