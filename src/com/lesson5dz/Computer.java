@@ -41,7 +41,7 @@ public class Computer {
     }
 
     private void KillPc() {
-        System.out.println("Комп сгорел. Ему конец. ");
+        System.out.println("Комп сгорел. Ему конец.");
 
     }
 
@@ -83,6 +83,7 @@ public class Computer {
 
         int powerOffCode = random.nextInt(2);
         int powerOffCodeUser;
+
 //      System.out.println("random powerOffCode = " + powerOffCode); // для тестрование
         System.out.println("\nВведите состояние PC(выключение):");
 

@@ -13,10 +13,10 @@ public class lifePC {
         for (int i = 0; i < 5; i++) {
             pc.powerOn();
             pc.powerOff();
-            if (pc.getState() == 1) {
-                pc = new Computer("Intel i7", 32, 1024, 2);
-                pc.Description();
-            }
+//            if (pc.getState() == 1) {
+//                pc = new Computer("Intel i7", 32, 1024, 2);
+//                pc.Description();
+//            }
         }
     }
 }
