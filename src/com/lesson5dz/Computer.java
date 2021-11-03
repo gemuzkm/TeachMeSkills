@@ -36,6 +36,10 @@ public class Computer {
         this.resource = resource;
     }
 
+    public int getState() {
+        return state;
+    }
+
     private void KillPc() {
         System.out.println("Комп сгорел. Ему конец. ");
 
@@ -50,7 +54,7 @@ public class Computer {
         int powerOnCode = random.nextInt(2);
         int powerOnCodeUser;
 
-        System.out.println("random powerOnCode = " + powerOnCode); // для тестрование
+//        System.out.println("random powerOnCode = " + powerOnCode); // для тестрование
         System.out.println("\nВведите состоние PC(включение):");
 
         powerOnCodeUser = Integer.parseInt(reader.readLine());
@@ -79,9 +83,8 @@ public class Computer {
 
         int powerOffCode = random.nextInt(2);
         int powerOffCodeUser;
-
-        System.out.println("random powerOffCode = " + powerOffCode); // для тестрование
-        System.out.println("Введите состояние PC(выключение):");
+//      System.out.println("random powerOffCode = " + powerOffCode); // для тестрование
+        System.out.println("\nВведите состояние PC(выключение):");
 
         powerOffCodeUser = Integer.parseInt(reader.readLine());
 
