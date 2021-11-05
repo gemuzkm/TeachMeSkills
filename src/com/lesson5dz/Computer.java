@@ -24,10 +24,9 @@ public class Computer {
     private int ram;
     private int hdd;
     private int resource;
-    private int state; //0 - работает, 1 - сбой
+    private boolean state = true; //true - работает, false - сбой
 
     Random random = new Random();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public Computer(String cpu, int ram, int hdd, int resource) {
         this.cpu = cpu;
@@ -36,7 +35,15 @@ public class Computer {
         this.resource = resource;
     }
 
-    public int getState() {
+    private String readerStringConsole() throws IOException {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String inputData = reader.readLine();
+//        reader.close();
+        return inputData;
+    }
+
+    public boolean getState() {
         return state;
     }
 
@@ -57,24 +64,24 @@ public class Computer {
 //        System.out.println("random powerOnCode = " + powerOnCode); // для тестрование
         System.out.println("\nВведите состоние PC(включение):");
 
-        powerOnCodeUser = Integer.parseInt(reader.readLine());
+        powerOnCodeUser = Integer.parseInt(readerStringConsole());
 
         if (resource == 0)
         {
             System.out.println("Ресурс исчепан. Комп сломан.");
-            state = 1;
+            state = false;
         }
 
-        if (powerOnCode == powerOnCodeUser && state == 0) {
+        if (powerOnCode == powerOnCodeUser && state == true) {
 
-            state = 0;
+            state = true;
 
             System.out.println("Комп включился");
         } else {
-            state = 1;
+            state = false;
         }
 
-        if (state == 1) {
+        if (state == false) {
             KillPc();
         }
     }
@@ -87,15 +94,15 @@ public class Computer {
 //      System.out.println("random powerOffCode = " + powerOffCode); // для тестрование
         System.out.println("\nВведите состояние PC(выключение):");
 
-        powerOffCodeUser = Integer.parseInt(reader.readLine());
+        powerOffCodeUser = Integer.parseInt(readerStringConsole());
 
-        if(powerOffCode == powerOffCodeUser && state == 0) {
+        if(powerOffCode == powerOffCodeUser && state == true) {
             resource--;
         } else {
-            state = 1;
+            state = false;
         }
 
-        if (state == 1) {
+        if (state == false) {
             KillPc();
         }
     }

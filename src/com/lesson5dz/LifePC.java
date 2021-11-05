@@ -5,7 +5,7 @@ package com.lesson5dz;
 
 import java.io.IOException;
 
-public class lifePC {
+public class LifePC {
     public static void main(String[] args) throws IOException {
         Computer pc = new Computer("Intel i9", 16, 1024, 3);
         pc.Description();
