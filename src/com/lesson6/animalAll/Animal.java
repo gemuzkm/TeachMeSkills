@@ -1,13 +1,18 @@
 package com.lesson6.animalAll;
 
 public class Animal  {
-    public String head;
-    public String eye;
-    public int age;
+    private boolean head;
+    private boolean eye;
+    private int light;
 
-    public Animal(String head, String eye, int age) {
+    public Animal(boolean head, boolean eye, int light) {
         this.head = head;
         this.eye = eye;
-        this.age = age;
+        this.light = light;
+    }
+
+    @Override
+    public String toString() {
+        return  "head=" + head + ", eye=" + eye + ", light=" + light;
     }
 }

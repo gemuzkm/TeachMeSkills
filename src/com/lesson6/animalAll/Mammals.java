@@ -1,8 +1,10 @@
 package com.lesson6.animalAll;
 
 public abstract class Mammals extends Animal implements Actions {
-    public Mammals(String head, String eye, int age) {
-        super(head, eye, age);
+
+
+    public Mammals(boolean head, boolean eye, int light) {
+        super(head, eye, light);
     }
 
     @Override
