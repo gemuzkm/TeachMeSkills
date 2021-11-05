@@ -1,4 +1,4 @@
-package com.lesson6;
+package com.lesson6.animalAll;
 
 public interface Actions {
     void moving();

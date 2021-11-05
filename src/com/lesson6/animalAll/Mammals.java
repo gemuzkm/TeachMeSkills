@@ -1,6 +1,10 @@
-package com.lesson6;
+package com.lesson6.animalAll;
 
-public class Mammals extends Animal implements Actions {
+public abstract class Mammals extends Animal implements Actions {
+    public Mammals(String head, String eye, int age) {
+        super(head, eye, age);
+    }
+
     @Override
     public void moving() {
         System.out.println("Ходит");

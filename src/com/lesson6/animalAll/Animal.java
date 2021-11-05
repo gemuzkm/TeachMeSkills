@@ -1,4 +1,4 @@
-package com.lesson6;
+package com.lesson6.animalAll;
 
 public class Animal  {
     public String head;
