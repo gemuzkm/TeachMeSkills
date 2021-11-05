@@ -1,6 +1,6 @@
 package com.lesson6.animalAll;
 
-public abstract class Mammals extends Animal implements Actions {
+public class Mammals extends Animal implements Actions {
 
 
     public Mammals(boolean head, boolean eye, int light) {
