@@ -15,10 +15,9 @@ public class Transport {
 
     @Override
     public String toString() {
-        return  "Мощность = " + power + " л.с. " +
-                ", maxSpeed=" + maxSpeed +
-                ", weight=" + weight +
-                ", brand='" + brand + '\'' +
-                '}';
+        return  "Мощность = " + power + " л.с." +
+                ", Максимальная скорость = " + maxSpeed + " км/ч" +
+                ", Масса = " + weight + " кг" +
+                ", Марка = " + brand;
     }
 }

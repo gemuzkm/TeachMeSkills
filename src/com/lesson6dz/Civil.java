@@ -12,11 +12,24 @@ public class Civil extends Air {
         this.power = power;
     }
 
+    public void PassengerGood(int passengerNumber) {
+        if (this.passengerNumber >= passengerNumber && passengerNumber >= 0) {
+            System.out.println("Самолет загружен");
+        } else {
+            System.out.println("Вам нужен самолет побольше");
+        }
+    }
+
     private double PowerKw(int power) {
         return (double) power * 0.74;
     }
 
     public void Description() {
+        String outDescriptionKw = "Мощность (в кВт) = " + PowerKw(power) +
+                " кВт, " + super.toString() +
+                ", Количество пассажиров = " + passengerNumber +
+                ", Наличие безнес класса = " + businessClass;
 
+        System.out.println(outDescriptionKw);
     }
 }

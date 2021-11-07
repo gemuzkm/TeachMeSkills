@@ -12,11 +12,32 @@ public class Military extends Air {
         this.power = power;
     }
 
+    public void Shot() {
+        if (this.numberMissiles > 0) {
+            System.out.println("Ракета пошла...");
+        } else {
+            System.out.println("Боеприпасы отсутствуют");
+        }
+    }
+
+    public void Ejection() {
+        if (this.ejectionSystem) {
+            System.out.println("Катапультирование прошло успешно");
+        } else {
+            System.out.println("У вас нет такой системы");
+        }
+    }
+
     private double PowerKw(int power) {
         return (double) power * 0.74;
     }
 
     public void Description() {
-        System.out.println("Мощность ");
+        String outDescriptionKw = "Мощность (в кВт) = " + PowerKw(power) +
+                " кВт, " + super.toString() +
+                ", Наличие системы катапульты = " + ejectionSystem +
+                ", Количество ракет на борту = " + numberMissiles;
+
+        System.out.println(outDescriptionKw);
     }
 }
