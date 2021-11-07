@@ -15,6 +15,7 @@ public class Military extends Air {
     public void Shot() {
         if (this.numberMissiles > 0) {
             System.out.println("Ракета пошла...");
+            this.numberMissiles--;
         } else {
             System.out.println("Боеприпасы отсутствуют");
         }
