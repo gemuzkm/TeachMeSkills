@@ -18,8 +18,8 @@ public class Passenger extends Land {
         this.brand = brand;
     }
 
-    private double FuelTime(double inputHourse) {
-        return this.fuelСonsumption * inputHourse;
+    private double FuelTime(double inputHour) {
+        return inputHour * maxSpeed / 100 * this.fuelСonsumption;
     }
 
     public void FuelTimeMaxSpeed(double inputHour) {
