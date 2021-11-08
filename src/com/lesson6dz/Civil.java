@@ -12,7 +12,7 @@ public class Civil extends Air {
         this.power = power;
     }
 
-    public void PassengerGood(int passengerNumber) {
+    public void passengerGood(int passengerNumber) {
         if (this.passengerNumber >= passengerNumber && passengerNumber >= 0) {
             System.out.println("Самолет загружен");
         } else {
@@ -20,12 +20,12 @@ public class Civil extends Air {
         }
     }
 
-    private double PowerKw(int power) {
+    private double powerKw(int power) {
         return (double) power * 0.74;
     }
 
-    public void Description() {
-        String outDescriptionKw = "Мощность (в кВт) = " + PowerKw(power) +
+    public void description() {
+        String outDescriptionKw = "Мощность (в кВт) = " + powerKw(power) +
                 " кВт, " + super.toString() +
                 ", Количество пассажиров = " + passengerNumber +
                 ", Наличие безнес класса = " + businessClass;

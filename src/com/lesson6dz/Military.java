@@ -12,7 +12,7 @@ public class Military extends Air {
         this.power = power;
     }
 
-    public void Shot() {
+    public void shot() {
         if (this.numberMissiles > 0) {
             System.out.println("Ракета пошла...");
             this.numberMissiles--;
@@ -21,7 +21,7 @@ public class Military extends Air {
         }
     }
 
-    public void Ejection() {
+    public void ejection() {
         if (this.ejectionSystem) {
             System.out.println("Катапультирование прошло успешно");
         } else {
@@ -29,12 +29,12 @@ public class Military extends Air {
         }
     }
 
-    private double PowerKw(int power) {
+    private double powerKw(int power) {
         return (double) power * 0.74;
     }
 
-    public void Description() {
-        String outDescriptionKw = "Мощность (в кВт) = " + PowerKw(power) +
+    public void description() {
+        String outDescriptionKw = "Мощность (в кВт) = " + powerKw(power) +
                 " кВт, " + super.toString() +
                 ", Наличие системы катапульты = " + ejectionSystem +
                 ", Количество ракет на борту = " + numberMissiles;

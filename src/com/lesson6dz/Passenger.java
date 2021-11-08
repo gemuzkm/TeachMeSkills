@@ -18,24 +18,24 @@ public class Passenger extends Land {
         this.brand = brand;
     }
 
-    private double FuelTime(double inputHour) {
+    private double fuelTime(double inputHour) {
         return inputHour * maxSpeed / 100 * this.fuelСonsumption;
     }
 
-    public void FuelTimeMaxSpeed(double inputHour) {
+    public void fuelTimeMaxSpeed(double inputHour) {
         double distance = inputHour * maxSpeed;
-        double fuel = FuelTime(inputHour);
+        double fuel = fuelTime(inputHour);
         System.out.println("За время " + inputHour + " ч, автомобиль " + this.brand + " двигаясь с максимальной скоростью " + this.maxSpeed + " км/ч проедет " + distance +
                 " км и израсходует " + fuel + " литров топлива");
 
     }
 
-    private double PowerKw(int power) {
+    private double powerKw(int power) {
         return (double) power * 0.74;
     }
 
-    public void Description() {
-        String outDescriptionKw = "Мощность (в кВт) = " + PowerKw(power) +
+    public void description() {
+        String outDescriptionKw = "Мощность (в кВт) = " + powerKw(power) +
                 " кВт, " + super.toString() +
                 ", Расход топлива (л/100км) = " + fuelСonsumption +
                 ", Тип кузова = " + typeBody +

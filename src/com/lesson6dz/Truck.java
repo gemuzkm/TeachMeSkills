@@ -12,7 +12,7 @@ public class Truck extends Land {
         this.fuelСonsumption = fuelСonsumption;
     }
 
-    public void LoadGood(int loadCapacity) {
+    public void loadGood(int loadCapacity) {
         if (this.loadCapacity >= loadCapacity && loadCapacity >= 0) {
             System.out.println("Грузовик загружен");
         } else {
@@ -20,12 +20,12 @@ public class Truck extends Land {
         }
     }
 
-    private double PowerKw(int power) {
+    private double powerKw(int power) {
         return (double) power * 0.74;
     }
 
-    public void Description() {
-        String outDescriptionKw = "Мощность (в кВт) = " + PowerKw(this.power) +
+    public void description() {
+        String outDescriptionKw = "Мощность (в кВт) = " + powerKw(this.power) +
                 " кВт, " + super.toString() +
                 ", Расход топлива (л/100км) = " + this.fuelСonsumption +
                 ", Грезуподъемность = " + this.loadCapacity + " т";
