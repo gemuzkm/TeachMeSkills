@@ -23,4 +23,12 @@ public class Shuttle implements IStart {
     public void start() {
         System.out.println("Старт Шатла");
     }
+
+    @Override
+    public void countDown() throws InterruptedException {
+        for (int i = 10; i >=0 ; i--) {
+            System.out.println(i);
+            Thread.sleep(1000);
+        }
+    }
 }
