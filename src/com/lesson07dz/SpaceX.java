@@ -7,6 +7,7 @@ public class SpaceX implements IStart {
     public boolean systemСheck() {
         Random random = new Random();
         int inputRandom = random.nextInt(11);
+
         if (inputRandom > 5) {
             return true;
         } else {
