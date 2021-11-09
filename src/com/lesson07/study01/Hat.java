@@ -9,6 +9,7 @@ public class Hat extends Clothes {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Random random = new Random();
+    private boolean is;
 
     private static boolean isNumeric(String str)
     {

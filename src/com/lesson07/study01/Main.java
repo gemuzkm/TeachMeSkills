@@ -15,5 +15,14 @@ public class Main {
         Pants pants = new Pants();
         pants.putOn();
         pants.takeOff();
+
+        Human human = new Human();
+        human.jacket.putOn();
+        human.jacket.takeOff();
+        human.hat.putOn();
+        human.hat.takeOff();
+        human.pants.putOn();
+        human.pants.takeOff();
+
     }
 }
