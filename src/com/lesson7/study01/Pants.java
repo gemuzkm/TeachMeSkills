@@ -1,11 +1,11 @@
-package com.lesson07.study01;
+package com.lesson7.study01;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-public class Jacket extends Clothes {
+public class Pants extends Clothes {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Random random = new Random();
 
@@ -22,13 +22,12 @@ public class Jacket extends Clothes {
         return true;
     }
 
-
     @Override
     public void takeOff() throws IOException {
         int inputRandom = random.nextInt(2);
         String inputUser;
 
-        System.out.println("Попытка снять куртку");
+        System.out.println("Попытка снять штаны");
 
         do {
             System.out.println("Введи число 0 или 1");
@@ -37,9 +36,9 @@ public class Jacket extends Clothes {
         } while (!isNumeric(inputUser));
 
         if (inputRandom == Integer.parseInt(inputUser)) {
-            System.out.println("Снял куртку");
+            System.out.println("Снял штаны");
         } else {
-            System.out.println("Не снял куртку");
+            System.out.println("Не снял штаны");
         }
     }
 
@@ -48,7 +47,7 @@ public class Jacket extends Clothes {
         int inputRandom = random.nextInt(2);
         String inputUser;
 
-        System.out.println("Попытка одеть куртку");
+        System.out.println("Попытка одеть штаны");
 
         do {
             System.out.println("Введи число 0 или 1");
@@ -57,10 +56,9 @@ public class Jacket extends Clothes {
         } while (!isNumeric(inputUser));
 
         if (inputRandom == Integer.parseInt(inputUser)) {
-            System.out.println("Одел куртку");
+            System.out.println("Одел штаны");
         } else {
-            System.out.println("Не одел куртку");
+            System.out.println("Не одел штаны");
         }
     }
-
 }

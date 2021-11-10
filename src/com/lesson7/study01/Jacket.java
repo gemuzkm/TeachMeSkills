@@ -1,15 +1,13 @@
-package com.lesson07.study01;
+package com.lesson7.study01;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-public class Hat extends Clothes {
-
+public class Jacket extends Clothes {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Random random = new Random();
-    private boolean is;
 
     private static boolean isNumeric(String str)
     {
@@ -24,12 +22,13 @@ public class Hat extends Clothes {
         return true;
     }
 
+
     @Override
     public void takeOff() throws IOException {
         int inputRandom = random.nextInt(2);
         String inputUser;
 
-        System.out.println("Попытка снять шляпу");
+        System.out.println("Попытка снять куртку");
 
         do {
             System.out.println("Введи число 0 или 1");
@@ -38,9 +37,9 @@ public class Hat extends Clothes {
         } while (!isNumeric(inputUser));
 
         if (inputRandom == Integer.parseInt(inputUser)) {
-            System.out.println("Снял шляпу");
+            System.out.println("Снял куртку");
         } else {
-            System.out.println("Не снял шляпу");
+            System.out.println("Не снял куртку");
         }
     }
 
@@ -49,7 +48,7 @@ public class Hat extends Clothes {
         int inputRandom = random.nextInt(2);
         String inputUser;
 
-        System.out.println("Попытка одеть шляпу");
+        System.out.println("Попытка одеть куртку");
 
         do {
             System.out.println("Введи число 0 или 1");
@@ -58,9 +57,10 @@ public class Hat extends Clothes {
         } while (!isNumeric(inputUser));
 
         if (inputRandom == Integer.parseInt(inputUser)) {
-            System.out.println("Одел шляпу");
+            System.out.println("Одел куртку");
         } else {
-            System.out.println("Не одел шляпу");
+            System.out.println("Не одел куртку");
         }
     }
+
 }

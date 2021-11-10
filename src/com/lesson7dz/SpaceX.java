@@ -1,4 +1,4 @@
-package com.lesson07dz;
+package com.lesson7dz;
 
 import java.util.Random;
 

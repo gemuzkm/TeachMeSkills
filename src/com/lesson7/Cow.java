@@ -1,4 +1,4 @@
-package com.lesson07;
+package com.lesson7;
 
 public class Cow extends Animal{
     public Cow(int a, String b) {

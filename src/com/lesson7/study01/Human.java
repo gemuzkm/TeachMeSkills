@@ -1,4 +1,4 @@
-package com.lesson07.study01;
+package com.lesson7.study01;
 
 import java.io.IOException;
 
