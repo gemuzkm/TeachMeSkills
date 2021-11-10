@@ -39,8 +39,8 @@ public class Hat extends Clothes {
             System.out.println("Введи число 0 или 1");
             inputUser = reader.readLine();
 
-//        } while (!isNumeric(inputUser) || Integer.parseInt(inputUser) != 1 && Integer.parseInt(inputUser) != 0);
-        } while (!isNumeric(inputUser));
+        } while (!isNumeric(inputUser) || Integer.parseInt(inputUser) != 1 && Integer.parseInt(inputUser) != 0);
+//        } while (!isNumeric(inputUser));
 
         if (inputRandom == Integer.parseInt(inputUser)) {
             if (onOrOff) {
