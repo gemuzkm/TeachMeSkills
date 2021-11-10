@@ -16,6 +16,7 @@ public class Main {
         pants.putOn();
         pants.takeOff();
 
+        System.out.println("Попытки человека");
         Human human = new Human();
         human.jacket.putOn();
         human.jacket.takeOff();

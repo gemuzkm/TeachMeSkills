@@ -10,8 +10,9 @@ public class Hat extends Clothes {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Random random = new Random();
     private boolean is;
+    private int inputRandom;
 
-    private static boolean isNumeric(String str)
+    private boolean isNumeric(String str)
     {
         try
         {
@@ -24,43 +25,45 @@ public class Hat extends Clothes {
         return true;
     }
 
-    @Override
-    public void takeOff() throws IOException {
-        int inputRandom = random.nextInt(2);
+    private void doOnOff (String item, boolean onOrOff) throws IOException {
+        inputRandom = random.nextInt(2);
         String inputUser;
 
-        System.out.println("Попытка снять шляпу");
+        if (onOrOff) {
+            System.out.println("Попытка одеть " + item);
+        } else {
+            System.out.println("Попытка снять " + item);
+        }
 
         do {
             System.out.println("Введи число 0 или 1");
             inputUser = reader.readLine();
 
+//        } while (!isNumeric(inputUser) || Integer.parseInt(inputUser) != 1 && Integer.parseInt(inputUser) != 0);
         } while (!isNumeric(inputUser));
 
         if (inputRandom == Integer.parseInt(inputUser)) {
-            System.out.println("Снял шляпу");
+            if (onOrOff) {
+                System.out.println("Одел " + item);
+            } else {
+                System.out.println("Снял " + item);
+            }
         } else {
-            System.out.println("Не снял шляпу");
+            if (onOrOff) {
+                System.out.println("Не одел " + item);
+            } else {
+                System.out.println("Не снял " + item);
+            }
         }
     }
 
     @Override
+    public void takeOff() throws IOException {
+       doOnOff("Шляпу", false);
+    }
+
+    @Override
     public void putOn() throws IOException {
-        int inputRandom = random.nextInt(2);
-        String inputUser;
-
-        System.out.println("Попытка одеть шляпу");
-
-        do {
-            System.out.println("Введи число 0 или 1");
-            inputUser = reader.readLine();
-
-        } while (!isNumeric(inputUser));
-
-        if (inputRandom == Integer.parseInt(inputUser)) {
-            System.out.println("Одел шляпу");
-        } else {
-            System.out.println("Не одел шляпу");
-        }
+        doOnOff("Шляпу", true);
     }
 }
