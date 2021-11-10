@@ -8,14 +8,17 @@ public class Main {
         hat.putOn();
         hat.takeOff();
 
+        System.out.println();
         Jacket jacket = new Jacket();
         jacket.putOn();
         jacket.takeOff();
 
+        System.out.println();
         Pants pants = new Pants();
         pants.putOn();
         pants.takeOff();
 
+        System.out.println();
         System.out.println("Попытки человека");
         Human human = new Human();
         human.jacket.putOn();
