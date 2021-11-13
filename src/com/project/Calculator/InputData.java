@@ -9,24 +9,18 @@ public class InputData {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public boolean isNumericInteger(String str) {
-        try
-        {
+        try {
             int d = Integer.parseInt(str);
-        }
-        catch(NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
     }
 
     public boolean isNumericDouble(String str) {
-        try
-        {
+        try {
             double d = Double.parseDouble(str);
-        }
-        catch(NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
