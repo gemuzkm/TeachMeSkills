@@ -25,6 +25,7 @@ public class Menu {
             case "2" :
                 Store.printHistory(); break;
             case "3" :
+                InputData.readerClose();
                 System.exit(0);
             default:
                 System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");

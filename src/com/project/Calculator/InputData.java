@@ -40,4 +40,8 @@ public class InputData {
         String inputDate = reader.readLine();
         return inputDate;
     }
+
+    public static void readerClose() throws IOException {
+        reader.close();
+    }
 }
