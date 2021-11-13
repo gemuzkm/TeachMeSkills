@@ -4,13 +4,22 @@ import java.io.IOException;
 
 public class Calculator {
     public static void main(String[] args) throws IOException {
-        Menu menu = new Menu();
+        MainMenu mainMenu = new MainMenu();
+        AuthorizationMenu authorizationMenu = new AuthorizationMenu();
+        Authorization authorization = new Authorization();
 
-        menu.showTitle();
+        authorizationMenu.showTitle();
+
+        while (!authorization.islogin()) {
+            authorizationMenu.showMenu();
+            authorizationMenu.selectMenu();
+        }
+
+        mainMenu.showTitle();
 
         while (true) {
-            menu.showMenu();
-            menu.selectMenu();
+            mainMenu.showMenu();
+            mainMenu.selectMenu();
         }
     }
 }
