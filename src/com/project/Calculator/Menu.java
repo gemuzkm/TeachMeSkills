@@ -1,4 +1,4 @@
-package com.project;
+package com.project.Calculator;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ public class Menu {
         System.out.println("Нажмите \"1\" для выполнения арифметической опперации");
         System.out.println("Нажмите \"2\" для отображения истории операций");
         System.out.println("Нажмите \"3\" для выхода из приложения\n");
-        System.out.println("Введите число:");
+        System.out.println("Введите цифру нужного меню:");
     }
 
     public static void selectMenu() throws IOException {
@@ -21,13 +21,13 @@ public class Menu {
 
         switch (selectMenu) {
             case "1" :
-                Calculator.actions(); break;
+                CalculatorOperations.actions(); break;
             case "2" :
-                History.printHistory(); break;
+                Store.printHistory(); break;
             case "3" :
                 System.exit(0);
             default:
-                System.out.println("Такого меню не существует. Выбери только из указанных вариантов\n");
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");
         }
     }
 }

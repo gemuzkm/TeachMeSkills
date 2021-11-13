@@ -1,8 +1,8 @@
-package com.project;
+package com.project.Calculator;
 
 import java.io.IOException;
 
-public class Calculator {
+public class CalculatorOperations {
         private static boolean isDouble;
         private static double aDouble;
         private static double bDouble;
@@ -52,21 +52,34 @@ public class Calculator {
 
                         if (InputData.isNumericInteger(inputUser)) {
                                 isString = false;
-                                aDouble = Double.parseDouble(inputUser);
+                                bDouble = Double.parseDouble(inputUser);
                                 System.out.println("Integer");
                         } else {
                                 if (InputData.isNumericDouble(inputUser)) {
                                         isString = false;
                                         isDouble = true;
-                                        aDouble = Double.parseDouble(inputUser);
+                                        bDouble = Double.parseDouble(inputUser);
                                         System.out.println("double");
                                 }
                         }
 
-
                         if (isString) {
                                 System.out.println("Ввведи число B");
                                 inputUser = InputData.readerData();
+                        }
+                }
+        }
+
+        private static void result(String inputOperation) {
+                if(inputOperation.equals("+")) {
+                        double doubleSum = aDouble + bDouble;
+                        if (!isDouble) {
+                                int intSum = (int) (doubleSum / 1);
+                                Store.addHistory(String.valueOf(intSum));
+                                System.out.println(intSum + "\n");
+                        } else {
+                                Store.addHistory(String.valueOf(doubleSum));
+                                System.out.println(doubleSum + "\n");
                         }
                 }
         }
@@ -82,10 +95,10 @@ public class Calculator {
                         case "-":
                                 System.out.println("-"); break;
                         case "+":
-                                System.out.println("+"); break;
+                                result(inputUser); break;
                         default:
                                 System.out.println("Данная операция не поддерживается\n");
                 }
-
         }
+
 }
