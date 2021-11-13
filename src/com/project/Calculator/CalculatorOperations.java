@@ -82,6 +82,18 @@ public class CalculatorOperations {
                                 System.out.println(doubleSum + "\n");
                         }
                 }
+
+                if(inputOperation.equals("-")) {
+                        double doubleDiv = aDouble - bDouble;
+                        if (!isDouble) {
+                                int intDiv = (int) (doubleDiv / 1);
+                                Store.addHistory(String.valueOf(intDiv));
+                                System.out.println(intDiv + "\n");
+                        } else {
+                                Store.addHistory(String.valueOf(doubleDiv));
+                                System.out.println(doubleDiv + "\n");
+                        }
+                }
         }
 
         private static void actionOperation () throws IOException {
@@ -89,11 +101,11 @@ public class CalculatorOperations {
                 inputUser = InputData.readerData();
                 switch (inputUser) {
                         case "*":
-                                System.out.println("*"); break;
+                                result(inputUser); break;
                         case "/":
-                                System.out.println("/"); break;
+                                result(inputUser); break;
                         case "-":
-                                System.out.println("-"); break;
+                                result(inputUser); break;
                         case "+":
                                 result(inputUser); break;
                         default:
