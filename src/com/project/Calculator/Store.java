@@ -1,24 +1,24 @@
 package com.project.Calculator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Store {
-    private static ArrayList<String> list = new ArrayList<>();
+    private static List<String> list = new ArrayList<>();
 
-    public static void addHistory(String inputDate)
-    {
+    public void addHistory(String inputDate) {
         list.add(inputDate);
     }
 
-    public static void printHistory() {
+    public void printHistory() {
 
         if (list.size() == 0) {
             System.out.println("\nИстория пуста\n");
 
         } else {
             System.out.println("\nИстория всех операций");
-            for (String outHistoryDate : list) {
-                System.out.println(outHistoryDate);
+            for (String outHistoryData : list) {
+                System.out.println(outHistoryData);
             }
             System.out.println("Вся история выведена\n");
         }

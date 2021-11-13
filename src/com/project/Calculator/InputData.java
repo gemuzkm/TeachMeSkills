@@ -5,13 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InputData {
-    private String inputA;
-    private String inputB;
 
-    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public static boolean isNumericInteger(String str)
-    {
+    public boolean isNumericInteger(String str) {
         try
         {
             int d = Integer.parseInt(str);
@@ -23,8 +20,7 @@ public class InputData {
         return true;
     }
 
-    public static boolean isNumericDouble(String str)
-    {
+    public boolean isNumericDouble(String str) {
         try
         {
             double d = Double.parseDouble(str);
@@ -36,12 +32,12 @@ public class InputData {
         return true;
     }
 
-    public static String readerData() throws IOException {
+    public String readerDataString() throws IOException {
         String inputDate = reader.readLine();
         return inputDate;
     }
 
-    public static void readerClose() throws IOException {
+    public void readerClose() throws IOException {
         reader.close();
     }
 }
