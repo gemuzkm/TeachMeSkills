@@ -70,7 +70,7 @@ public class CalculatorOperations {
                 }
         }
 
-        private static void result(String inputOperation) {
+        private static void resultOperation(String inputOperation) {
                 if(inputOperation.equals("+")) {
                         double doubleSum = aDouble + bDouble;
                         if (!isDouble) {
@@ -101,13 +101,13 @@ public class CalculatorOperations {
                 inputUser = InputData.readerData();
                 switch (inputUser) {
                         case "*":
-                                result(inputUser); break;
+                                resultOperation(inputUser); break;
                         case "/":
-                                result(inputUser); break;
+                                resultOperation(inputUser); break;
                         case "-":
-                                result(inputUser); break;
+                                resultOperation(inputUser); break;
                         case "+":
-                                result(inputUser); break;
+                                resultOperation(inputUser); break;
                         default:
                                 System.out.println("Данная операция не поддерживается\n");
                 }
