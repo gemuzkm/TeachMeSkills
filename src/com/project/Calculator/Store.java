@@ -20,14 +20,15 @@ public class Store {
     public boolean сheckUserPass(String userName, String userPass) {
         String mapUserPass;
         mapUserPass = mapLoginPass.get(userName);
-        try {
+
+        if (mapUserPass == null) {
+            return false;
+        } else {
             if (mapUserPass.equals(userPass)) {
                 return true;
             } else {
                 return false;
             }
-        } catch (NullPointerException npe) {
-            return false;
         }
     }
 
