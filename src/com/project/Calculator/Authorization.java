@@ -16,19 +16,27 @@ public class Authorization {
                 System.out.println("\nВведите имя пользователя:");
 
                 userName = inputData.readerDataString();
-
-                if (store.сheckUser(userName)) {
-                    System.out.println("Введенное имя пользователя занято");
+                if (userName.length() < 2) { //проверка на минимальную длину имени
+                    System.out.println("Имя не может быть короче двух символов");
                 } else {
-                    System.out.println("Введите пароль:");
+                    if (store.сheckUser(userName)) { //проверка есть ли уже такой юзер
+                        System.out.println("Введенное имя пользователя занято");
+                    } else {
+                        System.out.println("Введите пароль:");
 
-                    userPass = inputData.readerDataString();
+                        userPass = inputData.readerDataString();
+                            if (userPass.length() < 2) {
+                                System.out.println("Пароль не может быть короче двух символов. Повтори регистрацию.");
+                            } else {
+                                store.addNewUser(userName, userPass);
+                                isRregistration = true;
 
-                    store.addNewUser(userName, userPass);
-                    isRregistration = true;
+                                System.out.println("\nНовый пользователь успешно создан!\n");
+                            }
 
-                    System.out.println("\nНовый пользователь успешно создан!\n");
+                    }
                 }
+
             }
         }
 
