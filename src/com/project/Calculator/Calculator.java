@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Calculator {
     public static void main(String[] args) throws IOException {
-        MainMenu mainMenu = new MainMenu();
+        CalculatorMenu calculatorMenu = new CalculatorMenu();
         AuthorizationMenu authorizationMenu = new AuthorizationMenu();
         Authorization authorization = new Authorization();
 
@@ -15,11 +15,11 @@ public class Calculator {
             authorizationMenu.selectMenu();
         }
 
-        mainMenu.showTitle();
+        calculatorMenu.showTitle();
 
         while (true) {
-            mainMenu.showMenu();
-            mainMenu.selectMenu();
+            calculatorMenu.showMenu();
+            calculatorMenu.selectMenu();
         }
     }
 }

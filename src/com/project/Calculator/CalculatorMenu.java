@@ -11,7 +11,7 @@ package com.project.Calculator;
 
 import java.io.IOException;
 
-public class MainMenu extends Menu {
+public class CalculatorMenu extends Menu {
 
     private String selectMenu;
     InputData inputData = new InputData();
