@@ -5,7 +5,7 @@ import java.io.IOException;
 public class AuthorizationMenu extends Menu {
 
     private String selectMenu;
-    InputData inputData = new InputData();
+    private InputData inputData = new InputData();
 
     @Override
     public void showTitle() {

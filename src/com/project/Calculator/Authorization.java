@@ -8,8 +8,8 @@ public class Authorization {
         private static boolean isLogin;
         private boolean isRregistration;
 
-        InputData inputData = new InputData();
-        Store store = new Store();
+        private InputData inputData = new InputData();
+        private Store store = new Store();
 
         public void registration() throws IOException {
             while (!isRregistration) {

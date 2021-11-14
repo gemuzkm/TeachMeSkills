@@ -8,8 +8,8 @@ public class CalculatorOperations {
         private static double bDouble;
         private static String inputUser;
 
-        Store store = new Store();
-        InputData inputData = new InputData();
+        private Store store = new Store();
+        private InputData inputData = new InputData();
 
         public void actions () throws IOException {
                new CalculatorOperations().actionA();

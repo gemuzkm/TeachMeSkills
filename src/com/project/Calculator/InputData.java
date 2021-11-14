@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class InputData {
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public boolean isNumericInteger(String str) {
         try {
