@@ -11,7 +11,7 @@ public class Authorization {
         private InputData inputData = new InputData();
         private Store store = new Store();
 
-        public void registration() throws IOException {
+        public void registration() {
             while (!isRregistration) {
                 System.out.println("\nВведите имя пользователя:");
 
@@ -40,7 +40,7 @@ public class Authorization {
             }
         }
 
-        public void login() throws IOException {
+        public void login() {
             System.out.println("\nВведите имя пользователя:");
 
             userName = inputData.readerDataString();

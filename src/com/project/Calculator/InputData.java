@@ -26,12 +26,22 @@ public class InputData {
         return true;
     }
 
-    public String readerDataString() throws IOException {
-        String inputDate = reader.readLine();
+    public String readerDataString() {
+        String inputDate = "";
+        try {
+            inputDate = reader.readLine();
+        } catch (Exception e) {
+
+        }
+
         return inputDate;
     }
 
-    public void readerClose() throws IOException {
-        reader.close();
-    }
+    public void readerClose() {
+        try {
+            reader.close();
+        } catch (Exception e) {
+
+        }
+     }
 }

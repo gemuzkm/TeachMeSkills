@@ -11,13 +11,13 @@ public class CalculatorOperations {
         private Store store = new Store();
         private InputData inputData = new InputData();
 
-        public void actions () throws IOException {
+        public void actions () {
                new CalculatorOperations().actionA();
                new CalculatorOperations().actionB();
                new CalculatorOperations().actionOperation();
         }
 
-        private void actionA () throws IOException {
+        private void actionA () {
                 System.out.println("Введи число А");
                 inputUser = inputData.readerDataString();
 
@@ -43,7 +43,7 @@ public class CalculatorOperations {
                 }
         }
 
-        private void actionB () throws IOException {
+        private void actionB () {
                 System.out.println("Введи число B");
                 inputUser = inputData.readerDataString();
 
@@ -124,7 +124,7 @@ public class CalculatorOperations {
                 }
         }
 
-        private void actionOperation () throws IOException {
+        private void actionOperation () {
                 System.out.println("Введи нужную опперацию \"*\" - умножить, \"/\" - деление, \"+\" - сумма, \"-\" - разность");
                 inputUser = inputData.readerDataString();
                 switch (inputUser) {

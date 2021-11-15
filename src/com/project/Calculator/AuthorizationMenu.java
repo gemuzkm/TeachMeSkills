@@ -22,7 +22,7 @@ public class AuthorizationMenu implements Menu {
         }
 
     @Override
-    public void selectMenu() throws IOException {
+    public void selectMenu() {
         selectMenu =  inputData.readerDataString();
 
         switch (selectMenu) {

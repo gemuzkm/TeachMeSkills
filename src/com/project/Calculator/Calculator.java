@@ -12,7 +12,7 @@ package com.project.Calculator;
 import java.io.IOException;
 
 public class Calculator {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         CalculatorMenu calculatorMenu = new CalculatorMenu();
         AuthorizationMenu authorizationMenu = new AuthorizationMenu();
         Authorization authorization = new Authorization();

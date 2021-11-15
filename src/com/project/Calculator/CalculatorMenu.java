@@ -21,7 +21,7 @@ public class CalculatorMenu implements Menu {
    }
 
     @Override
-    public void selectMenu() throws IOException {
+    public void selectMenu() {
         selectMenu =  inputData.readerDataString();
 
         switch (selectMenu) {
