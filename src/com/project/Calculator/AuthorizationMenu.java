@@ -3,7 +3,8 @@ package com.project.Calculator;
 public class AuthorizationMenu implements Menu {
 
     private String selectMenu;
-    private InputData inputData = new InputData();
+    private InputData inputUserDataConsole = new InputData();
+    private Authorization authorization = new Authorization();
 
     @Override
     public void showTitle() {
@@ -12,29 +13,26 @@ public class AuthorizationMenu implements Menu {
     }
 
     @Override
-    public void showMenu () {
-            System.out.println("Введите \"1\" для регистрации введите ");
-            System.out.println("Введите \"2\" для входа при помощи логина/пароля");
-            System.out.println("Нажмите \"3\" для выхода из приложения\n");
-            System.out.println("Введите цифру нужного меню:");
-        }
+    public void showMenu() {
+        System.out.println("Введите \"1\" для регистрации введите ");
+        System.out.println("Введите \"2\" для входа при помощи логина/пароля");
+        System.out.println("Нажмите \"3\" для выхода из приложения\n");
+        System.out.println("Введите цифру нужного меню:");
+    }
 
     @Override
     public void selectMenu() {
-        selectMenu =  inputData.readerDataString();
+        selectMenu = inputUserDataConsole.readerDataString();
 
-        switch (selectMenu) {
-            case "1" :
-                new Authorization().registration();
-                break;
-            case "2" :
-                new Authorization().login();
-                break;
-            case "3" :
-                inputData.readerClose();
-                System.exit(0);
-            default:
-                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");
+        if (selectMenu.equals("1")) {
+            authorization.registrationUser();
+        } else if (selectMenu.equals("2")) {
+            authorization.loginUser();
+        } else if (selectMenu.equals("3")) {
+            inputUserDataConsole.readerClose();
+            System.exit(0);
+        } else {
+            System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");
         }
     }
 }

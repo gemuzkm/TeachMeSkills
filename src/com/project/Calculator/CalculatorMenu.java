@@ -4,6 +4,8 @@ public class CalculatorMenu implements Menu {
 
     private String selectMenu;
     private InputData inputData = new InputData();
+    private CalculatorOperations calculatorOperations = new CalculatorOperations();
+    private Store store = new Store();
 
     @Override
     public void showTitle() {
@@ -16,24 +18,21 @@ public class CalculatorMenu implements Menu {
         System.out.println("Нажмите \"2\" для отображения истории операций");
         System.out.println("Нажмите \"3\" для выхода из приложения\n");
         System.out.println("Введите цифру нужного меню:");
-   }
+    }
 
     @Override
     public void selectMenu() {
-        selectMenu =  inputData.readerDataString();
+        selectMenu = inputData.readerDataString();
 
-        switch (selectMenu) {
-            case "1" :
-                new CalculatorOperations().actions();
-                break;
-            case "2" :
-                new Store().printHistory();
-                break;
-            case "3" :
-                inputData.readerClose();
-                System.exit(0);
-            default:
-                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");
+        if (selectMenu.equals("1")) {
+            calculatorOperations.actions();
+        } else if (selectMenu.equals("2")) {
+            store.printHistory();
+        } else if (selectMenu.equals("3")) {
+            inputData.readerClose();
+            System.exit(0);
+        } else {
+            System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");
         }
-    }
+     }
 }

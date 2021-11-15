@@ -1,142 +1,133 @@
 package com.project.Calculator;
 
 public class CalculatorOperations {
-        private static boolean isDouble;
-        private static double aDouble;
-        private static double bDouble;
-        private static String inputUser;
+    private static boolean isDouble;
+    private static double firstNumber;
+    private static double secondNumber;
+    private static String inputUserData;
 
-        private Store store = new Store();
-        private InputData inputData = new InputData();
+    private Store store = new Store();
+    private InputData inputData = new InputData();
 
-        public void actions () {
-               new CalculatorOperations().actionA();
-               new CalculatorOperations().actionB();
-               new CalculatorOperations().actionOperation();
+    public void actions() {
+        actionFirstNumber();
+        actionSecondNumber();
+        actionOperation();
+    }
+
+//   private void actionFirstNumber() {
+//        System.out.println("Введи число А");
+//        inputUser = inputData.readerDataString();
+//
+//        boolean isString = true;
+//
+//        while (isString) {
+//
+//            if (inputData.isNumericInteger(inputUser)) {
+//                isString = false;
+//                aDouble = Double.parseDouble(inputUser);
+//            } else {
+//                if (inputData.isNumericDouble(inputUser)) {
+//                    isString = false;
+//                    isDouble = true;
+//                    aDouble = Double.parseDouble(inputUser);
+//                }
+//            }
+//
+//            if (isString) {
+//                System.out.println("Ввведи число А");
+//                inputUser = inputData.readerDataString();
+//            }
+//        }
+//    }
+
+    private void actionFirstNumber() {
+        System.out.println("Введи первое число");
+        inputUserData = inputData.readerDataString();
+
+        boolean isString = true;
+
+        while (isString) {
+
+            if (inputData.isNumeric(inputUserData)) {
+                isString = false;
+                firstNumber = Double.parseDouble(inputUserData);
+            }
+
+            if (isString) {
+                System.out.println("Ввведи первое число");
+                inputUserData = inputData.readerDataString();
+            }
+        }
+    }
+
+    private void actionSecondNumber() {
+        System.out.println("Введи второе число");
+        inputUserData = inputData.readerDataString();
+        boolean isString = true;
+
+        while (isString) {
+            if (inputData.isNumeric(inputUserData)) {
+                isString = false;
+                secondNumber = Double.parseDouble(inputUserData);
+            }
+
+            if (isString) {
+                System.out.println("Ввведи второе число");
+                inputUserData = inputData.readerDataString();
+            }
+        }
+    }
+
+    private void resultOperation(String inputOperation) {
+        if (inputOperation.trim().equals("+")) {
+            double sumResult = firstNumber + secondNumber;
+            store.addHistory(String.valueOf(sumResult));
+            System.out.println("Результат опперации: " + sumResult + "\n");
+         }
+
+        if (inputOperation.trim().equals("-")) {
+            double diffResult = firstNumber - secondNumber;
+            store.addHistory(String.valueOf(diffResult));
+            System.out.println("Результат опперации: " + diffResult + "\n");
+         }
+
+        if (inputOperation.trim().equals("*")) {
+            double multiplyResult = firstNumber * secondNumber;
+            store.addHistory(String.valueOf(multiplyResult));
+            System.out.println("Результат опперации: " + multiplyResult + "\n");
         }
 
-        private void actionA () {
-                System.out.println("Введи число А");
-                inputUser = inputData.readerDataString();
-
-                boolean isString = true;
-
-                while (isString) {
-
-                        if (inputData.isNumericInteger(inputUser)) {
-                                isString = false;
-                                aDouble = Double.parseDouble(inputUser);
-                        } else {
-                                if (inputData.isNumericDouble(inputUser)) {
-                                        isString = false;
-                                        isDouble = true;
-                                        aDouble = Double.parseDouble(inputUser);
-                                }
-                        }
-
-                        if (isString) {
-                                System.out.println("Ввведи число А");
-                                inputUser = inputData.readerDataString();
-                        }
-                }
+        if (inputOperation.trim().equals("/")) {
+            if (secondNumber == 0.0) {
+                System.out.println("\nОшибка! Деление на 0 невозможно!\n");
+            } else {
+                double divisionResult = firstNumber / secondNumber;
+                store.addHistory(String.valueOf(divisionResult));
+                System.out.println("Результат опперации: " + divisionResult + "\n");
+            }
         }
+    }
 
-        private void actionB () {
-                System.out.println("Введи число B");
-                inputUser = inputData.readerDataString();
-
-                boolean isString = true;
-
-                while (isString) {
-
-                        if (inputData.isNumericInteger(inputUser)) {
-                                isString = false;
-                                bDouble = Double.parseDouble(inputUser);
-                        } else {
-                                if (inputData.isNumericDouble(inputUser)) {
-                                        isString = false;
-                                        isDouble = true;
-                                        bDouble = Double.parseDouble(inputUser);
-                                }
-                        }
-
-                        if (isString) {
-                                System.out.println("Ввведи число B");
-                                inputUser = inputData.readerDataString();
-                        }
-                }
+    private void actionOperation() {
+        System.out.println("Введи нужную опперацию \"*\" - умножить, \"/\" - деление, \"+\" - сумма, \"-\" - разность");
+        inputUserData = inputData.readerDataString();
+        switch (inputUserData) {
+            case "*":
+                resultOperation(inputUserData);
+                break;
+            case "/":
+                resultOperation(inputUserData);
+                break;
+            case "-":
+                resultOperation(inputUserData);
+                break;
+            case "+":
+                resultOperation(inputUserData);
+                break;
+            default:
+                System.out.println("Данная операция не поддерживается\n");
         }
-
-        private void resultOperation(String inputOperation) {
-                if (inputOperation.trim().equals("+")) {
-                        double doubleSum = aDouble + bDouble;
-                        if (!isDouble) {
-                                int intSum = (int) (doubleSum / 1);
-                                store.addHistory(String.valueOf(intSum));
-                                System.out.println("Результат опперации: " + intSum + "\n");
-                        } else {
-                                store.addHistory(String.valueOf(doubleSum));
-                                System.out.println("Результат опперации: " + doubleSum + "\n");
-                        }
-                }
-
-                if (inputOperation.trim().equals("-")) {
-                        double doubleDiff = aDouble - bDouble;
-                        if (!isDouble) {
-                                int intDiv = (int) (doubleDiff / 1);
-                                store.addHistory(String.valueOf(intDiv));
-                                System.out.println("Результат опперации: " + intDiv + "\n");
-                        } else {
-                                store.addHistory(String.valueOf(doubleDiff));
-                                System.out.println("Результат опперации: " + doubleDiff + "\n");
-                        }
-                }
-
-                if (inputOperation.trim().equals("*")) {
-                        double doubleMmultiply = aDouble * bDouble;
-                        if (!isDouble) {
-                                int intMmultiply = (int) (doubleMmultiply / 1);
-                                store.addHistory(String.valueOf(intMmultiply));
-                                System.out.println("Результат опперации: " + intMmultiply + "\n");
-                        } else {
-                                store.addHistory(String.valueOf(doubleMmultiply));
-                                System.out.println("Результат опперации: " + doubleMmultiply + "\n");
-                        }
-                }
-
-                if (inputOperation.trim().equals("/")) {
-                        if (bDouble == 0.0) {
-                                System.out.println("\nДеление на 0 невозможно\n");
-                                store.addHistory("NaN");
-                        } else {
-                                double doubleMultiply = aDouble / bDouble;
-                                if (!isDouble) {
-                                        int intMmultiply = (int) (doubleMultiply / 1);
-                                        store.addHistory(String.valueOf(intMmultiply));
-                                        System.out.println("Результат опперации: " + intMmultiply + "\n");
-                                } else {
-                                        store.addHistory(String.valueOf(doubleMultiply));
-                                        System.out.println("Результат опперации: " + doubleMultiply + "\n");
-                                }
-                        }
-                }
-        }
-
-        private void actionOperation () {
-                System.out.println("Введи нужную опперацию \"*\" - умножить, \"/\" - деление, \"+\" - сумма, \"-\" - разность");
-                inputUser = inputData.readerDataString();
-                switch (inputUser) {
-                        case "*":
-                                resultOperation(inputUser); break;
-                        case "/":
-                                resultOperation(inputUser); break;
-                        case "-":
-                                resultOperation(inputUser); break;
-                        case "+":
-                                resultOperation(inputUser); break;
-                        default:
-                                System.out.println("Данная операция не поддерживается\n");
-                }
-        }
+    }
 
 }

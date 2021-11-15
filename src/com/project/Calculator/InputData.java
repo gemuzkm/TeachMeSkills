@@ -7,18 +7,10 @@ public class InputData {
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public boolean isNumericInteger(String str) {
+    // Проверка строки на число. Работает для целых и вещественных.
+    public boolean isNumeric(String str) {
         try {
-            int d = Integer.parseInt(str);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isNumericDouble(String str) {
-        try {
-            double d = Double.parseDouble(str);
+            Double.parseDouble(str);
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -29,7 +21,8 @@ public class InputData {
         String inputDate = "";
         try {
             inputDate = reader.readLine();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return inputDate;
     }
@@ -37,6 +30,7 @@ public class InputData {
     public void readerClose() {
         try {
             reader.close();
-        } catch (Exception e) {}
-     }
+        } catch (Exception e) {
+        }
+    }
 }
