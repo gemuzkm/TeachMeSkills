@@ -4,14 +4,13 @@ public class Authorization {
     private String userName;
     private String userPassword;
     private static boolean isLogin;
-    private boolean isGoodUserName;
-    private boolean isGoodUserPassword;
-    private boolean isRregistration;
 
     private InputData inputData = new InputData();
     private Store store = new Store();
 
     public void registrationUser() {
+        boolean isGoodUserName = false;
+        boolean isGoodUserPassword = false;
 
         while (!isGoodUserName) {
             System.out.println("\nВведите имя пользователя:");
@@ -36,16 +35,34 @@ public class Authorization {
         }
 
         store.addNewUser(userName, userPassword); // нет проверки успешности, но с БД это реализуется
-        isRregistration = true;
         System.out.println("\nНовый пользователь успешно создан!\n");
     }
 
     public void loginUser() {
-        System.out.println("\nВведите имя пользователя:");
-        userName = inputData.readerDataString();
+        boolean isGoodUserName = false;
+        boolean isGoodUserPassword = false;
 
-        System.out.println("Введите пароль:");
-        userPassword = inputData.readerDataString();
+        while (!isGoodUserName) {
+            System.out.println("\nВведите имя пользователя:");
+            userName = inputData.readerDataString();
+
+            if (userName.equals("")) {
+                System.out.println("Имя пользователя не может быть пустым");
+            } else {
+                isGoodUserName = true;
+            }
+        }
+
+        while (!isGoodUserPassword) {
+            System.out.println("\nВведите пароль:");
+            userPassword = inputData.readerDataString();
+
+            if (userPassword.equals("")) {
+                System.out.println("Пароль не может быть пустым");
+            } else {
+                isGoodUserPassword = true;
+            }
+        }
 
         if (store.сheckUserPass(userName, userPassword)) {
             System.out.println("\nАвторизация прошла успешно!\n");
