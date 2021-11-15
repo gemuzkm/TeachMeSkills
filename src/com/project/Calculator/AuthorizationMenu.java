@@ -2,7 +2,7 @@ package com.project.Calculator;
 
 import java.io.IOException;
 
-public class AuthorizationMenu extends Menu {
+public class AuthorizationMenu implements Menu {
 
     private String selectMenu;
     private InputData inputData = new InputData();
