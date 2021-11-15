@@ -1,7 +1,5 @@
 package com.project.Calculator;
 
-import java.io.IOException;
-
 public class AuthorizationMenu implements Menu {
 
     private String selectMenu;

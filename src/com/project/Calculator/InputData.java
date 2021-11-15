@@ -1,7 +1,6 @@
 package com.project.Calculator;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InputData {
@@ -30,9 +29,7 @@ public class InputData {
         String inputDate = "";
         try {
             inputDate = reader.readLine();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
 
         return inputDate;
     }
@@ -40,8 +37,6 @@ public class InputData {
     public void readerClose() {
         try {
             reader.close();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
      }
 }

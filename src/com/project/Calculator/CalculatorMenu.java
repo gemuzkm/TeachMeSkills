@@ -1,7 +1,5 @@
 package com.project.Calculator;
 
-import java.io.IOException;
-
 public class CalculatorMenu implements Menu {
 
     private String selectMenu;

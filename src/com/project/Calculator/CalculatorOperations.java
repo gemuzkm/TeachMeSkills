@@ -1,7 +1,5 @@
 package com.project.Calculator;
 
-import java.io.IOException;
-
 public class CalculatorOperations {
         private static boolean isDouble;
         private static double aDouble;

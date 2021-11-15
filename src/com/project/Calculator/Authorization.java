@@ -1,7 +1,5 @@
 package com.project.Calculator;
 
-import java.io.IOException;
-
 public class Authorization {
         private String userName;
         private String userPass;
@@ -14,7 +12,6 @@ public class Authorization {
         public void registration() {
             while (!isRregistration) {
                 System.out.println("\nВведите имя пользователя:");
-
                 userName = inputData.readerDataString();
                 if (userName.length() < 2) { //проверка на минимальную длину имени
                     System.out.println("Имя не может быть короче двух символов");
@@ -23,14 +20,12 @@ public class Authorization {
                         System.out.println("Введенное имя пользователя занято");
                     } else {
                         System.out.println("Введите пароль:");
-
                         userPass = inputData.readerDataString();
                             if (userPass.length() < 2) {
                                 System.out.println("Пароль не может быть короче двух символов. Повтори регистрацию.");
                             } else {
                                 store.addNewUser(userName, userPass);
                                 isRregistration = true;
-
                                 System.out.println("\nНовый пользователь успешно создан!\n");
                             }
 
@@ -42,11 +37,9 @@ public class Authorization {
 
         public void login() {
             System.out.println("\nВведите имя пользователя:");
-
             userName = inputData.readerDataString();
 
             System.out.println("Введите пароль:");
-
             userPass = inputData.readerDataString();
 
             if (store.сheckUserPass(userName, userPass)) {

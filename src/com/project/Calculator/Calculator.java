@@ -9,8 +9,6 @@ package com.project.Calculator;
 -- округление к int при делении (жду ответа, чтобы фиксить все и это метод)
  */
 
-import java.io.IOException;
-
 public class Calculator {
     public static void main(String[] args) {
         CalculatorMenu calculatorMenu = new CalculatorMenu();
