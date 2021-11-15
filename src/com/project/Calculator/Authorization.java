@@ -2,36 +2,42 @@ package com.project.Calculator;
 
 public class Authorization {
     private String userName;
-    private String userPass;
+    private String userPassword;
     private static boolean isLogin;
+    private boolean isGoodUserName;
+    private boolean isGoodUserPassword;
     private boolean isRregistration;
 
     private InputData inputData = new InputData();
     private Store store = new Store();
 
     public void registrationUser() {
-        while (!isRregistration) {
-            System.out.println("\nВведите имя пользователя:");
-            userName = inputData.readerDataString();
-            if (userName.length() < 2) { //проверка на минимальную длину имени
-                System.out.println("Имя не может быть короче двух символов");
-            } else {
-                if (store.сheckUser(userName)) { //проверка есть ли уже такой юзер
+
+            while (!isGoodUserName) {
+                System.out.println("\nВведите имя пользователя:");
+                userName = inputData.readerDataString();
+                if (userName.length() < 2) { //проверка на минимальную длину имени
+                    System.out.println("Имя не может быть короче двух символов");
+                } else if (store.сheckUser(userName)) { //проверка есть ли уже такой юзер
                     System.out.println("Введенное имя пользователя занято");
                 } else {
-                    System.out.println("Введите пароль:");
-                    userPass = inputData.readerDataString();
-                    if (userPass.length() < 2) {
-                        System.out.println("Пароль не может быть короче двух символов. Повтори регистрацию.");
-                    } else {
-                        store.addNewUser(userName, userPass);
-                        isRregistration = true;
-                        System.out.println("\nНовый пользователь успешно создан!\n");
-                    }
-
+                    isGoodUserName = true;
                 }
             }
-        }
+
+            while (!isGoodUserPassword) {
+                System.out.println("\nВведите пароль:");
+                userPassword = inputData.readerDataString();
+                if (userPassword.length() < 2) {
+                    System.out.println("Пароль не может быть короче двух символов");
+                } else {
+                    isGoodUserPassword = true;
+                }
+            }
+
+            store.addNewUser(userName, userPassword); // нет проверки успешности, но с БД это реализуется
+            isRregistration = true;
+            System.out.println("\nНовый пользователь успешно создан!\n");
     }
 
     public void loginUser() {
@@ -39,9 +45,9 @@ public class Authorization {
         userName = inputData.readerDataString();
 
         System.out.println("Введите пароль:");
-        userPass = inputData.readerDataString();
+        userPassword = inputData.readerDataString();
 
-        if (store.сheckUserPass(userName, userPass)) {
+        if (store.сheckUserPass(userName, userPassword)) {
             System.out.println("\nАвторизация прошла успешно!\n");
             isLogin = true;
         } else {
