@@ -15,32 +15,6 @@ public class CalculatorOperations {
         actionOperation();
     }
 
-//   private void actionFirstNumber() {
-//        System.out.println("Введи число А");
-//        inputUser = inputData.readerDataString();
-//
-//        boolean isString = true;
-//
-//        while (isString) {
-//
-//            if (inputData.isNumericInteger(inputUser)) {
-//                isString = false;
-//                aDouble = Double.parseDouble(inputUser);
-//            } else {
-//                if (inputData.isNumericDouble(inputUser)) {
-//                    isString = false;
-//                    isDouble = true;
-//                    aDouble = Double.parseDouble(inputUser);
-//                }
-//            }
-//
-//            if (isString) {
-//                System.out.println("Ввведи число А");
-//                inputUser = inputData.readerDataString();
-//            }
-//        }
-//    }
-
     private void actionFirstNumber() {
         System.out.println("Введи первое число");
         inputUserData = inputData.readerDataString();
@@ -112,22 +86,16 @@ public class CalculatorOperations {
     private void actionOperation() {
         System.out.println("Введи нужную опперацию \"*\" - умножить, \"/\" - деление, \"+\" - сумма, \"-\" - разность");
         inputUserData = inputData.readerDataString();
-        switch (inputUserData) {
-            case "*":
-                resultOperation(inputUserData);
-                break;
-            case "/":
-                resultOperation(inputUserData);
-                break;
-            case "-":
-                resultOperation(inputUserData);
-                break;
-            case "+":
-                resultOperation(inputUserData);
-                break;
-            default:
-                System.out.println("Данная операция не поддерживается\n");
+        if (inputUserData.equals("*")) {
+            resultOperation(inputUserData);
+        } else if (inputUserData.equals("/")) {
+            resultOperation(inputUserData);
+        } else if (inputUserData.equals("-")) {
+            resultOperation(inputUserData);
+        } else if (inputUserData.equals("+")) {
+            resultOperation(inputUserData);
+        } else {
+            System.out.println("Данная операция не поддерживается\n");
         }
     }
-
 }
