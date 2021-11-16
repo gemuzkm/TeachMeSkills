@@ -18,13 +18,14 @@ public class InputData {
     }
 
     public String readerDataString() {
-        String inputDate = "";
         try {
-            inputDate = reader.readLine();
+            return reader.readLine();
         } catch (Exception e) {
+            System.out.println("Что-то сломалось при вводе");
+            readerClose();
+            System.exit(0);
         }
-
-        return inputDate;
+        return null;
     }
 
     public void readerClose() {
