@@ -1,6 +1,6 @@
 package com.project.Calculator;
 
-public class BusinessLogic {
+public class CalculatorBusinessLogic {
     private CalculatorMenu calculatorMenu = new CalculatorMenu();
     private AuthorizationMenu authorizationMenu = new AuthorizationMenu();
     private Authorization authorization = new Authorization();
