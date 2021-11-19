@@ -46,15 +46,47 @@ public class User {
     }
 
     public void buyCar (Car car) {
-        boolean lowMoneyUser = false;
-        boolean lowSpeedUser = false;
-        boolean notFoundMark = false;
+        boolean lowMoneyUser = true;
+        boolean lowSpeedUser = true;
+        boolean notFoundMark = true;
+
+        if (getMark().equals(car.getMark())) {
+            notFoundMark = false;
+        }
+
+        if (getRequiredMaxSpeed() <= car.getMaxSpeed()) {
+            lowSpeedUser = false;
+        }
+
+        if (getRequiredMaxPrice() > car.getPrice()) {
+            lowMoneyUser = false;
+        }
+
+        if (!lowMoneyUser && !lowSpeedUser && !notFoundMark) {
+            System.out.println(getName() + " может купить " + getMark() + " за " + car.getPrice());
+        }
 
         if (car.getPrice() > requiredMaxPrice) {
             try {
                 throw new PriceExcetion();
             } catch (PriceExcetion e) {
                 System.out.println(getName() + " мало денег");
+            }
+        }
+
+        if (notFoundMark) {
+            try {
+                throw new MarkException();
+            } catch (MarkException e) {
+                System.out.println(getName() + " не может купить " + getMark() +  " машины, ее нет в продаже");
+            }
+        }
+
+        if (lowSpeedUser) {
+            try {
+                throw  new SpeedException();
+            } catch (SpeedException e) {
+                System.out.println(getName() + " не может купить " + car.getMark() + " низкая максимальная скорость");
             }
         }
 
