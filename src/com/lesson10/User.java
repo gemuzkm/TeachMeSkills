@@ -45,7 +45,7 @@ public class User {
         this.mark = mark;
     }
 
-    public void buyCar (Car car) {
+    public void buyCar(Car car) {
         boolean lowMoneyUser = true;
         boolean lowSpeedUser = true;
         boolean notFoundMark = true;
@@ -78,13 +78,13 @@ public class User {
             try {
                 throw new MarkException();
             } catch (MarkException e) {
-                System.out.println(getName() + " не может купить " + getMark() +  " машины, ее нет в продаже");
+                System.out.println(getName() + " не может купить " + getMark() + " машины, ее нет в продаже");
             }
         }
 
         if (lowSpeedUser) {
             try {
-                throw  new SpeedException();
+                throw new SpeedException();
             } catch (SpeedException e) {
                 System.out.println(getName() + " не может купить " + car.getMark() + " низкая максимальная скорость");
             }

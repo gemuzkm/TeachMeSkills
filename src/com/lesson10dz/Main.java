@@ -5,14 +5,17 @@ package com.lesson10dz;
 - общее количество денег
 - работает ли банкомат
 - принимаемые типы карт (список или массив)
+
 Создать класс Card. Поля
 - тип карты
 - номер карты
 - владелец (User)
 - количество средств
+
 Создать класс User. Поля
 - имя
 - Card
+
 Описать следующую логику:
 Когда пользователь вставляет карту в банкомат, должна быть проверка на принимаемый тип карты.
 Эта проверка реализовывается в классе ATM. Если нет совпадений по типу, бросить свою собственную ошибку WrongCardTypeException.
@@ -22,6 +25,10 @@ package com.lesson10dz;
  */
 public class Main {
     public static void main(String[] args) {
+        ATB atbVisaMastercardWork = new ATB(500, true, new String[] {"Visa", "Mastercard"});
+        ATB atbVisaMastercardNoWork = new ATB(500, false, new String[] {"Visa", "Mastercard"});
+
+
 
     }
 }
