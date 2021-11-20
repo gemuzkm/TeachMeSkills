@@ -13,6 +13,16 @@ public class Card {
         this.totalMoney = totalMoney;
     }
 
+    public Card(String typeCard, String numberCard, int totalMoney) {
+        this.typeCard = typeCard;
+        this.numberCard = numberCard;
+        this.totalMoney = totalMoney;
+    }
+
+    public Card(User user) {
+        this.user = user;
+    }
+
     public String getTypeCard() {
         return typeCard;
     }
@@ -27,5 +37,9 @@ public class Card {
 
     public int getTotalMoney() {
         return totalMoney;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

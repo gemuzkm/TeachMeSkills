@@ -1,5 +1,7 @@
 package com.lesson10dz;
 
+import com.lesson10.Car;
+
 /*
 Создать класс ATM. У него будут поля
 - общее количество денег
@@ -9,7 +11,7 @@ package com.lesson10dz;
 Создать класс Card. Поля
 - тип карты
 - номер карты
-- владелец (User)
+- владелец (User.name)
 - количество средств
 
 Создать класс User. Поля
@@ -27,7 +29,16 @@ public class Main {
     public static void main(String[] args) {
         ATB atbVisaMastercardWork = new ATB(500, true, new String[] {"Visa", "Mastercard"});
         ATB atbVisaMastercardNoWork = new ATB(500, false, new String[] {"Visa", "Mastercard"});
+        ATB atbBelcardNoWork = new ATB(500, false, new String[] {"Belcard"});
+        ATB atbBelcardWork = new ATB(500, false, new String[] {"Belcard"});
 
+        User userAlex = new User("Alex");
+        Card cardAlex = new Card("Visa", "8888-7777-6666-5555", 5_000);
+
+        userAlex.setCard(cardAlex);
+        cardAlex.setUser(userAlex);
+
+        System.out.println(userAlex.getCard().getTotalMoney());
 
 
     }

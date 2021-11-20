@@ -9,11 +9,23 @@ public class User {
         this.card = card;
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
+    public User(Card card) {
+        this.card = card;
+    }
+
     public String getName() {
         return name;
     }
 
     public Card getCard() {
         return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }
