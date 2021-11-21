@@ -3,7 +3,7 @@ package com.lesson10dz;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GreateATBUserCard {
+public class GreateUserCardATB {
     private ArrayList<ATB> listATB = new ArrayList<>();
     private ArrayList<User> listUser = new ArrayList<>();
 
