@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Menu {
-    private ATB atb;
-    private User user;
+    public static ATB atb;
+    private static User user;
     private String inputDate;
 
     private GreateUserCardATB greateUserCardATB = new GreateUserCardATB();
@@ -21,7 +21,7 @@ public class Menu {
         return inputDate;
     }
 
-    private void readerCloseStream() {
+    private void readerCloseDataFromConsole() {
         try {
             reader.close();
         } catch (IOException e) {
@@ -46,7 +46,8 @@ public class Menu {
     }
 
     private void makeUser() {
-        user = greateUserCardATB.getUserCard();;
+        user = greateUserCardATB.getUserCard();
+        ;
         System.out.println("\nЮзер создан. Параметры Юзера");
         System.out.println(user.toString());
     }
@@ -59,22 +60,21 @@ public class Menu {
             System.out.println("\"3\" - Снять деньги");
             System.out.println("\"4\" - Закончить работу с банкоматом\n");
 
-        inputSelectedUserMenu = readerDataFromConsole();
+            inputSelectedUserMenu = readerDataFromConsole();
 
-        if (inputSelectedUserMenu.equals("1")) {
-            System.out.println("1");
-        } else if (inputSelectedUserMenu.equals("2")) {
-            System.out.println("2");
-        } else if (inputSelectedUserMenu.equals("3")) {
-            System.out.println("3");
-        } else if (inputSelectedUserMenu.equals("4")) {
-            System.out.println("\nРабота с банкоматом завершена");
-            readerCloseStream();
-            System.exit(0);
-        } else {
-            System.out.println("\nВвели некорректный пункт меню\n");
-        }
-
+            if (inputSelectedUserMenu.equals("1")) {
+                atb.insertCard(user);
+            } else if (inputSelectedUserMenu.equals("2")) {
+                atb.getBalanceCard(user);
+            } else if (inputSelectedUserMenu.equals("3")) {
+                System.out.println("3");
+            } else if (inputSelectedUserMenu.equals("4")) {
+                System.out.println("\nРабота с банкоматом завершена. Заберите свою карту.");
+                readerCloseDataFromConsole();
+                System.exit(0);
+            } else {
+                System.out.println("\nВвели некорректный пункт меню\n");
+            }
         }
     }
 
@@ -84,6 +84,5 @@ public class Menu {
         makeUser();
         showTitleATBMenu();
         showMenuATB();
-
     }
 }
