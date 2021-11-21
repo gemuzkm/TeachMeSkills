@@ -4,12 +4,12 @@ public class Card {
     private String typeCard;
     private String numberCard;
     private User user;
-    private int totalMoney;
+    private double totalMoneyCard;
 
-    public Card(String typeCard, String numberCard, int totalMoney) {
+    public Card(String typeCard, String numberCard, int totalMoneyCard) {
         this.typeCard = typeCard;
         this.numberCard = numberCard;
-        this.totalMoney = totalMoney;
+        this.totalMoneyCard = totalMoneyCard;
     }
 
     public String getTypeCard() {
@@ -24,12 +24,16 @@ public class Card {
         return user;
     }
 
-    public int getTotalMoney() {
-        return totalMoney;
+    public double getTotalMoneyCard() {
+        return totalMoneyCard;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setTotalMoneyCard(double totalMoneyCard) {
+        this.totalMoneyCard = totalMoneyCard;
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Card {
                 "typeCard='" + typeCard + '\'' +
                 ", numberCard='" + numberCard + '\'' +
                 ", user=" + user +
-                ", totalMoney=" + totalMoney +
+                ", totalMoney=" + totalMoneyCard +
                 '}';
     }
 }

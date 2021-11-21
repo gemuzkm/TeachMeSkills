@@ -1,16 +1,19 @@
 package com.lesson10dz;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class ATB {
-    private int totalMoney;
+    private double totalMoneyATB;
     private boolean isWork;
     private boolean isInsertCard;
     private boolean isCardSupport;
     private String[] listSupportCartType;
 
-    public ATB(int totalMoney, boolean isWork, String[] listSupportCartType) {
-        this.totalMoney = totalMoney;
+    ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
+
+    public ATB(int totalMoneyATB, boolean isWork, String[] listSupportCartType) {
+        this.totalMoneyATB = totalMoneyATB;
         this.isWork = isWork;
         this.listSupportCartType = listSupportCartType;
     }
@@ -18,7 +21,7 @@ public class ATB {
     @Override
     public String toString() {
         return "ATB{" +
-                "totalMoney=" + totalMoney +
+                "totalMoneyATB=" + totalMoneyATB +
                 ", isWork=" + isWork +
                 ", listSupportCartType=" + Arrays.toString(listSupportCartType) +
                 '}';
@@ -27,7 +30,7 @@ public class ATB {
     public void getBalanceCard(User user) {
         if (isWork) {
             if (isInsertCard && isCardSupport) {
-                System.out.println("\nБаланс карты равен: " + user.getCard().getTotalMoney() + "\n");
+                System.out.println("\nБаланс карты равен: " + user.getCard().getTotalMoneyCard() + "\n");
             } else {
                 System.out.println("\nНеобходимо вставить карту в банкомат для просмотра баланса\n");
             }
@@ -49,7 +52,7 @@ public class ATB {
     }
 
     private boolean checkSupportCard(User user) {
-      for (String item : listSupportCartType) {
+        for (String item : listSupportCartType) {
             if (item.equals(user.getCard().getTypeCard())) {
                 isCardSupport = true;
             }
@@ -60,21 +63,46 @@ public class ATB {
                 throw new WrongCardTypeException();
             } catch (WrongCardTypeException e) {
                 System.out.println("\n" + user.getName() + " не сможет воспользоваться картой. Она не поддерживается банкоматом.\n");
-            }
-            finally {
+            } finally {
                 return isCardSupport;
             }
         }
         return isCardSupport;
     }
 
-    public void getMoney (User user, int howMuchMoney) {
-       if (isWork) {
-           if (isInsertCard && isCardSupport) {
+    public void getMoney(User user) {
+        if (isWork) {
+            if (isInsertCard && isCardSupport) {
+                System.out.println("\nВведите сумму, которую необходимо снять");
+                String howMuchGetMoneyString = readerDataFromConsole.readString();
 
-           }
-       } else {
-           System.out.println("\nБанкомат не работае!\n");
-       }
+                while (!readerDataFromConsole.isNumeric(howMuchGetMoneyString)) {
+                    System.out.println("\nВведдено не число");
+                    System.out.println("Введите сумму, которую необходимо снять");
+                    howMuchGetMoneyString = readerDataFromConsole.readString();
+                }
+
+                double howMuchGetMoney = Double.parseDouble(howMuchGetMoneyString);
+
+                if (howMuchGetMoney > user.getCard().getTotalMoneyCard()) {
+                    System.out.println("Введенна сумма больше суммы на балансе карты\n");
+                } else if (totalMoneyATB < howMuchGetMoney) {
+                    try {
+                        throw new LackMoneyException();
+                    } catch (LackMoneyException e) {
+                        System.out.println("Недостаточно средст в банкомате\n");
+                    }
+                } else {
+                    System.out.println("Вы сняли: " + howMuchGetMoney + "\n");
+                    totalMoneyATB -= howMuchGetMoney;
+                    user.getCard().setTotalMoneyCard(user.getCard().getTotalMoneyCard() - howMuchGetMoney);
+                }
+
+            } else {
+                System.out.println("\nНеобходимо вставить карту в банкомат для снятия\n");
+            }
+        } else {
+            System.out.println("\nБанкомат не работает!\n");
+        }
     }
 }

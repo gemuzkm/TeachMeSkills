@@ -51,7 +51,7 @@ public class Menu {
             } else if (inputSelectedUserMenu.equals("2")) {
                 atb.getBalanceCard(user);
             } else if (inputSelectedUserMenu.equals("3")) {
-                System.out.println("3");
+                atb.getMoney(user);
             } else if (inputSelectedUserMenu.equals("4")) {
                 System.out.println("\nРабота с банкоматом завершена. Заберите свою карту.");
                 readerDataFromConsole.readerClose();

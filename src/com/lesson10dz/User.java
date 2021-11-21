@@ -26,7 +26,7 @@ public class User {
                 "name=', " + name + '\'' +
                 "}, Card{" + "typeCard='" + card.getTypeCard()  + '\'' +
                 ", numberCard='" + card.getNumberCard() + '\'' +
-                ", totalMoney=" + card.getTotalMoney() +
+                ", totalMoneyCard=" + card.getTotalMoneyCard() +
                 '}';
     }
 }
