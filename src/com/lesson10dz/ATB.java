@@ -1,20 +1,19 @@
 package com.lesson10dz;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class ATB {
     private double totalMoneyATB;
-    private boolean isWork;
+    private boolean isWorkATK;
     private boolean isInsertCard;
     private boolean isCardSupport;
     private String[] listSupportCartType;
 
     ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
 
-    public ATB(int totalMoneyATB, boolean isWork, String[] listSupportCartType) {
+    public ATB(int totalMoneyATB, boolean isWorkATK, String[] listSupportCartType) {
         this.totalMoneyATB = totalMoneyATB;
-        this.isWork = isWork;
+        this.isWorkATK = isWorkATK;
         this.listSupportCartType = listSupportCartType;
     }
 
@@ -22,13 +21,13 @@ public class ATB {
     public String toString() {
         return "ATB{" +
                 "totalMoneyATB=" + totalMoneyATB +
-                ", isWork=" + isWork +
+                ", isWork=" + isWorkATK +
                 ", listSupportCartType=" + Arrays.toString(listSupportCartType) +
                 '}';
     }
 
     public void getBalanceCard(User user) {
-        if (isWork) {
+        if (isWorkATK) {
             if (isInsertCard && isCardSupport) {
                 System.out.println("\nБаланс карты равен: " + user.getCard().getTotalMoneyCard() + "\n");
             } else {
@@ -41,7 +40,7 @@ public class ATB {
     }
 
     public void insertCard(User user) {
-        if (isWork) {
+        if (isWorkATK) {
             if (checkSupportCard(user)) {
                 isInsertCard = true;
                 System.out.println("\nБанкомат принял карту и котов к работе\n");
@@ -71,7 +70,7 @@ public class ATB {
     }
 
     public void getMoney(User user) {
-        if (isWork) {
+        if (isWorkATK) {
             if (isInsertCard && isCardSupport) {
                 System.out.println("\nВведите сумму, которую необходимо снять");
                 String howMuchGetMoneyString = readerDataFromConsole.readString();
