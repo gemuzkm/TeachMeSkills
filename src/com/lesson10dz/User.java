@@ -17,6 +17,16 @@ public class User {
         this.card = card;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name=', " + name + '\'' +
+                "}, Card{" + "typeCard='" + card.getTypeCard()  + '\'' +
+                ", numberCard='" + card.getNumberCard() + '\'' +
+                ", totalMoney=" + card.getTotalMoney() +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

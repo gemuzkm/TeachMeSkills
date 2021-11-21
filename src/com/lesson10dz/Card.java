@@ -23,6 +23,16 @@ public class Card {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "typeCard='" + typeCard + '\'' +
+                ", numberCard='" + numberCard + '\'' +
+                ", user=" + user +
+                ", totalMoney=" + totalMoney +
+                '}';
+    }
+
     public String getTypeCard() {
         return typeCard;
     }

@@ -28,19 +28,7 @@ import com.lesson10.Car;
  */
 public class Main {
     public static void main(String[] args) {
-
-        ATB atbVisaMastercardWork = new ATB(500, true, new String[]{"Visa", "Mastercard"});
-        ATB atbVisaMastercardNoWork = new ATB(500, false, new String[]{"Visa", "Mastercard"});
-        ATB atbBelcardNoWork = new ATB(500, false, new String[]{"Belcard"});
-        ATB atbBelcardWork = new ATB(500, false, new String[]{"Belcard"});
-
-        MakeUserForTest makeUserForTest = new MakeUserForTest();
-
-//        User userAlex = new User("Alex");
-//        Card cardAlex = new Card("Visa", "8888-7777-6666-5555", 5_000);
-
-
-
-
+        Menu menu = new Menu();
+        menu.show();
     }
 }

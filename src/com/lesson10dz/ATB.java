@@ -1,5 +1,7 @@
 package com.lesson10dz;
 
+import java.util.Arrays;
+
 public class ATB {
     private int totalMonay;
     private boolean isWork;
@@ -9,6 +11,15 @@ public class ATB {
         this.totalMonay = totalMonay;
         this.isWork = isWork;
         this.list = list;
+    }
+
+    @Override
+    public String toString() {
+        return "ATB{" +
+                "totalMonay=" + totalMonay +
+                ", isWork=" + isWork +
+                ", list=" + Arrays.toString(list) +
+                '}';
     }
 
     private boolean checkSupportCard(User user) {
