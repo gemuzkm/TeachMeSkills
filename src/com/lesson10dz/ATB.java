@@ -11,7 +11,7 @@ public class ATB {
         this.list = list;
     }
 
-    private boolean checkCard (User user) {
+    private boolean checkSupportCard(User user) {
         boolean isCardSupport = false;
 
         for (String item: list) {
@@ -19,7 +19,38 @@ public class ATB {
                 isCardSupport = true;
             }
         }
+
+        if (!isCardSupport) {
+            try {
+                throw new WrongCardTypeException();
+            } catch (WrongCardTypeException e) {
+                System.out.println(user.getName() + " не сможет воспользоваться картой. Она не поддерживается банкоматом.");
+            }
+            finally {
+                return isCardSupport;
+            }
+        }
+
         return isCardSupport;
+    }
+
+    private boolean checkIsWorkATB() {
+        if (isWork) {
+            System.out.println("Банкомат работает.");
+            return true;
+        } else {
+            System.out.println("Банкомат не работает.");
+            return false;
+        }
+    }
+
+    public void getMoney (User user, int howMuchMoney) {
+       if (!checkIsWorkATB()) {
+           if (!checkSupportCard(user)) {
+
+           }
+       }
+
     }
 
 
