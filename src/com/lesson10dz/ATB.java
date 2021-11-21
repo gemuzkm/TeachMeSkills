@@ -25,17 +25,26 @@ public class ATB {
     }
 
     public void getBalanceCard(User user) {
-        if (isInsertCard && isCardSupport) {
-            System.out.println("\nБаланс карты равен: " + user.getCard().getTotalMoney() + "\n");
+        if (isWork) {
+            if (isInsertCard && isCardSupport) {
+                System.out.println("\nБаланс карты равен: " + user.getCard().getTotalMoney() + "\n");
+            } else {
+                System.out.println("\nНеобходимо вставить карту в банкомат для просмотра баланса\n");
+            }
         } else {
-            System.out.println("\nНеобходимо вставить карту в банкомат для просмотра баланса\n");
+            System.out.println("\nБанкомат не работае!\n");
         }
+
     }
 
     public void insertCard(User user) {
-        if (checkSupportCard(user)) {
-            isInsertCard = true;
-            System.out.println("\nБанкомат принял карту и котов к работе\n");
+        if (isWork) {
+            if (checkSupportCard(user)) {
+                isInsertCard = true;
+                System.out.println("\nБанкомат принял карту и котов к работе\n");
+            }
+        } else {
+            System.out.println("\nБанкомат не работае!\n");
         }
     }
 
@@ -56,25 +65,16 @@ public class ATB {
                 return isCardSupport;
             }
         }
-
         return isCardSupport;
     }
 
-    private boolean checkIsWorkATB() {
-        if (isWork) {
-            System.out.println("Банкомат работает.");
-            return true;
-        } else {
-            System.out.println("Банкомат не работает.");
-            return false;
-        }
-    }
-
     public void getMoney (User user, int howMuchMoney) {
-       if (!checkIsWorkATB()) {
-           if (!checkSupportCard(user)) {
+       if (isWork) {
+           if (isInsertCard && isCardSupport) {
 
            }
+       } else {
+           System.out.println("\nБанкомат не работае!\n");
        }
     }
 }

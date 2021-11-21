@@ -1,32 +1,16 @@
 package com.lesson10dz;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class Menu {
     public static ATB atb;
     private static User user;
     private String inputDate;
 
     private GreateUserCardATB greateUserCardATB = new GreateUserCardATB();
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
 
     private String readerDataFromConsole() {
-        try {
-            inputDate = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        inputDate = readerDataFromConsole.readString();
         return inputDate;
-    }
-
-    private void readerCloseDataFromConsole() {
-        try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showTitleMenu() {
@@ -70,7 +54,7 @@ public class Menu {
                 System.out.println("3");
             } else if (inputSelectedUserMenu.equals("4")) {
                 System.out.println("\nРабота с банкоматом завершена. Заберите свою карту.");
-                readerCloseDataFromConsole();
+                readerDataFromConsole.readerClose();
                 System.exit(0);
             } else {
                 System.out.println("\nВвели некорректный пункт меню\n");
