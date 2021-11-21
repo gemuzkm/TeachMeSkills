@@ -97,7 +97,6 @@ public class ATB {
                     totalMoneyATB -= howMuchGetMoney;
                     user.getCard().setTotalMoneyCard(user.getCard().getTotalMoneyCard() - howMuchGetMoney);
                 }
-
             } else {
                 System.out.println("\nНеобходимо вставить карту в банкомат для снятия\n");
             }
