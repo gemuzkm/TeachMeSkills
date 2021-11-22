@@ -7,14 +7,14 @@ public class ATB {
     private boolean isWorkATK;
     private boolean isInsertCard;
     private boolean isCardSupport;
-    private String[] listSupportCartType;
+    private String[] supportCartType;
 
     ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
 
-    public ATB(int totalMoneyATB, boolean isWorkATK, String[] listSupportCartType) {
+    public ATB(int totalMoneyATB, boolean isWorkATK, String[] supportCartType) {
         this.totalMoneyATB = totalMoneyATB;
         this.isWorkATK = isWorkATK;
-        this.listSupportCartType = listSupportCartType;
+        this.supportCartType = supportCartType;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class ATB {
         return "ATB{" +
                 "totalMoneyATB=" + totalMoneyATB +
                 ", isWork=" + isWorkATK +
-                ", listSupportCartType=" + Arrays.toString(listSupportCartType) +
+                ", listSupportCartType=" + Arrays.toString(supportCartType) +
                 '}';
     }
 
@@ -51,7 +51,7 @@ public class ATB {
     }
 
     private boolean checkSupportCard(User user) {
-        for (String item : listSupportCartType) {
+        for (String item : supportCartType) {
             if (item.equals(user.getCard().getTypeCard())) {
                 isCardSupport = true;
             }

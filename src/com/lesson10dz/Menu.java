@@ -5,7 +5,7 @@ public class Menu {
     private static User user;
     private String inputDate;
 
-    private GreateUserCardATB greateUserCardATB = new GreateUserCardATB();
+    private GenerateUserCardATB generateUserCardATB = new GenerateUserCardATB();
     private ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
 
     private String readerDataFromConsole() {
@@ -24,13 +24,13 @@ public class Menu {
     }
 
     private void makeATB() {
-        atb = greateUserCardATB.getATB();
+        atb = generateUserCardATB.getATB();
         System.out.println("Банкомат создан. Параметы банкомата");
         System.out.println(atb.toString());
     }
 
     private void makeUser() {
-        user = greateUserCardATB.getUserCard();
+        user = generateUserCardATB.getUserCard();
         ;
         System.out.println("\nЮзер создан. Параметры Юзера");
         System.out.println(user.toString());
