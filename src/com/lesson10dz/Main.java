@@ -1,7 +1,5 @@
 package com.lesson10dz;
 
-import com.lesson10.Car;
-
 /*
 Создать класс ATM. У него будут поля
 - общее количество денег
