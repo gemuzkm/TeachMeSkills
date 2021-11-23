@@ -21,6 +21,8 @@ public class Home1 {
                  if (readeLine.toString().equals(readeLineReverse)) {
                      writer.write(readeLine.toString() + "\n");
                  }
+
+
             }
         } catch (IOException e) {
 
