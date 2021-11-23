@@ -11,8 +11,37 @@ package com.lessons11dz;
 кол-во предложений не прошедших проверку и сами предложения подлежащие исправлению.
  */
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Home3 {
     public static void main(String[] args) {
+        boolean isBlack = false;
+
+        try (BufferedReader reader1 = new BufferedReader(new FileReader("home3text.txt"));
+             BufferedReader reader2 = new BufferedReader(new FileReader("home3blacklist.txt"))) {
+            String allWorld = "";
+            String allWorldBlack = "";
+
+            while (reader1.ready()) {
+                allWorld += reader1.readLine();
+            }
+
+            while (reader2.ready()) {
+                allWorldBlack += reader2.readLine();
+            }
+
+
+            String[] arrayWorld = allWorld.split(".");
+
+
+        } catch (IOException e) {
+
+        }
+    }
+
+    public static boolean isBlackWorld (String str, String[] strBlack) {
 
     }
 }
