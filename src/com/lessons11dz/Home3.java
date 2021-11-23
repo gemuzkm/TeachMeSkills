@@ -41,7 +41,7 @@ public class Home3 {
         }
     }
 
-    public static boolean isBlackWorld (String str, String[] strBlack) {
-
-    }
+//    public static boolean isBlackWorld (String str, String[] strBlack) {
+//
+//    }
 }

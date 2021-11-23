@@ -16,26 +16,24 @@ import java.io.*;
 
 public class Home2 {
     public static void main(String[] args) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("testFile.txt"));
-             BufferedWriter writer = new BufferedWriter(new FileWriter("testOut2.txt"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/com/lessons11dz/home2Read.txt"));
+             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/com/lessons11dz/home2Write.txt"))) {
             String allText = "";
 
-            while (reader.ready()) {
-                allText += reader.readLine();
+            while (bufferedReader.ready()) {
+                allText += bufferedReader.readLine();
             }
 
-            String[] texеOffer = allText.split(".");
+            String[] arrayText = allText.split("\\.");
+            int countWorld = 0;
 
-            for (int i = 0; i < texеOffer.length; i++) {
-                if (TextFormater.worldCout(texеOffer[i]) >= 3 && TextFormater.worldCout(texеOffer[i]) <= 5) {
-                    writer.write(texеOffer[i] + ". ");
-                } else if (TextFormater.strIsPolyndrome(texеOffer[i])) {
-                    writer.write(texеOffer[i] + ". ");
+            for (int i = 0; i < arrayText.length; i++) {
+                countWorld = TextFormater.worldCount(arrayText[i]);
+                if (countWorld >= 3 && countWorld <= 5 || TextFormater.strInPolyndrome(arrayText[i])) {
+                    bufferedWriter.write(arrayText[i].trim() + ". ");
                 }
             }
-
         } catch (IOException e) {
-
         }
     }
 }
