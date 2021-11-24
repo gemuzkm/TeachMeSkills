@@ -30,7 +30,7 @@ public class Home2 {
             for (int i = 0; i < arrayText.length; i++) {
                 countWorld = TextFormater.worldCount(arrayText[i]);
                 if (countWorld >= 3 && countWorld <= 5 || TextFormater.strInPolyndrome(arrayText[i])) {
-                    bufferedWriter.write(arrayText[i].trim() + ". ");
+                    bufferedWriter.write(arrayText[i].trim() + ".\n"); //запись с новой строки, для наглядности
                 }
             }
         } catch (IOException e) {

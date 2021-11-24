@@ -14,34 +14,54 @@ package com.lessons11dz;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Home3 {
     public static void main(String[] args) {
-        boolean isBlack = false;
+        int countBlack = 0;
+        String[] arrayWorld;
+        ArrayList<String> listBlackWorld = new ArrayList<>();
 
-        try (BufferedReader reader1 = new BufferedReader(new FileReader("home3text.txt"));
-             BufferedReader reader2 = new BufferedReader(new FileReader("home3blacklist.txt"))) {
-            String allWorld = "";
-            String allWorldBlack = "";
+        try (BufferedReader reader1 = new BufferedReader(new FileReader("src/com/lessons11dz/home3Text.txt"));
+             BufferedReader reader2 = new BufferedReader(new FileReader("src/com/lessons11dz/home3BlackList.txt"))) {
+            String allText = "";
 
             while (reader1.ready()) {
-                allWorld += reader1.readLine();
+                allText += reader1.readLine();
             }
 
             while (reader2.ready()) {
-                allWorldBlack += reader2.readLine();
+                listBlackWorld.add(reader2.readLine());
             }
 
+            arrayWorld = allText.split("\\.");
 
-            String[] arrayWorld = allWorld.split(".");
+            for (String itemStr : arrayWorld) {
+                if (blackWorldСontainedInText(itemStr, listBlackWorld)) {
+                    countBlack++;
+                    System.out.println(itemStr.trim() + "."); // с новой строки, для наглядности
+                }
+            }
 
-
+            if (countBlack == 0) {
+                System.out.println("Текст прошел проверку");
+            } else {
+                System.out.println("Количество предложений не прошедших проверку: " + countBlack);
+            }
         } catch (IOException e) {
 
         }
     }
 
-//    public static boolean isBlackWorld (String str, String[] strBlack) {
-//
-//    }
+    public static boolean blackWorldСontainedInText(String str, ArrayList<String> listStrBlack) {
+        String[] arraySrt = str.trim().split(" ");
+        for (int i = 0; i < arraySrt.length; i++) {
+            for (String blackWorld : listStrBlack) {
+                if (arraySrt[i].equals(blackWorld)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
