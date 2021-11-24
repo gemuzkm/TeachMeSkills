@@ -20,7 +20,7 @@ public class Home3 {
     public static void main(String[] args) {
         int countBlack = 0;
         String[] arrayWorld;
-        ArrayList<String> listBlackWorld = new ArrayList<>();
+        ArrayList<String> listBlackWord = new ArrayList<>();
 
         try (BufferedReader reader1 = new BufferedReader(new FileReader("src/com/lessons11dz/home3Text.txt"));
              BufferedReader reader2 = new BufferedReader(new FileReader("src/com/lessons11dz/home3BlackList.txt"))) {
@@ -31,13 +31,13 @@ public class Home3 {
             }
 
             while (reader2.ready()) {
-                listBlackWorld.add(reader2.readLine());
+                listBlackWord.add(reader2.readLine());
             }
 
             arrayWorld = allText.split("\\.");
 
             for (String itemStr : arrayWorld) {
-                if (blackWorldСontainedInText(itemStr, listBlackWorld)) {
+                if (blackWorldСontainedInText(itemStr, listBlackWord)) {
                     countBlack++;
                     System.out.println(itemStr.trim() + "."); // с новой строки, для наглядности
                 }

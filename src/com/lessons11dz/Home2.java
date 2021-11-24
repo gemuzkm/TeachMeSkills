@@ -25,11 +25,11 @@ public class Home2 {
             }
 
             String[] arrayText = allText.split("\\.");
-            int countWorld = 0;
+            int countWord = 0;
 
             for (int i = 0; i < arrayText.length; i++) {
-                countWorld = TextFormater.worldCount(arrayText[i]);
-                if (countWorld >= 3 && countWorld <= 5 || TextFormater.strInPolyndrome(arrayText[i])) {
+                countWord = TextFormater.wordCount(arrayText[i]);
+                if (countWord >= 3 && countWord <= 5 || TextFormater.strInPolyndrome(arrayText[i])) {
                     bufferedWriter.write(arrayText[i].trim() + ".\n"); //запись с новой строки, для наглядности
                 }
             }

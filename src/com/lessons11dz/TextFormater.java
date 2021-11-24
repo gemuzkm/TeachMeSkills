@@ -1,7 +1,7 @@
 package com.lessons11dz;
 
 public class TextFormater {
-    public static int worldCount(String str) {
+    public static int wordCount(String str) {
         String[] allWorld = str.trim().split(" ");
         return allWorld.length;
     }
