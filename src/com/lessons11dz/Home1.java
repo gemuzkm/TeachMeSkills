@@ -14,14 +14,22 @@ public class Home1 {
 
             String oneWord = "";
             while (bufferedReader.ready()) {
-                StringBuilder oneWordRevers = new StringBuilder(bufferedReader.readLine().trim());
-                oneWord = oneWordRevers.toString();
-                oneWordRevers.reverse();
-                if (oneWordRevers.toString().equals(oneWord)) {
-                    bufferedWriter.write(oneWord + "\n");
+                oneWord = bufferedReader.readLine().trim();
+                if (isPolyndrome(oneWord)) {
+                    bufferedWriter.write(oneWord + "\n"); //с новой строки, для читабильности
                 }
-            }
+          }
         } catch (IOException e) {
         }
+    }
+
+    public static boolean isPolyndrome(String oneWord) {
+        StringBuilder oneWordRevers = new StringBuilder(oneWord);
+        oneWord = oneWordRevers.toString();
+        oneWordRevers.reverse();
+        if (oneWordRevers.toString().equals(oneWord)) {
+            return true;
+        }
+        return false;
     }
 }
