@@ -29,7 +29,7 @@ public class Home2 {
 
             for (int i = 0; i < arrayText.length; i++) {
                 countWord = TextFormater.wordCount(arrayText[i]);
-                if (countWord >= 3 && countWord <= 5 || TextFormater.strInPolyndrome(arrayText[i])) {
+                if (countWord >= 3 && countWord <= 5 || TextFormater.strHasInPalyndrome(arrayText[i])) {
                     bufferedWriter.write(arrayText[i].trim() + ".\n"); //запись с новой строки, для наглядности
                 }
             }

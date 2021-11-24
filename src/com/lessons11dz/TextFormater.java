@@ -6,7 +6,7 @@ public class TextFormater {
         return allWord.length;
     }
 
-    public static boolean strInPolyndrome(String str) {
+    public static boolean strHasInPalyndrome(String str) {
         String[] arrayWord = str.trim().split(" ");
         String oneWord = "";
         for (String item : arrayWord) {

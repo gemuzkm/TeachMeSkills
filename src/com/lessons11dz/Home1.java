@@ -15,7 +15,7 @@ public class Home1 {
             String oneWord = "";
             while (bufferedReader.ready()) {
                 oneWord = bufferedReader.readLine().trim();
-                if (isPolyndrome(oneWord)) {
+                if (isPalyndrome(oneWord)) {
                     bufferedWriter.write(oneWord + "\n"); //с новой строки, для читабильности
                 }
           }
@@ -23,7 +23,7 @@ public class Home1 {
         }
     }
 
-    public static boolean isPolyndrome(String oneWord) {
+    public static boolean isPalyndrome(String oneWord) {
         StringBuilder oneWordRevers = new StringBuilder(oneWord);
         oneWord = oneWordRevers.toString();
         oneWordRevers.reverse();
