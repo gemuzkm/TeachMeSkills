@@ -7,9 +7,9 @@ public class TextFormater {
     }
 
     public static boolean strInPolyndrome(String str) {
-        String[] arrayWorld = str.trim().split(" ");
+        String[] arrayWord = str.trim().split(" ");
         String oneWord = "";
-        for (String item : arrayWorld) {
+        for (String item : arrayWord) {
             StringBuilder oneWordRevers = new StringBuilder(item.trim());
             oneWord = oneWordRevers.toString();
             oneWordRevers.reverse();
