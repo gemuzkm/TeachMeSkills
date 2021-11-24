@@ -37,7 +37,7 @@ public class Home3 {
             arrayWorld = allText.split("\\.");
 
             for (String itemStr : arrayWorld) {
-                if (blackWorldСontainedInText(itemStr, listBlackWord)) {
+                if (blackWordСontainedInText(itemStr, listBlackWord)) {
                     countBlack++;
                     System.out.println(itemStr.trim() + "."); // с новой строки, для наглядности
                 }
@@ -53,11 +53,11 @@ public class Home3 {
         }
     }
 
-    public static boolean blackWorldСontainedInText(String str, ArrayList<String> listStrBlack) {
+    public static boolean blackWordСontainedInText(String str, ArrayList<String> listStrBlack) {
         String[] arraySrt = str.trim().split(" ");
         for (int i = 0; i < arraySrt.length; i++) {
-            for (String blackWorld : listStrBlack) {
-                if (arraySrt[i].equals(blackWorld)) {
+            for (String blackWord : listStrBlack) {
+                if (arraySrt[i].equals(blackWord)) {
                     return true;
                 }
             }
