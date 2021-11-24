@@ -2,8 +2,8 @@ package com.lessons11dz;
 
 public class TextFormater {
     public static int wordCount(String str) {
-        String[] allWorld = str.trim().split(" ");
-        return allWorld.length;
+        String[] allWord = str.trim().split(" ");
+        return allWord.length;
     }
 
     public static boolean strInPolyndrome(String str) {
