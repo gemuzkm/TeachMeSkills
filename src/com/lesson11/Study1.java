@@ -1,8 +1,4 @@
-package com.lessons11;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
+package com.lesson11;
 
 public class Study1 {
     public static void main(String[] args) {

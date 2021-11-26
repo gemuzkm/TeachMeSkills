@@ -1,4 +1,4 @@
-package com.lessons11dz;
+package com.lesson11dz;
 
 /*
 3) Проверка на цензуру:

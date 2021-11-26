@@ -1,4 +1,4 @@
-package com.lessons11dz;
+package com.lesson11dz;
 
 public class TextFormater {
     public static int wordCount(String str) {
