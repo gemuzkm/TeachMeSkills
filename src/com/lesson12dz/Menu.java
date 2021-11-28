@@ -1,7 +1,5 @@
 package com.lesson12dz;
 
-import javax.swing.*;
-
 public class Menu {
     private ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
     private Store store = new Store();
@@ -29,7 +27,8 @@ public class Menu {
                 showTitleAddUserProduct();
                 addUserProduct();
             } else if (inputUserItemMenu.equals("3")) {
-
+                showTitleDellUserProduct();
+                dellUserProduct();
             } else if (inputUserItemMenu.equals("4")) {
 
             } else if (inputUserItemMenu.equals("5")) {
@@ -62,7 +61,7 @@ public class Menu {
 
     private void addUserProduct() {
         int id;
-        String name;
+        String name = "";
         int price;
 
         System.out.println("Введите \"ID\" продукта");
@@ -74,7 +73,12 @@ public class Menu {
         id = Integer.parseInt(inputUserItemMenu);
 
         System.out.println("\nВведите \"Название\" продукта");
-        name = readerDataFromConsole.readString();
+        inputUserItemMenu = readerDataFromConsole.readString();
+        while (inputUserItemMenu.length() < 2) {
+            System.out.println("\nНазвание продукта не может быть короче 2-х символов\n");
+            inputUserItemMenu = readerDataFromConsole.readString();
+        }
+        name = inputUserItemMenu;
 
         System.out.println("\nВведите \"Цену\" продукта");
         inputUserItemMenu = readerDataFromConsole.readString();
@@ -83,6 +87,22 @@ public class Menu {
             inputUserItemMenu = readerDataFromConsole.readString();
         }
         price = Integer.parseInt(inputUserItemMenu);
+
+        store.addProduct(new Product(id, name, price));
+    }
+
+    private void dellUserProduct() {
+        int id;
+
+        System.out.println("Введите \"ID\" продукта");
+        inputUserItemMenu = readerDataFromConsole.readString();
+        while (!readerDataFromConsole.isNumeric(inputUserItemMenu)) {
+            System.out.println("\n\"ID\" может быть только числом, введите число\n");
+            inputUserItemMenu = readerDataFromConsole.readString();
+        }
+        id = Integer.parseInt(inputUserItemMenu);
+
+        store.removeProduct(id);
     }
 
     private void showTitle() {
@@ -96,5 +116,9 @@ public class Menu {
 
     private void showTitleAddUserProduct() {
         System.out.println("\nМеню добавления продукта\n");
+    }
+
+    private void showTitleDellUserProduct () {
+        System.out.println("\nУдаления продукта\n");
     }
 }
