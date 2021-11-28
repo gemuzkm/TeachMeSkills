@@ -20,7 +20,7 @@ public class Store {
         }
     }
 
-    public List<Product> getListOfProducts() {
+    public ArrayList<Product> getListOfProducts() {
         ArrayList<Product> catalogProduct = new ArrayList<>();
 
         for (Map.Entry<Integer, Product> item : listOfProducts.entrySet()) {
