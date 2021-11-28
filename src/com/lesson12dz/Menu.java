@@ -30,7 +30,8 @@ public class Menu {
                 showTitleDellUserProduct();
                 dellUserProduct();
             } else if (inputUserItemMenu.equals("4")) {
-
+                showTitleEditUserProduct();
+                editUserProduct();
             } else if (inputUserItemMenu.equals("5")) {
                 System.out.println("Завершение работы приложения");
                 readerDataFromConsole.readerClose();
@@ -105,6 +106,10 @@ public class Menu {
         store.removeProduct(id);
     }
 
+    private void editUserProduct() {
+
+    }
+
     private void showTitle() {
         System.out.println("Приложение магазин. Только базовые возможности. Тестируем :-)");
         System.out.println("Для работы нужно ввести соотвествующее значение меню\n");
@@ -118,7 +123,12 @@ public class Menu {
         System.out.println("\nМеню добавления продукта\n");
     }
 
-    private void showTitleDellUserProduct () {
+    private void showTitleDellUserProduct() {
         System.out.println("\nУдаления продукта\n");
+    }
+
+    private void showTitleEditUserProduct() {
+        System.out.println("\nРедактирование продукта\n");
+
     }
 }

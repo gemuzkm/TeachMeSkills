@@ -51,4 +51,8 @@ public class Store {
         return -1;
     }
 
+    private void editProdcut () {
+
+    }
+
 }
