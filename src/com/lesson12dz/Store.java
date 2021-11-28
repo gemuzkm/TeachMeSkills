@@ -32,27 +32,42 @@ public class Store {
     public void removeProduct(int idProduct) {
         if (listOfProducts.size() == 0) {
             System.out.println("\nУдаление невозможно, каталог пуст");
-        } else if (getIdProduct(new Product(idProduct, "0", 0)) == -1) {
+        } else if (getIdProduct(idProduct) == -1) {
             System.out.println("\nУдаление невозможно, продукта с ID = " + idProduct + " нет в каталоге");
         } else if (true) {
-            int idRemoveCatalog = getIdProduct(new Product(idProduct, "0", 0));
+            int idRemoveCatalog = getIdProduct(idProduct);
             listOfProducts.remove(idRemoveCatalog);
             System.out.println("\nПродукт с ID = " + idProduct + " успешно удален из каталога");
         }
     }
 
+    public void editProduct(int idProduct, String newName, int newPrice) {
+        int idCatalog = getIdProduct(idProduct);
+        if (idCatalog == -1) {
+            System.out.println("\nПродукта с таким ID не существует");
+        } else {
+            listOfProducts.put(idCatalog, new Product(idProduct, newName, newPrice));
+            System.out.println("\nДанные продукта с ID = " + idProduct + " успешно обновлены");
+        }
+    }
+
     // вернет -1, если нет продукта в списке или ID продукта в списке
     private int getIdProduct(Product product) {
-        for (Map.Entry<Integer, Product> item : listOfProducts.entrySet()) {
-            if (item.getValue().getId() == product.getId()) {
-                return item.getKey();
+        for (Map.Entry<Integer, Product> itemCatalog : listOfProducts.entrySet()) {
+            if (itemCatalog.getValue().getId() == product.getId()) {
+                return itemCatalog.getKey();
             }
         }
         return -1;
     }
 
-    private void editProdcut () {
-
+    // вернет -1, если нет продукта в списке или ID продукта в списке
+    private int getIdProduct(int idProduct) {
+        for (Map.Entry<Integer, Product> itemCatalog : listOfProducts.entrySet()) {
+            if (itemCatalog.getValue().getId() == idProduct) {
+                return itemCatalog.getKey();
+            }
+        }
+        return -1;
     }
-
 }

@@ -107,6 +107,37 @@ public class Menu {
     }
 
     private void editUserProduct() {
+        int id;
+        String newName = "";
+        int newPrice;
+//        boolean isIdFound = false;
+
+        System.out.println("Введите \"ID\" продукта");
+        inputUserItemMenu = readerDataFromConsole.readString();
+        while (!readerDataFromConsole.isNumeric(inputUserItemMenu)) {
+            System.out.println("\n\"ID\" может быть только числом, введите число\n");
+            inputUserItemMenu = readerDataFromConsole.readString();
+
+        }
+        id = Integer.parseInt(inputUserItemMenu);
+
+        System.out.println("\nВведите \"Новое название\" продукта с ID = " + id);
+        inputUserItemMenu = readerDataFromConsole.readString();
+        while (inputUserItemMenu.length() < 2) {
+            System.out.println("\nНазвание продукта не может быть короче 2-х символов\n");
+            inputUserItemMenu = readerDataFromConsole.readString();
+        }
+        newName = inputUserItemMenu;
+
+        System.out.println("\nВведите \"Новую цену\" продукта с ID = " + id);
+        inputUserItemMenu = readerDataFromConsole.readString();
+        while (!readerDataFromConsole.isNumeric(inputUserItemMenu)) {
+            System.out.println("\n\"Новая цена\" может быть только числом, введите число\n");
+            inputUserItemMenu = readerDataFromConsole.readString();
+        }
+        newPrice = Integer.parseInt(inputUserItemMenu);
+
+        store.editProduct(id, newName, newPrice);
 
     }
 
@@ -129,6 +160,5 @@ public class Menu {
 
     private void showTitleEditUserProduct() {
         System.out.println("\nРедактирование продукта\n");
-
     }
 }
