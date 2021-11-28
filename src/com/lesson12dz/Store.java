@@ -41,13 +41,13 @@ public class Store {
         }
     }
 
-    public void editProduct(int idProduct, String newName, int newPrice) {
-        int idCatalog = getIdProduct(idProduct);
+    public void editProduct(Product newProduct) {
+        int idCatalog = getIdProduct(newProduct);
         if (idCatalog == -1) {
             System.out.println("\nПродукта с таким ID не существует");
         } else {
-            listOfProducts.put(idCatalog, new Product(idProduct, newName, newPrice));
-            System.out.println("\nДанные продукта с ID = " + idProduct + " успешно обновлены");
+            listOfProducts.put(idCatalog, newProduct);
+            System.out.println("\nДанные продукта с ID = " + newProduct.getId() + " успешно обновлены");
         }
     }
 

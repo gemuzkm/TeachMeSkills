@@ -137,13 +137,13 @@ public class Menu {
         }
         newPrice = Integer.parseInt(inputUserItemMenu);
 
-        store.editProduct(id, newName, newPrice);
+        store.editProduct(new Product(id, newName, newPrice));
 
     }
 
     private void showTitle() {
         System.out.println("Приложение магазин. Только базовые возможности. Тестируем :-)");
-        System.out.println("Для работы нужно ввести соотвествующее значение меню\n");
+        System.out.println("Для работы нужно ввести соотвествующее значение меню");
     }
 
     private void showTitleSortProductMenu() {
