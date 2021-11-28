@@ -1,47 +1,54 @@
 package com.lesson12dz;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Store {
-    private HashMap<Integer, Product> allProduct = new HashMap<>();
-    private int idAllProduct = 0;
+    private HashMap<Integer, Product> listOfProducts = new HashMap<>();
+    private int idListOfProducts = 0;
 
     public void addProduct(Product product) {
-        if (allProduct.size() == 0) {
-            allProduct.put(idAllProduct, product);
-            idAllProduct++;
+        if (listOfProducts.size() == 0) {
+            listOfProducts.put(idListOfProducts, product);
+            idListOfProducts++;
             System.out.println("Продукт добавлен успешно!");
         } else if (getIdProduct(product) == -1) {
-            allProduct.put(idAllProduct, product);
-            idAllProduct++;
+            listOfProducts.put(idListOfProducts, product);
+            idListOfProducts++;
             System.out.println("Продукт добавлен успешно!");
         } else {
             System.out.println("Продукт не добавлен! Товар с таким \"ID\" уже существует");
         }
     }
 
-    public HashMap<Integer, Product> getAllProduct() {
-        return allProduct;
+    public List<Product> getListOfProducts() {
+        ArrayList<Product> catalogProduct = new ArrayList<>();
+
+        for (Map.Entry<Integer, Product> item : listOfProducts.entrySet()) {
+            catalogProduct.add(item.getValue());
+        }
+        return catalogProduct;
     }
 
-    public void removeProduct(int IdProduct) {
-        if (allProduct.size() == 0) {
+    public void removeProduct(int idProduct) {
+        if (listOfProducts.size() == 0) {
             System.out.println("\nУдаление невозможно, каталог пуст");
-        } else if (getIdProduct(new Product(IdProduct, "0", 0)) == -1) {
-            System.out.println("\nУдаление невозможно, продукта с ID = " + IdProduct + " нет в каталоге");
+        } else if (getIdProduct(new Product(idProduct, "0", 0)) == -1) {
+            System.out.println("\nУдаление невозможно, продукта с ID = " + idProduct + " нет в каталоге");
+        } else if (true) {
+            int idRemoveCatalog = getIdProduct(new Product(idProduct, "0", 0));
+            listOfProducts.remove(idRemoveCatalog);
+            System.out.println("\nПродукт с ID = " + idProduct + " успешно удален из каталога");
         }
     }
 
     // вернет -1, если нет продукта в списке или ID продукта в списке
     private int getIdProduct(Product product) {
-        for (Map.Entry<Integer, Product> item : allProduct.entrySet()) {
+        for (Map.Entry<Integer, Product> item : listOfProducts.entrySet()) {
             if (item.getValue().getId() == product.getId()) {
                 return item.getKey();
             }
         }
         return -1;
     }
-
 
 }
