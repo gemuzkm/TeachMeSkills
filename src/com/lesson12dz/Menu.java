@@ -2,7 +2,6 @@ package com.lesson12dz;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class Menu {
     private ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
@@ -43,7 +42,6 @@ public class Menu {
             } else {
                 System.out.println("\nДанного меню не существует. Попробуйте еще раз.\n");
             }
-
         }
     }
 
@@ -55,53 +53,14 @@ public class Menu {
         inputUserItemMenu = readerDataFromConsole.readString();
 
         if (inputUserItemMenu.equals("1")) {
-            Comparator<Product> sortAscPrice = new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    if (o1.getPrice() > o2.getPrice()) {
-                        return 1;
-                    } else if (o1.getPrice() < o2.getPrice()) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                }
-            };
-
-            ArrayList<Product> list = store.getListOfProducts();
-            list.sort(sortAscPrice);
-
-            System.out.println("Выыод продуктов с сортировкой по цене (возрастание):");
-            for (Product item: list) {
-                System.out.println("Название продукта - " + item.getName() + "; Цена продукта - " + item.getPrice());
-            }
+            showTitleSortedProductByPriceAsc();
+            sortedProductByPriceAsc();
         } else if (inputUserItemMenu.equals("2")) {
-            Comparator<Product> sortDecPrice = new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    if (o1.getPrice() < o2.getPrice()) {
-                        return 1;
-                    } else if (o1.getPrice() > o2.getPrice()) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                }
-            };
-
-            ArrayList<Product> list = store.getListOfProducts();
-            list.sort(sortDecPrice);
-
-            for (Product item: list) {
-                System.out.println("Название продукта - " + item.getName() + "; Цена продукта - " + item.getPrice());
-            }
-
+            showTitleSortedProductByPriceDesc();
+            sortedProductByPriceDesc();
         } else if (inputUserItemMenu.equals("3")) {
-            ArrayList<Product> list = store.getListOfProducts();
-            System.out.println("Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)");
-            for (int i = list.size() - 1; i >= 0 ; i--) {
-                System.out.println("Название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
-            }
+            showTitleOutputOrderPriority();
+            outputOrderPriority();
         }
     }
 
@@ -138,7 +97,7 @@ public class Menu {
     }
 
     private void dellUserProduct() {
-        int id;
+        int idDellProduct;
 
         System.out.println("Введите \"ID\" продукта");
         inputUserItemMenu = readerDataFromConsole.readString();
@@ -146,9 +105,9 @@ public class Menu {
             System.out.println("\n\"ID\" может быть только числом, введите число\n");
             inputUserItemMenu = readerDataFromConsole.readString();
         }
-        id = Integer.parseInt(inputUserItemMenu);
+        idDellProduct = Integer.parseInt(inputUserItemMenu);
 
-        store.removeProduct(id);
+        store.removeProduct(idDellProduct);
     }
 
     private void editUserProduct() {
@@ -161,7 +120,6 @@ public class Menu {
         while (!readerDataFromConsole.isNumeric(inputUserItemMenu)) {
             System.out.println("\n\"ID\" может быть только числом, введите число\n");
             inputUserItemMenu = readerDataFromConsole.readString();
-
         }
         id = Integer.parseInt(inputUserItemMenu);
 
@@ -184,6 +142,71 @@ public class Menu {
         store.editProduct(new Product(id, newName, newPrice));
     }
 
+    private void sortedProductByPriceAsc() {
+        ArrayList<Product> list = store.getMapCatalogProducts();
+
+        if (list.size() == 0) {
+            System.out.println("Каталог продуктов пуст");
+        } else {
+            Comparator<Product> sortedProductByPriceAsc = new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    if (o1.getPrice() > o2.getPrice()) {
+                        return 1;
+                    } else if (o1.getPrice() < o2.getPrice()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            };
+
+            list.sort(sortedProductByPriceAsc);
+
+            for (Product itemProduct : list) {
+                System.out.println("Название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
+            }
+        }
+    }
+
+    private void sortedProductByPriceDesc() {
+        ArrayList<Product> list = store.getMapCatalogProducts();
+
+        if (list.size() == 0) {
+            System.out.println("Каталог продуктов пуст");
+        } else {
+            Comparator<Product> sortedProductByPriceDesc = new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    if (o1.getPrice() < o2.getPrice()) {
+                        return 1;
+                    } else if (o1.getPrice() > o2.getPrice()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            };
+
+            list.sort(sortedProductByPriceDesc);
+
+            for (Product itemProduct : list) {
+                System.out.println("Название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
+            }
+        }
+    }
+
+    private void outputOrderPriority() {
+        ArrayList<Product> list = store.getMapCatalogProducts();
+        if (list.size() == 0) {
+            System.out.println("Каталог продуктов пуст");
+        } else {
+            for (int i = list.size() - 1; i >= 0; i--) {
+                System.out.println("Название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
+            }
+        }
+    }
+
     private void showTitle() {
         System.out.println("Приложение магазин. Только базовые возможности. Тестируем :-)");
         System.out.println("Для работы нужно ввести соотвествующее значение меню");
@@ -203,5 +226,17 @@ public class Menu {
 
     private void showTitleEditUserProduct() {
         System.out.println("\nРедактирование продукта\n");
+    }
+
+    private void showTitleSortedProductByPriceAsc() {
+        System.out.println("Выыод продуктов с сортировкой по цене (возрастание):");
+    }
+
+    private void showTitleSortedProductByPriceDesc() {
+        System.out.println("Вывод продуктов с сортировкой по цене (убывание):");
+    }
+
+    private void showTitleOutputOrderPriority() {
+        System.out.println("Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)");
     }
 }

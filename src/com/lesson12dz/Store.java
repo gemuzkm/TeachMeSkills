@@ -3,69 +3,69 @@ package com.lesson12dz;
 import java.util.*;
 
 public class Store {
-    private HashMap<Integer, Product> listOfProducts = new HashMap<>();
-    private int idListOfProducts = 0;
+    private HashMap<Integer, Product> mapCatalogProducts = new HashMap<>();
+    private int idMapProduct = 0;
 
     public void addProduct(Product product) {
-        if (listOfProducts.size() == 0) {
-            listOfProducts.put(idListOfProducts, product);
-            idListOfProducts++;
+        if (mapCatalogProducts.size() == 0) {
+            mapCatalogProducts.put(idMapProduct, product);
+            idMapProduct++;
             System.out.println("Продукт добавлен успешно!");
         } else if (getIdProduct(product) == -1) {
-            listOfProducts.put(idListOfProducts, product);
-            idListOfProducts++;
+            mapCatalogProducts.put(idMapProduct, product);
+            idMapProduct++;
             System.out.println("Продукт добавлен успешно!");
         } else {
             System.out.println("Продукт не добавлен! Товар с таким \"ID\" уже существует");
         }
     }
 
-    public ArrayList<Product> getListOfProducts() {
-        ArrayList<Product> catalogProduct = new ArrayList<>();
+    public ArrayList<Product> getMapCatalogProducts() {
+        ArrayList<Product> listCatalogProduct = new ArrayList<>();
 
-        for (Map.Entry<Integer, Product> item : listOfProducts.entrySet()) {
-            catalogProduct.add(item.getValue());
+        for (Map.Entry<Integer, Product> item : mapCatalogProducts.entrySet()) {
+            listCatalogProduct.add(item.getValue());
         }
-        return catalogProduct;
+        return listCatalogProduct;
     }
 
     public void removeProduct(int idProduct) {
-        if (listOfProducts.size() == 0) {
+        if (mapCatalogProducts.size() == 0) {
             System.out.println("\nУдаление невозможно, каталог пуст");
         } else if (getIdProduct(idProduct) == -1) {
             System.out.println("\nУдаление невозможно, продукта с ID = " + idProduct + " нет в каталоге");
         } else if (true) {
-            int idRemoveCatalog = getIdProduct(idProduct);
-            listOfProducts.remove(idRemoveCatalog);
+            int idRemoveCatalogProduct = getIdProduct(idProduct);
+            mapCatalogProducts.remove(idRemoveCatalogProduct);
             System.out.println("\nПродукт с ID = " + idProduct + " успешно удален из каталога");
         }
     }
 
     public void editProduct(Product newProduct) {
-        int idCatalog = getIdProduct(newProduct);
-        if (idCatalog == -1) {
+        int idCatalogProduct = getIdProduct(newProduct);
+        if (idCatalogProduct == -1) {
             System.out.println("\nПродукта с таким ID не существует");
         } else {
-            listOfProducts.put(idCatalog, newProduct);
+            mapCatalogProducts.put(idCatalogProduct, newProduct);
             System.out.println("\nДанные продукта с ID = " + newProduct.getId() + " успешно обновлены");
         }
     }
 
-    // вернет -1, если нет продукта в списке или ID продукта в списке
+    // вернет -1, если нет продукта в списке или нет ID продукта в списке
     private int getIdProduct(Product product) {
-        for (Map.Entry<Integer, Product> itemCatalog : listOfProducts.entrySet()) {
-            if (itemCatalog.getValue().getId() == product.getId()) {
-                return itemCatalog.getKey();
+        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
+            if (itemCatalogProduct.getValue().getId() == product.getId()) {
+                return itemCatalogProduct.getKey();
             }
         }
         return -1;
     }
 
-    // вернет -1, если нет продукта в списке или ID продукта в списке
+    // вернет -1, если нет продукта в списке или нет ID продукта в списке
     private int getIdProduct(int idProduct) {
-        for (Map.Entry<Integer, Product> itemCatalog : listOfProducts.entrySet()) {
-            if (itemCatalog.getValue().getId() == idProduct) {
-                return itemCatalog.getKey();
+        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
+            if (itemCatalogProduct.getValue().getId() == idProduct) {
+                return itemCatalogProduct.getKey();
             }
         }
         return -1;
