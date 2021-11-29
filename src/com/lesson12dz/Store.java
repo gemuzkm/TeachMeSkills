@@ -8,7 +8,6 @@ public class Store {
     private int idMapProduct = 0;
     private String inputUserItemMenu = "";
 
-
     public void addProduct(Product product) {
         if (mapCatalogProducts.size() == 0) {
             mapCatalogProducts.put(idMapProduct, product);
@@ -72,25 +71,6 @@ public class Store {
             }
         }
         return -1;
-    }
-
-    public void showSortProductMenu() {
-        System.out.println("1 - Выыод продуктов с сортировкой по цене (возрастание)");
-        System.out.println("2 - Вывод продуктов с сортировкой по цене (убывание)");
-        System.out.println("3 - Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)\n");
-
-        inputUserItemMenu = readerDataFromConsole.readString();
-
-        if (inputUserItemMenu.equals("1")) {
-            showTitleSortedProductByPriceAsc();
-            sortedProductByPriceAsc();
-        } else if (inputUserItemMenu.equals("2")) {
-            showTitleSortedProductByPriceDesc();
-            sortedProductByPriceDesc();
-        } else if (inputUserItemMenu.equals("3")) {
-            showTitleOutputOrderPriority();
-            outputOrderPriority();
-        }
     }
 
     public void addUserProduct() {
@@ -231,20 +211,8 @@ public class Store {
             System.out.println("Каталог продуктов пуст");
         } else {
             for (int i = list.size() - 1; i >= 0; i--) {
-                System.out.println( "ID продукта - " + list.get(i).getId() + "; Название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
+                System.out.println("ID продукта - " + list.get(i).getId() + "; Название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
             }
         }
-    }
-
-    private void showTitleSortedProductByPriceAsc() {
-        System.out.println("Выыод продуктов с сортировкой по цене (возрастание):");
-    }
-
-    private void showTitleSortedProductByPriceDesc() {
-        System.out.println("Вывод продуктов с сортировкой по цене (убывание):");
-    }
-
-    private void showTitleOutputOrderPriority() {
-        System.out.println("Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)");
     }
 }

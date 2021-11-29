@@ -1,8 +1,5 @@
 package com.lesson12dz;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-
 public class Menu {
     private ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
     private Store store = new Store();
@@ -25,7 +22,7 @@ public class Menu {
 
             if (inputUserItemMenu.equals("1")) {
                 showTitleSortProductMenu();
-                store.showSortProductMenu();
+                showSortProductMenu();
             } else if (inputUserItemMenu.equals("2")) {
                 showTitleAddUserProduct();
                 store.addUserProduct();
@@ -42,6 +39,25 @@ public class Menu {
             } else {
                 System.out.println("\nДанного меню не существует. Попробуйте еще раз.\n");
             }
+        }
+    }
+
+    public void showSortProductMenu() {
+        System.out.println("1 - Выыод продуктов с сортировкой по цене (возрастание)");
+        System.out.println("2 - Вывод продуктов с сортировкой по цене (убывание)");
+        System.out.println("3 - Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)\n");
+
+        inputUserItemMenu = readerDataFromConsole.readString();
+
+        if (inputUserItemMenu.equals("1")) {
+            showTitleSortedProductByPriceAsc();
+            store.sortedProductByPriceAsc();
+        } else if (inputUserItemMenu.equals("2")) {
+            showTitleSortedProductByPriceDesc();
+            store.sortedProductByPriceDesc();
+        } else if (inputUserItemMenu.equals("3")) {
+            showTitleOutputOrderPriority();
+            store.outputOrderPriority();
         }
     }
 
@@ -66,4 +82,15 @@ public class Menu {
         System.out.println("\nРедактирование продукта\n");
     }
 
+    private void showTitleSortedProductByPriceAsc() {
+        System.out.println("Выыод продуктов с сортировкой по цене (возрастание):");
+    }
+
+    private void showTitleSortedProductByPriceDesc() {
+        System.out.println("Вывод продуктов с сортировкой по цене (убывание):");
+    }
+
+    private void showTitleOutputOrderPriority() {
+        System.out.println("Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)");
+    }
 }
