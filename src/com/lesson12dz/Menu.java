@@ -164,7 +164,7 @@ public class Menu {
             list.sort(sortedProductByPriceAsc);
 
             for (Product itemProduct : list) {
-                System.out.println("Название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
+                System.out.println("ID продукта - " + itemProduct.getId() + "; название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
             }
         }
     }
@@ -191,7 +191,7 @@ public class Menu {
             list.sort(sortedProductByPriceDesc);
 
             for (Product itemProduct : list) {
-                System.out.println("Название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
+                System.out.println("ID продукта - " + itemProduct.getId() + "; название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
             }
         }
     }
@@ -202,7 +202,7 @@ public class Menu {
             System.out.println("Каталог продуктов пуст");
         } else {
             for (int i = list.size() - 1; i >= 0; i--) {
-                System.out.println("Название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
+                System.out.println( "ID продукта - " + list.get(i).getId() + "; название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
             }
         }
     }
