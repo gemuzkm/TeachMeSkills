@@ -14,5 +14,7 @@ public class Study3 {
 
         MyInterface myInterface2 = Integer::max;
         System.out.println(myInterface2.action(5, 6));
+
+
     }
 }

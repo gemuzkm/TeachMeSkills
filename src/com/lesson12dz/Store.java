@@ -48,6 +48,8 @@ public class Store {
         if (idCatalogProduct == -1) {
             System.out.println("\nПродукта с таким ID не существует");
         } else {
+            // установка даты добавления, дата обновления - осталась датой созаднии переданного объекта
+            newProduct.setAddData(mapCatalogProducts.get(idCatalogProduct).getAddData());
             mapCatalogProducts.put(idCatalogProduct, newProduct);
             System.out.println("\nДанные продукта с ID = " + newProduct.getId() + " успешно обновлены");
         }
@@ -157,23 +159,24 @@ public class Store {
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            Comparator<Product> sortedProductByPriceAsc = new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    if (o1.getPrice() > o2.getPrice()) {
-                        return 1;
-                    } else if (o1.getPrice() < o2.getPrice()) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
+            Comparator<Product> sortedProductByPriceAsc = (o1, o2) -> {
+                if (o1.getPrice() > o2.getPrice()) {
+                    return 1;
+                } else if (o1.getPrice() < o2.getPrice()) {
+                    return -1;
+                } else {
+                    return 0;
                 }
             };
 
             list.sort(sortedProductByPriceAsc);
 
             for (Product itemProduct : list) {
-                System.out.println("ID продукта - " + itemProduct.getId() + "; Название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
+                System.out.println("ID продукта - " + itemProduct.getId() +
+                        "; Название продукта - " + itemProduct.getName() +
+                        "; Цена продукта - " + itemProduct.getPrice() +
+                        "; Дата добавление продкта - " + itemProduct.getAddData() +
+                        "; Дата обновления товара - " + itemProduct.getUpdData());
             }
         }
     }
@@ -184,23 +187,25 @@ public class Store {
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            Comparator<Product> sortedProductByPriceDesc = new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    if (o1.getPrice() < o2.getPrice()) {
-                        return 1;
-                    } else if (o1.getPrice() > o2.getPrice()) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
+            Comparator<Product> sortedProductByPriceDesc = (o1, o2) -> {
+                if (o1.getPrice() < o2.getPrice()) {
+                    return 1;
+                } else if (o1.getPrice() > o2.getPrice()) {
+                    return -1;
+                } else {
+                    return 0;
                 }
             };
 
             list.sort(sortedProductByPriceDesc);
 
             for (Product itemProduct : list) {
-                System.out.println("ID продукта - " + itemProduct.getId() + "; Название продукта - " + itemProduct.getName() + "; Цена продукта - " + itemProduct.getPrice());
+                System.out.println("ID продукта - " + itemProduct.getId() +
+                        "; Название продукта - " + itemProduct.getName() +
+                        "; Цена продукта - " + itemProduct.getPrice() +
+                        "; Дата добавление продукта - " + itemProduct.getAddData() +
+                        "; Дата обновление продукта - " + itemProduct.getUpdData()
+                );
             }
         }
     }
@@ -211,7 +216,11 @@ public class Store {
             System.out.println("Каталог продуктов пуст");
         } else {
             for (int i = list.size() - 1; i >= 0; i--) {
-                System.out.println("ID продукта - " + list.get(i).getId() + "; Название продукта - " + list.get(i).getName() + "; Цена продукта - " + list.get(i).getPrice());
+                System.out.println("ID продукта - " + list.get(i).getId() +
+                        "; Название продукта - " + list.get(i).getName() +
+                        "; Цена продукта - " + list.get(i).getPrice() +
+                        "; Дата доваления продукта - " + list.get(i).getAddData() +
+                        "; Дата обновления продукта - " + list.get(i).getUpdData());
             }
         }
     }
