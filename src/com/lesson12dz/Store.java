@@ -48,8 +48,9 @@ public class Store {
         if (idCatalogProduct == -1) {
             System.out.println("\nПродукта с таким ID не существует");
         } else {
-            // установка даты добавления, дата обновления - осталась датой созаднии переданного объекта
-            newProduct.setAddData(mapCatalogProducts.get(idCatalogProduct).getAddData());
+            // заменяется новый объетом, но дата добвления установливается старого объекта
+            newProduct.setAddDate(mapCatalogProducts.get(idCatalogProduct).getAddDate());
+            // замена объекта на новый, где дата добавления сохранена
             mapCatalogProducts.put(idCatalogProduct, newProduct);
             System.out.println("\nДанные продукта с ID = " + newProduct.getId() + " успешно обновлены");
         }
@@ -175,8 +176,8 @@ public class Store {
                 System.out.println("ID продукта - " + itemProduct.getId() +
                         "; Название продукта - " + itemProduct.getName() +
                         "; Цена продукта - " + itemProduct.getPrice() +
-                        "; Дата добавление продкта - " + itemProduct.getAddData() +
-                        "; Дата обновления товара - " + itemProduct.getUpdData());
+                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
+                        "; Дата обновления товара - " + itemProduct.getUpdDate());
             }
         }
     }
@@ -203,8 +204,8 @@ public class Store {
                 System.out.println("ID продукта - " + itemProduct.getId() +
                         "; Название продукта - " + itemProduct.getName() +
                         "; Цена продукта - " + itemProduct.getPrice() +
-                        "; Дата добавление продукта - " + itemProduct.getAddData() +
-                        "; Дата обновление продукта - " + itemProduct.getUpdData()
+                        "; Дата добавление продукта - " + itemProduct.getAddDate() +
+                        "; Дата обновление продукта - " + itemProduct.getUpdDate()
                 );
             }
         }
@@ -219,8 +220,8 @@ public class Store {
                 System.out.println("ID продукта - " + list.get(i).getId() +
                         "; Название продукта - " + list.get(i).getName() +
                         "; Цена продукта - " + list.get(i).getPrice() +
-                        "; Дата доваления продукта - " + list.get(i).getAddData() +
-                        "; Дата обновления продукта - " + list.get(i).getUpdData());
+                        "; Дата доваления продукта - " + list.get(i).getAddDate() +
+                        "; Дата обновления продукта - " + list.get(i).getUpdDate());
             }
         }
     }

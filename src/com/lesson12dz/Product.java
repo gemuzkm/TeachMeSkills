@@ -6,23 +6,23 @@ public class Product {
     private int id;
     private String name;
     private int price;
-    private LocalDateTime addData;
-    private LocalDateTime updData;
+    private LocalDateTime addDate;
+    private LocalDateTime updDate;
 
     public Product(int id, String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
-        addData = LocalDateTime.now();
-        updData = LocalDateTime.now();
+        addDate = LocalDateTime.now();
+        updDate = LocalDateTime.now();
     }
 
-    public Product(int id, String name, int price, LocalDateTime addData, LocalDateTime updData) {
+    public Product(int id, String name, int price, LocalDateTime addDate, LocalDateTime updDate) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.addData = addData;
-        this.updData = updData;
+        this.addDate = addDate;
+        this.updDate = updDate;
     }
 
     public int getId() {
@@ -49,19 +49,19 @@ public class Product {
         this.price = price;
     }
 
-    public LocalDateTime getAddData() {
-        return addData;
+    public LocalDateTime getAddDate() {
+        return addDate;
     }
 
-    public void setAddData(LocalDateTime addData) {
-        this.addData = addData;
+    public void setAddDate(LocalDateTime addDate) {
+        this.addDate = addDate;
     }
 
-    public LocalDateTime getUpdData() {
-        return updData;
+    public LocalDateTime getUpdDate() {
+        return updDate;
     }
 
-    public void setUpdData(LocalDateTime updData) {
-        this.updData = updData;
+    public void setUpdDate(LocalDateTime updDate) {
+        this.updDate = updDate;
     }
 }
