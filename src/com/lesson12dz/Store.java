@@ -211,6 +211,14 @@ public class Store {
         }
     }
 
+    public void SortedProductByDateAddAsc() {
+
+    }
+
+    public void SortedProductByDateAddDesc() {
+
+    }
+
     public void outputOrderPriority() {
         ArrayList<Product> list = getMapCatalogProducts();
         if (list.size() == 0) {

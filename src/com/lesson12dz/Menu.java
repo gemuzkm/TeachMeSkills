@@ -46,6 +46,8 @@ public class Menu {
         System.out.println("1 - Выыод продуктов с сортировкой по цене (возрастание)");
         System.out.println("2 - Вывод продуктов с сортировкой по цене (убывание)");
         System.out.println("3 - Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)\n");
+        System.out.println("4 - Вывод продуктов с сортировкой по времени добавлению (сначала новые, потом старые)\n");
+        System.out.println("5 - Вывод продуктов с сортировкой по времени добавлению (сначала старый, потом новые)\n");
 
         inputUserItemMenu = readerDataFromConsole.readString();
 
@@ -58,6 +60,12 @@ public class Menu {
         } else if (inputUserItemMenu.equals("3")) {
             showTitleOutputOrderPriority();
             store.outputOrderPriority();
+        } else if (inputUserItemMenu.equals("4")) {
+            showTitleSortedProductByDateAddAsc();
+            store.SortedProductByDateAddAsc();
+        } else if (inputUserItemMenu.equals("5")) {
+            showTitleSortedProductByDateAddDesc();
+            store.SortedProductByDateAddDesc();
         }
     }
 
@@ -92,5 +100,13 @@ public class Menu {
 
     private void showTitleOutputOrderPriority() {
         System.out.println("Вывод продуктов с сортировкой по добавлению (сначала новые, потом более старые)");
+    }
+
+    private void showTitleSortedProductByDateAddAsc() {
+        System.out.println("Вывод продуктов с сортировкой по времени добавлению (сначала новые, потом старые)");
+    }
+
+    private void showTitleSortedProductByDateAddDesc() {
+        System.out.println("Вывод продуктов с сортировкой по времени добавлению (сначала старый, потом новые)");
     }
 }
