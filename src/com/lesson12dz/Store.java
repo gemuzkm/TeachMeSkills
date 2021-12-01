@@ -1,5 +1,10 @@
 package com.lesson12dz;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.*;
 
 public class Store {
@@ -160,17 +165,20 @@ public class Store {
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            Comparator<Product> sortedProductByPriceAsc = (o1, o2) -> {
-                if (o1.getPrice() > o2.getPrice()) {
-                    return 1;
-                } else if (o1.getPrice() < o2.getPrice()) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            };
+//            Comparator<Product> sortedProductByPriceAsc = (o1, o2) -> {
+//                if (o1.getPrice() > o2.getPrice()) {
+//                    return 1;
+//                } else if (o1.getPrice() < o2.getPrice()) {
+//                    return -1;
+//                } else {
+//                    return 0;
+//                }
+//            };
+//
+//            list.sort(sortedProductByPriceAsc);
+//            list.sort(((o1, o2) -> o1.getPrice() - o2.getPrice()));
 
-            list.sort(sortedProductByPriceAsc);
+            list.sort((o1, o2) -> Integer.compare(o1.getPrice(), o2.getPrice()));
 
             for (Product itemProduct : list) {
                 System.out.println("ID продукта - " + itemProduct.getId() +
@@ -188,17 +196,20 @@ public class Store {
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            Comparator<Product> sortedProductByPriceDesc = (o1, o2) -> {
-                if (o1.getPrice() < o2.getPrice()) {
-                    return 1;
-                } else if (o1.getPrice() > o2.getPrice()) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            };
+//            Comparator<Product> sortedProductByPriceDesc = (o1, o2) -> {
+//                if (o1.getPrice() < o2.getPrice()) {
+//                    return 1;
+//                } else if (o1.getPrice() > o2.getPrice()) {
+//                    return -1;
+//                } else {
+//                    return 0;
+//                }
+//            };
+//            list.sort(sortedProductByPriceDesc);
 
-            list.sort(sortedProductByPriceDesc);
+//            list.sort(((o1, o2) -> o2.getPrice() - o1.getPrice()));
+
+            list.sort((o1,o2) -> Integer.compare((o2.getPrice()), o1.getPrice()));
 
             for (Product itemProduct : list) {
                 System.out.println("ID продукта - " + itemProduct.getId() +
@@ -212,11 +223,39 @@ public class Store {
     }
 
     public void SortedProductByDateAddAsc() {
+        ArrayList<Product> list = getMapCatalogProducts();
+        if (list.size() == 0) {
+            System.out.println("Каталог продуктов пуст");
+        } else {
 
+            list.sort(((o1, o2) -> o2.getAddDate().compareTo(o1.getAddDate())));
+
+            for (Product itemProduct : list) {
+                System.out.println("ID продукта - " + itemProduct.getId() +
+                        "; Название продукта - " + itemProduct.getName() +
+                        "; Цена продукта - " + itemProduct.getPrice() +
+                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
+                        "; Дата обновления товара - " + itemProduct.getUpdDate());
+            }
+        }
     }
 
     public void SortedProductByDateAddDesc() {
+        ArrayList<Product> list = getMapCatalogProducts();
+        if (list.size() == 0) {
+            System.out.println("Каталог продуктов пуст");
+        } else {
 
+            list.sort((o1, o2) -> o1.getAddDate().compareTo(o2.getAddDate()));
+
+            for (Product itemProduct : list) {
+                System.out.println("ID продукта - " + itemProduct.getId() +
+                        "; Название продукта - " + itemProduct.getName() +
+                        "; Цена продукта - " + itemProduct.getPrice() +
+                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
+                        "; Дата обновления товара - " + itemProduct.getUpdDate());
+            }
+        }
     }
 
     public void outputOrderPriority() {

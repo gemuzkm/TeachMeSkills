@@ -12,7 +12,7 @@ public class Study3 {
             }
         };
 
-        MyInterface myInterface2 = Integer::max;
+        MyInterface myInterface2 = Integer::compare;
         System.out.println(myInterface2.action(5, 6));
 
 
