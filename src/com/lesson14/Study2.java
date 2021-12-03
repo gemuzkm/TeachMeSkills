@@ -2,6 +2,7 @@ package com.lesson14;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Study2 {
@@ -47,7 +48,13 @@ public class Study2 {
                 .count();
         System.out.println(count);
 
+        Optional<Integer> min = list.stream()
+                .filter(value -> value % 2 == 0)
+                .min(Integer::compareTo);
 
+        min.ifPresent(System.out::println);
 
+        list.stream()
+                .forEach(value -> System.out.println(value));
     }
 }
