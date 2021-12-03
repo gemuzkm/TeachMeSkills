@@ -276,7 +276,7 @@ public class Store {
             System.out.println("Каталог продуктов пуст");
         } else {
 
-            //нагугленный метод, окаывается проще вывести в обратном порядке списко
+            //нагугленный метод, окаывается проще вывести в обратном порядке список
             ListIterator<Product> listIterator = list.listIterator(list.size());
             Stream.iterate(listIterator.previous(), i -> listIterator.previous()).limit(list.size())
                     .forEach(item -> System.out.println("ID продукта - " + item.getId() +
