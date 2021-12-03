@@ -1,11 +1,8 @@
 package com.lesson12dz;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Store {
     private HashMap<Integer, Product> mapCatalogProducts = new HashMap<>();
@@ -21,18 +18,21 @@ public class Store {
         } else if (getIdProduct(product) == -1) {
             mapCatalogProducts.put(idMapProduct, product);
             idMapProduct++;
-            System.out.println("Продукт добавлен успешно!");
+            System.out.println("\nПродукт добавлен успешно!");
         } else {
             System.out.println("Продукт не добавлен! Товар с таким \"ID\" уже существует");
         }
     }
 
-    public ArrayList<Product> getMapCatalogProducts() {
-        ArrayList<Product> listCatalogProduct = new ArrayList<>();
+    public List<Product> getMapCatalogProducts() {
+//       List<Product> listCatalogProduct;
+//        for (Map.Entry<Integer, Product> item : mapCatalogProducts.entrySet()) {
+//            listCatalogProduct.add(item.getValue());
+//        }
 
-        for (Map.Entry<Integer, Product> item : mapCatalogProducts.entrySet()) {
-            listCatalogProduct.add(item.getValue());
-        }
+        List<Product> listCatalogProduct = mapCatalogProducts.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
         return listCatalogProduct;
     }
 
@@ -160,116 +160,138 @@ public class Store {
     }
 
     public void sortedProductByPriceAsc() {
-        ArrayList<Product> list = getMapCatalogProducts();
+//        ArrayList<Product> list = getMapCatalogProducts();
+        List<Product> list = getMapCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-//            Comparator<Product> sortedProductByPriceAsc = (o1, o2) -> {
-//                if (o1.getPrice() > o2.getPrice()) {
-//                    return 1;
-//                } else if (o1.getPrice() < o2.getPrice()) {
-//                    return -1;
-//                } else {
-//                    return 0;
-//                }
-//            };
-//
-//            list.sort(sortedProductByPriceAsc);
-//            list.sort(((o1, o2) -> o1.getPrice() - o2.getPrice()));
+            list.stream()
+                    .sorted((Comparator.comparingInt(Product::getPrice)))
+                    .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
+                            "; Название продукта - " + itemProduct.getName() +
+                            "; Цена продукта - " + itemProduct.getPrice() +
+                            "; Дата добавление продкта - " + itemProduct.getAddDate() +
+                            "; Дата обновления товара - " + itemProduct.getUpdDate()));
 
-            list.sort((o1, o2) -> Integer.compare(o1.getPrice(), o2.getPrice()));
-
-            for (Product itemProduct : list) {
-                System.out.println("ID продукта - " + itemProduct.getId() +
-                        "; Название продукта - " + itemProduct.getName() +
-                        "; Цена продукта - " + itemProduct.getPrice() +
-                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
-                        "; Дата обновления товара - " + itemProduct.getUpdDate());
-            }
+//            list.sort((o1, o2) -> Integer.compare(o1.getPrice(), o2.getPrice()));
+//            for (Product itemProduct : list) {
+//                System.out.println("ID продукта - " + itemProduct.getId() +
+//                        "; Название продукта - " + itemProduct.getName() +
+//                        "; Цена продукта - " + itemProduct.getPrice() +
+//                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
+//                        "; Дата обновления товара - " + itemProduct.getUpdDate());
+//            }
         }
     }
 
     public void sortedProductByPriceDesc() {
-        ArrayList<Product> list = getMapCatalogProducts();
+//        ArrayList<Product> list = getMapCatalogProducts();
+        List<Product> list = getMapCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-//            Comparator<Product> sortedProductByPriceDesc = (o1, o2) -> {
-//                if (o1.getPrice() < o2.getPrice()) {
-//                    return 1;
-//                } else if (o1.getPrice() > o2.getPrice()) {
-//                    return -1;
-//                } else {
-//                    return 0;
-//                }
-//            };
-//            list.sort(sortedProductByPriceDesc);
+            list.stream()
+                    .sorted((o1, o2) -> Integer.compare((o2.getPrice()), o1.getPrice()))
+                    .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
+                            "; Название продукта - " + itemProduct.getName() +
+                            "; Цена продукта - " + itemProduct.getPrice() +
+                            "; Дата добавление продукта - " + itemProduct.getAddDate() +
+                            "; Дата обновление продукта - " + itemProduct.getUpdDate()));
 
-//            list.sort(((o1, o2) -> o2.getPrice() - o1.getPrice()));
-
-            list.sort((o1,o2) -> Integer.compare((o2.getPrice()), o1.getPrice()));
-
-            for (Product itemProduct : list) {
-                System.out.println("ID продукта - " + itemProduct.getId() +
-                        "; Название продукта - " + itemProduct.getName() +
-                        "; Цена продукта - " + itemProduct.getPrice() +
-                        "; Дата добавление продукта - " + itemProduct.getAddDate() +
-                        "; Дата обновление продукта - " + itemProduct.getUpdDate()
-                );
-            }
+//            list.sort((o1, o2) -> Integer.compare((o2.getPrice()), o1.getPrice()));
+//
+//            for (Product itemProduct : list) {
+//                System.out.println("ID продукта - " + itemProduct.getId() +
+//                        "; Название продукта - " + itemProduct.getName() +
+//                        "; Цена продукта - " + itemProduct.getPrice() +
+//                        "; Дата добавление продукта - " + itemProduct.getAddDate() +
+//                        "; Дата обновление продукта - " + itemProduct.getUpdDate()
+//                );
+//            }
         }
     }
 
     public void SortedProductByDateAddAsc() {
-        ArrayList<Product> list = getMapCatalogProducts();
+//        ArrayList<Product> list = getMapCatalogProducts();
+        List<Product> list = getMapCatalogProducts();
+
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
+            list.stream()
+                    .sorted(((o1, o2) -> o2.getAddDate().compareTo(o1.getAddDate())))
+                    .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
+                            "; Название продукта - " + itemProduct.getName() +
+                            "; Цена продукта - " + itemProduct.getPrice() +
+                            "; Дата добавление продкта - " + itemProduct.getAddDate() +
+                            "; Дата обновления товара - " + itemProduct.getUpdDate()));
 
-            list.sort(((o1, o2) -> o2.getAddDate().compareTo(o1.getAddDate())));
-
-            for (Product itemProduct : list) {
-                System.out.println("ID продукта - " + itemProduct.getId() +
-                        "; Название продукта - " + itemProduct.getName() +
-                        "; Цена продукта - " + itemProduct.getPrice() +
-                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
-                        "; Дата обновления товара - " + itemProduct.getUpdDate());
-            }
+//            list.sort(((o1, o2) -> o2.getAddDate().compareTo(o1.getAddDate())));
+//
+//            for (Product itemProduct : list) {
+//                System.out.println("ID продукта - " + itemProduct.getId() +
+//                        "; Название продукта - " + itemProduct.getName() +
+//                        "; Цена продукта - " + itemProduct.getPrice() +
+//                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
+//                        "; Дата обновления товара - " + itemProduct.getUpdDate());
+//            }
         }
     }
 
     public void SortedProductByDateAddDesc() {
-        ArrayList<Product> list = getMapCatalogProducts();
+//        ArrayList<Product> list = getMapCatalogProducts();
+        List<Product> list = getMapCatalogProducts();
+
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
 
-            list.sort((o1, o2) -> o1.getAddDate().compareTo(o2.getAddDate()));
+            list.stream()
+                    .sorted(Comparator.comparing(Product::getAddDate))
+                    .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
+                            "; Название продукта - " + itemProduct.getName() +
+                            "; Цена продукта - " + itemProduct.getPrice() +
+                            "; Дата добавление продкта - " + itemProduct.getAddDate() +
+                            "; Дата обновления товара - " + itemProduct.getUpdDate()));
 
-            for (Product itemProduct : list) {
-                System.out.println("ID продукта - " + itemProduct.getId() +
-                        "; Название продукта - " + itemProduct.getName() +
-                        "; Цена продукта - " + itemProduct.getPrice() +
-                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
-                        "; Дата обновления товара - " + itemProduct.getUpdDate());
-            }
+//            list.sort((o1, o2) -> o1.getAddDate().compareTo(o2.getAddDate()));
+//
+//            for (Product itemProduct : list) {
+//                System.out.println("ID продукта - " + itemProduct.getId() +
+//                        "; Название продукта - " + itemProduct.getName() +
+//                        "; Цена продукта - " + itemProduct.getPrice() +
+//                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
+//                        "; Дата обновления товара - " + itemProduct.getUpdDate());
+//            }
         }
     }
 
     public void outputOrderPriority() {
-        ArrayList<Product> list = getMapCatalogProducts();
+//        ArrayList<Product> list = getMapCatalogProducts();
+        List<Product> list = getMapCatalogProducts();
+
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            for (int i = list.size() - 1; i >= 0; i--) {
-                System.out.println("ID продукта - " + list.get(i).getId() +
-                        "; Название продукта - " + list.get(i).getName() +
-                        "; Цена продукта - " + list.get(i).getPrice() +
-                        "; Дата доваления продукта - " + list.get(i).getAddDate() +
-                        "; Дата обновления продукта - " + list.get(i).getUpdDate());
-            }
+
+            //нагугленный метод, окаывается проще вывести в обратном порядке списко
+            ListIterator<Product> listIterator = list.listIterator(list.size());
+            Stream.iterate(listIterator.previous(), i -> listIterator.previous()).limit(list.size())
+                    .forEach(item -> System.out.println("ID продукта - " + item.getId() +
+                            "; Название продукта - " + item.getName() +
+                            "; Цена продукта - " + item.getPrice() +
+                            "; Дата доваления продукта - " + item.getAddDate() +
+                            "; Дата обновления продукта - " + item.getUpdDate()));
+
+//            for (int i = list.size() - 1; i >= 0; i--) {
+//                System.out.println("ID продукта - " + list.get(i).getId() +
+//                        "; Название продукта - " + list.get(i).getName() +
+//                        "; Цена продукта - " + list.get(i).getPrice() +
+//                        "; Дата доваления продукта - " + list.get(i).getAddDate() +
+//                        "; Дата обновления продукта - " + list.get(i).getUpdDate());
+//            }
         }
     }
 }

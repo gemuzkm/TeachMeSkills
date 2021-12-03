@@ -1,9 +1,5 @@
 package com.lesson14dz;
 
-/*
-7) Обновить приложение Shop. Все возможные места поиска элементов, фильтрации и тд переделать со stream api
- */
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
