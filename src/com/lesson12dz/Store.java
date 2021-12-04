@@ -37,13 +37,13 @@ public class Store {
     }
 
     public void removeProduct(int idProduct) {
-        if (mapCatalogProducts.size() == 0) {
+        if (listCatalogProducts.size() == 0) {
             System.out.println("\nУдаление невозможно, каталог пуст");
         } else if (getIdProduct(idProduct) == -1) {
             System.out.println("\nУдаление невозможно, продукта с ID = " + idProduct + " нет в каталоге");
         } else if (true) {
             int idRemoveCatalogProduct = getIdProduct(idProduct);
-            mapCatalogProducts.remove(idRemoveCatalogProduct);
+            listCatalogProducts.remove(idRemoveCatalogProduct);
             System.out.println("\nПродукт с ID = " + idProduct + " успешно удален из каталога");
         }
     }
