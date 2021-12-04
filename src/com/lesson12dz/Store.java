@@ -47,10 +47,6 @@ public class Store {
         } else {
             newProduct.setAddDate(listCatalogProducts.get(idCatalogProduct).getAddDate());
             listCatalogProducts.set(idCatalogProduct, newProduct);
-//            // заменяется новый объетом, но дата добвления установливается старого объекта
-//            newProduct.setAddDate(mapCatalogProducts.get(idCatalogProduct).getAddDate());
-//            // замена объекта на новый, где дата добавления сохранена
-//            mapCatalogProducts.put(idCatalogProduct, newProduct);
             System.out.println("\nДанные продукта с ID = " + newProduct.getId() + " успешно обновлены");
         }
     }
@@ -154,28 +150,16 @@ public class Store {
     }
 
     public void sortedProductByPriceAsc() {
-//        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getCatalogProducts();
-
-        if (list.size() == 0) {
+        if (listCatalogProducts.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            list.stream()
+            listCatalogProducts.stream()
                     .sorted((Comparator.comparingInt(Product::getPrice)))
                     .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
                             "; Название продукта - " + itemProduct.getName() +
                             "; Цена продукта - " + itemProduct.getPrice() +
                             "; Дата добавление продкта - " + itemProduct.getAddDate() +
                             "; Дата обновления товара - " + itemProduct.getUpdDate()));
-
-//            list.sort((o1, o2) -> Integer.compare(o1.getPrice(), o2.getPrice()));
-//            for (Product itemProduct : list) {
-//                System.out.println("ID продукта - " + itemProduct.getId() +
-//                        "; Название продукта - " + itemProduct.getName() +
-//                        "; Цена продукта - " + itemProduct.getPrice() +
-//                        "; Дата добавление продкта - " + itemProduct.getAddDate() +
-//                        "; Дата обновления товара - " + itemProduct.getUpdDate());
-//            }
         }
     }
 
