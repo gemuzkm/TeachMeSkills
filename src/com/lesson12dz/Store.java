@@ -1,15 +1,10 @@
 package com.lesson12dz;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Store {
-    //!!!!!!!!!!УДАЛИТЬ MAP ПОСЛЕ ПЕРЕПИСЫВАНИЯ НА LIST!!!!!!!!!!!!!!!!!!!!!!
-    private HashMap<Integer, Product> mapCatalogProducts = new HashMap<>();
     private List<Product> listCatalogProducts = new ArrayList<>();
     private ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
-    private int idMapProduct = 0;
     private String inputUserItemMenu = "";
 
     public void addProduct(Product product) {
