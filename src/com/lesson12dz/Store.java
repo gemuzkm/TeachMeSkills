@@ -20,20 +20,20 @@ public class Store {
             listCatalogProducts.add(product);
             System.out.println("\nПродукт добавлен успешно!");
         } else {
-            System.out.println("Продукт не добавлен! Товар с таким \"ID\" уже существует");
+            System.out.println("\nПродукт не добавлен! Товар с таким \"ID\" уже существует");
         }
     }
 
-    public List<Product> getMapCatalogProducts() {
+    public List<Product> getCatalogProducts() {
 //       List<Product> listCatalogProduct;
 //        for (Map.Entry<Integer, Product> item : mapCatalogProducts.entrySet()) {
 //            listCatalogProduct.add(item.getValue());
 //        }
-
-        List<Product> listCatalogProduct = mapCatalogProducts.entrySet().stream()
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
-        return listCatalogProduct;
+//
+//        List<Product> listCatalogProduct = mapCatalogProducts.entrySet().stream()
+//                .map(Map.Entry::getValue)
+//                .collect(Collectors.toList());
+        return listCatalogProducts;
     }
 
     public void removeProduct(int idProduct) {
@@ -166,7 +166,7 @@ public class Store {
 
     public void sortedProductByPriceAsc() {
 //        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getMapCatalogProducts();
+        List<Product> list = getCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
@@ -192,7 +192,7 @@ public class Store {
 
     public void sortedProductByPriceDesc() {
 //        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getMapCatalogProducts();
+        List<Product> list = getCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
@@ -220,7 +220,7 @@ public class Store {
 
     public void SortedProductByDateAddAsc() {
 //        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getMapCatalogProducts();
+        List<Product> list = getCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
@@ -247,7 +247,7 @@ public class Store {
 
     public void SortedProductByDateAddDesc() {
 //        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getMapCatalogProducts();
+        List<Product> list = getCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
@@ -275,7 +275,7 @@ public class Store {
 
     public void outputOrderPriority() {
 //        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getMapCatalogProducts();
+        List<Product> list = getCatalogProducts();
 
         if (list.size() == 0) {
             System.out.println("Каталог продуктов пуст");
