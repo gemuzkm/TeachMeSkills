@@ -25,14 +25,6 @@ public class Store {
     }
 
     public List<Product> getCatalogProducts() {
-//       List<Product> listCatalogProduct;
-//        for (Map.Entry<Integer, Product> item : mapCatalogProducts.entrySet()) {
-//            listCatalogProduct.add(item.getValue());
-//        }
-//
-//        List<Product> listCatalogProduct = mapCatalogProducts.entrySet().stream()
-//                .map(Map.Entry::getValue)
-//                .collect(Collectors.toList());
         return listCatalogProducts;
     }
 
@@ -42,8 +34,10 @@ public class Store {
         } else if (getIdProduct(idProduct) == -1) {
             System.out.println("\nУдаление невозможно, продукта с ID = " + idProduct + " нет в каталоге");
         } else if (true) {
-            int idRemoveCatalogProduct = getIdProduct(idProduct);
-            listCatalogProducts.remove(idRemoveCatalogProduct);
+ //           int idRemoveCatalogProduct = getIdProduct(idProduct);
+            // удаление с применением lambda
+            listCatalogProducts.removeIf(item -> item.getId() == idProduct);
+//            listCatalogProducts.remove(idRemoveCatalogProduct);
             System.out.println("\nПродукт с ID = " + idProduct + " успешно удален из каталога");
         }
     }
@@ -68,11 +62,6 @@ public class Store {
                 return i;
             }
         }
-//        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
-//            if (itemCatalogProduct.getValue().getId() == product.getId()) {
-//                return itemCatalogProduct.getKey();
-//            }
-//        }
         return -1;
     }
 
@@ -83,11 +72,6 @@ public class Store {
                 return i;
             }
         }
-//        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
-//            if (itemCatalogProduct.getValue().getId() == idProduct) {
-//                return itemCatalogProduct.getKey();
-//            }
-//        }
         return -1;
     }
 
