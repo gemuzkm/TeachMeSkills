@@ -65,11 +65,16 @@ public class Store {
 
     // вернет -1, если нет продукта в списке или нет ID продукта в списке
     private int getIdProduct(Product product) {
-        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
-            if (itemCatalogProduct.getValue().getId() == product.getId()) {
-                return itemCatalogProduct.getKey();
+        for (int i = 0; i < listCatalogProducts.size(); i++) {
+            if (listCatalogProducts.get(i).getId() == product.getId()) {
+                return i;
             }
         }
+//        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
+//            if (itemCatalogProduct.getValue().getId() == product.getId()) {
+//                return itemCatalogProduct.getKey();
+//            }
+//        }
         return -1;
     }
 
