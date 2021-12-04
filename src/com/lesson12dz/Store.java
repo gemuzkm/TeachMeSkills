@@ -164,30 +164,16 @@ public class Store {
     }
 
     public void sortedProductByPriceDesc() {
-//        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getCatalogProducts();
-
-        if (list.size() == 0) {
+        if (listCatalogProducts.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            list.stream()
+            listCatalogProducts.stream()
                     .sorted((o1, o2) -> Integer.compare((o2.getPrice()), o1.getPrice()))
                     .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
                             "; Название продукта - " + itemProduct.getName() +
                             "; Цена продукта - " + itemProduct.getPrice() +
                             "; Дата добавление продукта - " + itemProduct.getAddDate() +
                             "; Дата обновление продукта - " + itemProduct.getUpdDate()));
-
-//            list.sort((o1, o2) -> Integer.compare((o2.getPrice()), o1.getPrice()));
-//
-//            for (Product itemProduct : list) {
-//                System.out.println("ID продукта - " + itemProduct.getId() +
-//                        "; Название продукта - " + itemProduct.getName() +
-//                        "; Цена продукта - " + itemProduct.getPrice() +
-//                        "; Дата добавление продукта - " + itemProduct.getAddDate() +
-//                        "; Дата обновление продукта - " + itemProduct.getUpdDate()
-//                );
-//            }
         }
     }
 
