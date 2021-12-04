@@ -34,10 +34,8 @@ public class Store {
         } else if (getIdProduct(idProduct) == -1) {
             System.out.println("\nУдаление невозможно, продукта с ID = " + idProduct + " нет в каталоге");
         } else if (true) {
- //           int idRemoveCatalogProduct = getIdProduct(idProduct);
-            // удаление с применением lambda
             listCatalogProducts.removeIf(item -> item.getId() == idProduct);
-//            listCatalogProducts.remove(idRemoveCatalogProduct);
+
             System.out.println("\nПродукт с ID = " + idProduct + " успешно удален из каталога");
         }
     }
@@ -47,10 +45,12 @@ public class Store {
         if (idCatalogProduct == -1) {
             System.out.println("\nПродукта с таким ID не существует");
         } else {
-            // заменяется новый объетом, но дата добвления установливается старого объекта
-            newProduct.setAddDate(mapCatalogProducts.get(idCatalogProduct).getAddDate());
-            // замена объекта на новый, где дата добавления сохранена
-            mapCatalogProducts.put(idCatalogProduct, newProduct);
+            newProduct.setAddDate(listCatalogProducts.get(idCatalogProduct).getAddDate());
+            listCatalogProducts.set(idCatalogProduct, newProduct);
+//            // заменяется новый объетом, но дата добвления установливается старого объекта
+//            newProduct.setAddDate(mapCatalogProducts.get(idCatalogProduct).getAddDate());
+//            // замена объекта на новый, где дата добавления сохранена
+//            mapCatalogProducts.put(idCatalogProduct, newProduct);
             System.out.println("\nДанные продукта с ID = " + newProduct.getId() + " успешно обновлены");
         }
     }
