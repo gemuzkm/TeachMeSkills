@@ -13,13 +13,11 @@ public class Store {
     private String inputUserItemMenu = "";
 
     public void addProduct(Product product) {
-        if (mapCatalogProducts.size() == 0) {
-            mapCatalogProducts.put(idMapProduct, product);
-            idMapProduct++;
+        if (listCatalogProducts.size() == 0) {
+            listCatalogProducts.add(product);
             System.out.println("Продукт добавлен успешно!");
         } else if (getIdProduct(product) == -1) {
-            mapCatalogProducts.put(idMapProduct, product);
-            idMapProduct++;
+            listCatalogProducts.add(product);
             System.out.println("\nПродукт добавлен успешно!");
         } else {
             System.out.println("Продукт не добавлен! Товар с таким \"ID\" уже существует");
