@@ -78,11 +78,16 @@ public class Store {
 
     // вернет -1, если нет продукта в списке или нет ID продукта в списке
     private int getIdProduct(int idProduct) {
-        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
-            if (itemCatalogProduct.getValue().getId() == idProduct) {
-                return itemCatalogProduct.getKey();
+        for (int i = 0; i < listCatalogProducts.size(); i++) {
+            if (listCatalogProducts.get(i).getId() == idProduct) {
+                return i;
             }
         }
+//        for (Map.Entry<Integer, Product> itemCatalogProduct : mapCatalogProducts.entrySet()) {
+//            if (itemCatalogProduct.getValue().getId() == idProduct) {
+//                return itemCatalogProduct.getKey();
+//            }
+//        }
         return -1;
     }
 
