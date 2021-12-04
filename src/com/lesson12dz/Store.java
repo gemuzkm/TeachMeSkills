@@ -195,7 +195,6 @@ public class Store {
         if (listCatalogProducts.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-
             listCatalogProducts.stream()
                     .sorted(Comparator.comparing(Product::getAddDate))
                     .forEach(itemProduct -> System.out.println("ID продукта - " + itemProduct.getId() +
@@ -207,21 +206,24 @@ public class Store {
     }
 
     public void outputOrderPriority() {
-//        ArrayList<Product> list = getMapCatalogProducts();
-        List<Product> list = getCatalogProducts();
-
-        if (list.size() == 0) {
+        if (listCatalogProducts.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-
-            //нагугленный метод, окаывается проще вывести в обратном порядке список
-            ListIterator<Product> listIterator = list.listIterator(list.size());
-            Stream.iterate(listIterator.previous(), i -> listIterator.previous()).limit(list.size())
-                    .forEach(item -> System.out.println("ID продукта - " + item.getId() +
-                            "; Название продукта - " + item.getName() +
-                            "; Цена продукта - " + item.getPrice() +
-                            "; Дата доваления продукта - " + item.getAddDate() +
-                            "; Дата обновления продукта - " + item.getUpdDate()));
+            for (int i = listCatalogProducts.size() - 1; i >= 0; i--) {
+                System.out.println("ID продукта - " + listCatalogProducts.get(i).getId() +
+                        "; Название продукта - " + listCatalogProducts.get(i).getName() +
+                        "; Цена продукта - " + listCatalogProducts.get(i).getPrice() +
+                        "; Дата доваления продукта - " + listCatalogProducts.get(i).getAddDate() +
+                        "; Дата обновления продукта - " + listCatalogProducts.get(i).getUpdDate());
+            }
+//            //нагугленный метод, окаывается проще вывести в обратном порядке список
+//            ListIterator<Product> listIterator = listCatalogProducts.listIterator(listCatalogProducts.size());
+//            Stream.iterate(listIterator.previous(), i -> listIterator.previous()).limit(listCatalogProducts.size())
+//                    .forEach(item -> System.out.println("ID продукта - " + item.getId() +
+//                            "; Название продукта - " + item.getName() +
+//                            "; Цена продукта - " + item.getPrice() +
+//                            "; Дата доваления продукта - " + item.getAddDate() +
+//                            "; Дата обновления продукта - " + item.getUpdDate()));
 
 //            for (int i = list.size() - 1; i >= 0; i--) {
 //                System.out.println("ID продукта - " + list.get(i).getId() +
