@@ -209,29 +209,15 @@ public class Store {
         if (listCatalogProducts.size() == 0) {
             System.out.println("Каталог продуктов пуст");
         } else {
-            for (int i = listCatalogProducts.size() - 1; i >= 0; i--) {
-                System.out.println("ID продукта - " + listCatalogProducts.get(i).getId() +
-                        "; Название продукта - " + listCatalogProducts.get(i).getName() +
-                        "; Цена продукта - " + listCatalogProducts.get(i).getPrice() +
-                        "; Дата доваления продукта - " + listCatalogProducts.get(i).getAddDate() +
-                        "; Дата обновления продукта - " + listCatalogProducts.get(i).getUpdDate());
-            }
-//            //нагугленный метод, окаывается проще вывести в обратном порядке список
-//            ListIterator<Product> listIterator = listCatalogProducts.listIterator(listCatalogProducts.size());
-//            Stream.iterate(listIterator.previous(), i -> listIterator.previous()).limit(listCatalogProducts.size())
-//                    .forEach(item -> System.out.println("ID продукта - " + item.getId() +
-//                            "; Название продукта - " + item.getName() +
-//                            "; Цена продукта - " + item.getPrice() +
-//                            "; Дата доваления продукта - " + item.getAddDate() +
-//                            "; Дата обновления продукта - " + item.getUpdDate()));
-
-//            for (int i = list.size() - 1; i >= 0; i--) {
-//                System.out.println("ID продукта - " + list.get(i).getId() +
-//                        "; Название продукта - " + list.get(i).getName() +
-//                        "; Цена продукта - " + list.get(i).getPrice() +
-//                        "; Дата доваления продукта - " + list.get(i).getAddDate() +
-//                        "; Дата обновления продукта - " + list.get(i).getUpdDate());
+            SortedProductByDateAddAsc();
+//            for (int i = listCatalogProducts.size() - 1; i >= 0; i--) {
+//                System.out.println("ID продукта - " + listCatalogProducts.get(i).getId() +
+//                        "; Название продукта - " + listCatalogProducts.get(i).getName() +
+//                        "; Цена продукта - " + listCatalogProducts.get(i).getPrice() +
+//                        "; Дата доваления продукта - " + listCatalogProducts.get(i).getAddDate() +
+//                        "; Дата обновления продукта - " + listCatalogProducts.get(i).getUpdDate());
 //            }
+
         }
     }
 }
