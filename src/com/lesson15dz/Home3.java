@@ -14,27 +14,22 @@ public class Home3 {
     public static void main(String[] args) {
         List<String> listLine = new ArrayList<>();
 
-        listLine.add("aaaaaaaaaaaaa asd as dasdasdasd1. asdasdasd  asd a sd a sd a sd a s d as d as dasdasdasd2. bbbbbbbbbb asd as dasdasdasd3.");
+        listLine.add("NachaloTesta1 asd as conecPred1. NachaloPredoj2  asd a sd a sd a sd a s d as d as conecPred2. NachaloPredoj3 asd as conecPred3.");
 
-
-        Pattern patternFirst = Pattern.compile("^\\S+\\s");
-        Pattern patternFirst2 = Pattern.compile("\\.");
-        Pattern patternLast = Pattern.compile("\\s\\S+\\.");
+        Pattern patternFirst = Pattern.compile("((^\\S+\\s)|(\\.\\s\\S+\\s))");
+        Pattern patternLast = Pattern.compile("\\S+\\.");
 
         for (String itemLine: listLine) {
-            Matcher matcherLine1 = patternFirst.matcher(itemLine.trim());
-            while (matcherLine1.find()) {
-                System.out.println(matcherLine1.group());
+            System.out.println("Первый слова предложений:");
+            Matcher matcherLine = patternFirst.matcher(itemLine.trim());
+            while (matcherLine.find()) {
+                System.out.println(matcherLine.group().replace(".", "").trim());
             }
 
-            Matcher matcherLine2 = patternFirst2.matcher(itemLine.trim());
-            while (matcherLine2.find()) {
-                System.out.println(matcherLine2.group());
-            }
-
-            Matcher matcherLast = patternLast.matcher(itemLine.trim());
+            System.out.println("\nПосделние слова предложений:");
+            Matcher matcherLast = patternLast.matcher(itemLine);
             while (matcherLast.find()) {
-                System.out.println(matcherLast.group().trim().replace(".",""));
+                System.out.println(matcherLast.group().replace(".",""));
             }
         }
     }
