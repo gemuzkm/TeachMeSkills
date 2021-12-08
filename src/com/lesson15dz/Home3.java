@@ -14,19 +14,28 @@ public class Home3 {
     public static void main(String[] args) {
         List<String> listLine = new ArrayList<>();
 
-        listLine.add("asdasdasd asd as dasdasdasd. asdasdasd  asd a sd a sd a sd a s d as d as dasdasdasd. asdasdasd asd as dasdasdasd.");
+        listLine.add("aaaaaaaaaaaaa asd as dasdasdasd1. asdasdasd  asd a sd a sd a sd a s d as d as dasdasdasd2. bbbbbbbbbb asd as dasdasdasd3.");
 
 
-        Pattern patternFirst = Pattern.compile("");
-        Pattern patternLast = Pattern.compile("");
+        Pattern patternFirst = Pattern.compile("^\\S+\\s");
+        Pattern patternFirst2 = Pattern.compile("\\.");
+        Pattern patternLast = Pattern.compile("\\s\\S+\\.");
 
         for (String itemLine: listLine) {
-            Matcher matcherLine = patternFirst.matcher(itemLine.trim());
-            if (matcherLine.find()) {
-                System.out.println(matcherLine.group());
+            Matcher matcherLine1 = patternFirst.matcher(itemLine.trim());
+            while (matcherLine1.find()) {
+                System.out.println(matcherLine1.group());
+            }
+
+            Matcher matcherLine2 = patternFirst2.matcher(itemLine.trim());
+            while (matcherLine2.find()) {
+                System.out.println(matcherLine2.group());
+            }
+
+            Matcher matcherLast = patternLast.matcher(itemLine.trim());
+            while (matcherLast.find()) {
+                System.out.println(matcherLast.group().trim().replace(".",""));
             }
         }
-
-
     }
 }

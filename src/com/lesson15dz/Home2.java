@@ -18,12 +18,12 @@ public class Home2 {
         listMail.add("asdasdasd@gmail.com");
         listMail.add("griinfewi@gmailc .com");
         listMail.add(" s123dds@gmail.com  ");
-        listMail.add(" s123dds@123123.com  ");
-        listMail.add(" 111111@123123.com  ");
+        listMail.add(" s123dds@123123..com  ");
+        listMail.add(" 111111@@123123.com  ");
         listMail.add(" s123dds@gmail.123  ");
         listMail.add(" 123123@123123.123  ");
 
-        Pattern parrentMail = Pattern.compile("^[a-zA-Z0-9]+@+[a-zA-Z0-9]+\\.+[a-zA-Z]");
+        Pattern parrentMail = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]+");
 
         for (String itemMail: listMail) {
             Matcher matcherMail = parrentMail.matcher(itemMail.trim());
