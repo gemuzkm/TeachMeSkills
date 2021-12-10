@@ -1,5 +1,6 @@
 package com.lesson16dz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
@@ -7,6 +8,8 @@ public class Student {
     private String firsName;
     private String lastName;
     private List<Integer> listRatings;
+
+    private Storage storage = new Storage();
 
     public Student() {
     }
@@ -58,5 +61,11 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", listRatings=" + listRatings +
                 '}';
+    }
+
+    public void addStudents() {
+        System.out.println("Добавление студентов....");
+        Student student1 = new Student(0, "studentFirstName1", "studentLastName1", new ArrayList<>(List.of(5,4,5,3,2)));
+        System.out.println(student1.toString());
     }
 }

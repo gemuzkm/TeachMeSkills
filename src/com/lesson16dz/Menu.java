@@ -64,7 +64,7 @@ public class Menu {
         inputUserItemMenu = readerDataFromConsole.readString();
 
         if (inputUserItemMenu.equals("1")) {
-
+                student.addStudents();
         } else if (inputUserItemMenu.equals("2")) {
 
         } else if (inputUserItemMenu.equals("3")) {
