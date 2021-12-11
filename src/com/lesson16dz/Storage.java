@@ -6,7 +6,13 @@ public class Storage {
     private String fileNameStudents = "src/com/lesson16dz/student.json";
 
     public void add(Student student) {
-
+        if (Student.listIdStudents.size() == 0) {
+            Student.listIdStudents.add(student.getId());
+        } else if (Student.listIdStudents.contains(student.getId()))  {
+            System.out.println("\nСтудет с таким ID = "+ student.getId() + " уже существует\n");
+        } else {
+            Student.listIdStudents.add(student.getId());
+        }
     }
 
     public void add(Group group) {

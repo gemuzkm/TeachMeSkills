@@ -37,4 +37,8 @@ public class Group {
                 ", listStudent=" + listStudent +
                 '}';
     }
+
+    public void addGroup () {
+
+    }
 }

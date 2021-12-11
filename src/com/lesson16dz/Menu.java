@@ -64,11 +64,11 @@ public class Menu {
         inputUserItemMenu = readerDataFromConsole.readString();
 
         if (inputUserItemMenu.equals("1")) {
-                student.addStudents();
+            student.addStudents();
         } else if (inputUserItemMenu.equals("2")) {
-
+            group.addGroup();
         } else if (inputUserItemMenu.equals("3")) {
-
+            university.addUniversity();
         }
     }
 
