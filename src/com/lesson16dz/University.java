@@ -1,10 +1,13 @@
 package com.lesson16dz;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class University {
     private String name;
     private List<Group> listGroup;
+    public static Set<Integer> listIdUniversity = new HashSet<>();
 
     public University() {
     }

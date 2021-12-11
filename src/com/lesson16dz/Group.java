@@ -1,17 +1,30 @@
 package com.lesson16dz;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Group {
+    private int id;
     private String name;
-    private List<Student> listStudent;
+    private Set<Integer> listIdStudentInGroup = new HashSet<>();
+    public static Set<Integer> listIdUGroup = new HashSet<>();
 
     public Group() {
     }
 
-    public Group(String name, List<Student> listStudent) {
+    public Group(int id, String name, Set<Integer> listIdStudentInGroup) {
+        this.id = id;
         this.name = name;
-        this.listStudent = listStudent;
+        this.listIdStudentInGroup = listIdStudentInGroup;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -22,23 +35,36 @@ public class Group {
         this.name = name;
     }
 
-    public List<Student> getListStudent() {
-        return listStudent;
+    public Set<Integer> getListIdStudentInGroup() {
+        return listIdStudentInGroup;
     }
 
-    public void setListStudent(List<Student> listStudent) {
-        this.listStudent = listStudent;
+    public void setListIdStudentInGroup(Set<Integer> listIdStudentInGroup) {
+        this.listIdStudentInGroup = listIdStudentInGroup;
+    }
+
+    public static Set<Integer> getListIdUGroup() {
+        return listIdUGroup;
+    }
+
+    public static void setListIdUGroup(Set<Integer> listIdUGroup) {
+        Group.listIdUGroup = listIdUGroup;
     }
 
     @Override
     public String toString() {
         return "Group{" +
-                "name='" + name + '\'' +
-                ", listStudent=" + listStudent +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", listStudent=" + listIdStudentInGroup +
                 '}';
     }
 
     public void addGroup () {
+        System.out.println("\nДобавление груп....\n");
+
+        Group group1 = new Group(0, "group1", new HashSet<>(List.of(0,3)));
+        System.out.println(group1.toString());
 
     }
 }

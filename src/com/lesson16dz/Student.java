@@ -72,22 +72,46 @@ public class Student {
         System.out.println(student1.toString());
         storage.add(student1);
 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Student student2 = new Student(1, "studentFirstName2", "studentLastName2", new ArrayList<>(List.of(5,3,5,3,2)));
         System.out.println(student2.toString());
         storage.add(student2);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Student student3 = new Student(2, "studentFirstName3", "studentLastName3", new ArrayList<>(List.of(5,2,5,3,2)));
         System.out.println(student3.toString());
         storage.add(student3);
 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Student student4 = new Student(3, "studentFirstName4", "studentLastName4", new ArrayList<>(List.of(5,5,5,3,2)));
         System.out.println(student4.toString());
         storage.add(student4);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Student student5 = new Student(3, "studentFirstName5", "studentLastName5", new ArrayList<>(List.of(5,4,5,3,4)));
         System.out.println(student5.toString());
         storage.add(student5);
 
-        listIdStudents.stream().forEach(x -> System.out.print(x + " "));
+//        listIdStudents.stream().forEach(x -> System.out.print(x + " "));
     }
 }
