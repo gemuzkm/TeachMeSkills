@@ -19,7 +19,12 @@ public class Storage {
     }
 
     public void add(Group group) {
-
+        if (Group.listIdUGroup.contains(group.getId()))  {
+            System.out.println("Группа с таким ID = "+ group.getId() + " уже существует\n");
+        } else {
+            Group.listIdUGroup.add(group.getId());
+            System.out.println("Группа с ID = " + group.getId() + " успешно добавлена!\n");
+        }
     }
 
     public Group getGroup(int idGroup) {

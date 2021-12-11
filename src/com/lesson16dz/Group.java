@@ -9,6 +9,7 @@ public class Group {
     private String name;
     private Set<Integer> listIdStudentInGroup = new HashSet<>();
     public static Set<Integer> listIdUGroup = new HashSet<>();
+    private Storage storage = new Storage();
 
     public Group() {
     }
@@ -56,7 +57,7 @@ public class Group {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", listStudent=" + listIdStudentInGroup +
+                ", listIdStudentInGroup=" + listIdStudentInGroup +
                 '}';
     }
 
@@ -65,6 +66,23 @@ public class Group {
 
         Group group1 = new Group(0, "group1", new HashSet<>(List.of(0,3)));
         System.out.println(group1.toString());
+        storage.add(group1);
+
+        Group group2 = new Group(1, "group2", new HashSet<>(List.of(0,3)));
+        System.out.println(group2.toString());
+        storage.add(group2);
+
+        Group group3 = new Group(2, "group3", new HashSet<>(List.of(0,3)));
+        System.out.println(group3.toString());
+        storage.add(group3);
+
+        Group group4 = new Group(3, "group4", new HashSet<>(List.of(0,3)));
+        System.out.println(group4.toString());
+        storage.add(group4);
+
+        Group group5 = new Group(3, "group5", new HashSet<>(List.of(0,3)));
+        System.out.println(group5.toString());
+        storage.add(group5);
 
     }
 }

@@ -112,6 +112,56 @@ public class Student {
         System.out.println(student5.toString());
         storage.add(student5);
 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Student student6 = new Student(4, "studentFirstName6", "studentLastName6", new ArrayList<>(List.of(4,4,5,3,4)));
+        System.out.println(student6.toString());
+        storage.add(student6);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Student student7 = new Student(5, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(2,4,5,3,4)));
+        System.out.println(student7.toString());
+        storage.add(student7);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Student student8 = new Student(6, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5,4,2,3,4)));
+        System.out.println(student8.toString());
+        storage.add(student8);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Student student9 = new Student(7, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(3,4,5,3,4)));
+        System.out.println(student9.toString());
+        storage.add(student9);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Student student10 = new Student(8, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5,4,2,3,4)));
+        System.out.println(student10.toString());
+        storage.add(student10);
+
 //        listIdStudents.stream().forEach(x -> System.out.print(x + " "));
     }
 }
