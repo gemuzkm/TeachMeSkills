@@ -40,6 +40,8 @@ public class Menu {
             } else if (inputUserItemMenu.equals("5")) {
                 readerDataFromConsole.readerClose();
                 System.exit(0);
+            } else {
+                System.out.println("\nДанного пункта меню нет");
             }
         }
     }
@@ -57,9 +59,9 @@ public class Menu {
     }
 
     private void showMenuAddUserGroupUniversity() {
-        System.out.println("1 - добавления студентов");
-        System.out.println("2 - добавления групп");
-        System.out.println("3 - добавления университетов\n");
+        System.out.println("1 - добавление студентов");
+        System.out.println("2 - добавление групп");
+        System.out.println("3 - добавление университетов\n");
 
         inputUserItemMenu = readerDataFromConsole.readString();
 
@@ -69,13 +71,15 @@ public class Menu {
             group.addGroup();
         } else if (inputUserItemMenu.equals("3")) {
             university.addUniversity();
+        } else {
+            System.out.println("\nДанного пункта меню нет");
         }
     }
 
     private void showMenuMediumUserGroupUniversity() {
-        System.out.println("1 - подсчета среднего рейтинга студентов");
-        System.out.println("2 - подсчета среднего рейтинга групп");
-        System.out.println("3 - подсчета среднего рейтинга университетов\n");
+        System.out.println("1 - подсчет среднего рейтинга студентов");
+        System.out.println("2 - подсчет среднего рейтинга групп");
+        System.out.println("3 - подсчет среднего рейтинга университетов\n");
 
         inputUserItemMenu = readerDataFromConsole.readString();
 

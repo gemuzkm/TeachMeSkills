@@ -42,6 +42,8 @@ public class University {
     }
 
     public void addUniversity() {
+        System.out.println("\nДобавление университетов....\n");
+
 
     }
 }

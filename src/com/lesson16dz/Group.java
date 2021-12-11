@@ -64,24 +64,48 @@ public class Group {
     public void addGroup () {
         System.out.println("\nДобавление груп....\n");
 
-        Group group1 = new Group(0, "group1", new HashSet<>(List.of(0,3)));
-        System.out.println(group1.toString());
+        Group group1 = new Group(0, "group1", new HashSet<>(List.of(0,1)));
+//        System.out.println(group1.toString());
         storage.add(group1);
 
-        Group group2 = new Group(1, "group2", new HashSet<>(List.of(0,3)));
-        System.out.println(group2.toString());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Group group2 = new Group(1, "group2", new HashSet<>(List.of(2,3)));
+//        System.out.println(group2.toString());
         storage.add(group2);
 
-        Group group3 = new Group(2, "group3", new HashSet<>(List.of(0,3)));
-        System.out.println(group3.toString());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Group group3 = new Group(2, "group3", new HashSet<>(List.of(4,5)));
+//        System.out.println(group3.toString());
         storage.add(group3);
 
-        Group group4 = new Group(3, "group4", new HashSet<>(List.of(0,3)));
-        System.out.println(group4.toString());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Group group4 = new Group(3, "group4", new HashSet<>(List.of(6,7, 8)));
+//        System.out.println(group4.toString());
         storage.add(group4);
 
-        Group group5 = new Group(3, "group5", new HashSet<>(List.of(0,3)));
-        System.out.println(group5.toString());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Group group5 = new Group(3, "group5", new HashSet<>(List.of(8)));
+//        System.out.println(group5.toString());
         storage.add(group5);
 
     }
