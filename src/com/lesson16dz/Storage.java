@@ -56,7 +56,7 @@ public class Storage {
             } else {
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameStudents));
-                    System.out.println("Вывод информации о всех студентах\n");
+                    System.out.println("\nВывод информации о всех студентах\n");
                     while (bufferedReader.ready()) {
                         String json = bufferedReader.readLine();
                         System.out.println(json);
@@ -68,7 +68,7 @@ public class Storage {
         }
     }
 
-    public Student getStudent(int idStudent) {
+    public Student getStudentFromId(int idStudent) {
         if (Student.listIdStudents.contains(idStudent)) {
             try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameStudents));
@@ -120,6 +120,28 @@ public class Storage {
         }
     }
 
+    public void printAllGroups() {
+        if (Group.listIdUGroup.size() == 0) {
+            System.out.println("В базе нет групп");
+        } else {
+            File file = new File(fileNameGroups);
+            if (!file.exists() || file.length() == 0) {
+                System.out.println("В базе нет студентов");
+            } else {
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameGroups));
+                    System.out.println("\nВывод информации о всех группах\n");
+                    while (bufferedReader.ready()) {
+                        String json = bufferedReader.readLine();
+                        System.out.println(json);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public Group getGroup(int idGroup) {
         return new Group();
     }
@@ -156,6 +178,29 @@ public class Storage {
             System.out.println("Университет с ID = " + university.getId() + " успешно добавлен!\n");
         }
     }
+
+    public void printAllUniversity() {
+        if (University.listIdUniversity.size() == 0) {
+            System.out.println("В базе нет университетов");
+        }  else {
+            File file = new File(fileNameUniversity);
+            if (!file.exists() || file.length() == 0) {
+                System.out.println("В базе нет университетов");
+            } else {
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameUniversity));
+                    System.out.println("\nВывод информации о всех университеах\n");
+                    while (bufferedReader.ready()) {
+                        String json = bufferedReader.readLine();
+                        System.out.println(json);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     public University getUniversity(int idUniversity) {
         return new University();

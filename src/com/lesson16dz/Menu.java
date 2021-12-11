@@ -113,9 +113,9 @@ public class Menu {
         if (inputUserItemMenu.equals("1")) {
             student.printAllStudentInformation();
         } else if (inputUserItemMenu.equals("2")) {
-
+            group.printAllGroupInformation();
         } else if (inputUserItemMenu.equals("3")) {
-
+            university.printAllUniversityInformation();
         } else {
             System.out.println("\nДанного пункта меню нет");
         }

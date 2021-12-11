@@ -79,4 +79,9 @@ public class University {
         University university4 = new University(2, "university4", new HashSet<>(List.of(4)));
         storage.add(university4);
     }
+
+    public void printAllUniversityInformation() {
+        storage.printAllUniversity();
+    }
+
 }
