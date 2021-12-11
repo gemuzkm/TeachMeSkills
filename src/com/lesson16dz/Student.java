@@ -69,7 +69,6 @@ public class Student {
     public void addStudents() {
         System.out.println("\nДобавление студентов....\n");
         Student student1 = new Student(0, "studentFirstName1", "studentLastName1", new ArrayList<>(List.of(5,4,5,3,2)));
-//        System.out.println(student1.toString());
         storage.add(student1);
 
         try {
@@ -79,7 +78,6 @@ public class Student {
         }
 
         Student student2 = new Student(1, "studentFirstName2", "studentLastName2", new ArrayList<>(List.of(5,3,5,3,2)));
-//        System.out.println(student2.toString());
         storage.add(student2);
 
         try {
@@ -89,7 +87,6 @@ public class Student {
         }
 
         Student student3 = new Student(2, "studentFirstName3", "studentLastName3", new ArrayList<>(List.of(5,2,5,3,2)));
-//        System.out.println(student3.toString());
         storage.add(student3);
 
         try {
@@ -99,7 +96,6 @@ public class Student {
         }
 
         Student student4 = new Student(3, "studentFirstName4", "studentLastName4", new ArrayList<>(List.of(5,5,5,3,2)));
-//        System.out.println(student4.toString());
         storage.add(student4);
 
         try {
@@ -109,7 +105,6 @@ public class Student {
         }
 
         Student student5 = new Student(3, "studentFirstName5", "studentLastName5", new ArrayList<>(List.of(5,4,5,3,4)));
-//        System.out.println(student5.toString());
         storage.add(student5);
 
         try {
@@ -119,7 +114,6 @@ public class Student {
         }
 
         Student student6 = new Student(4, "studentFirstName6", "studentLastName6", new ArrayList<>(List.of(4,4,5,3,4)));
-//        System.out.println(student6.toString());
         storage.add(student6);
 
         try {
@@ -129,7 +123,6 @@ public class Student {
         }
 
         Student student7 = new Student(5, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(2,4,5,3,4)));
-//        System.out.println(student7.toString());
         storage.add(student7);
 
         try {
@@ -139,7 +132,6 @@ public class Student {
         }
 
         Student student8 = new Student(6, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5,4,2,3,4)));
-//        System.out.println(student8.toString());
         storage.add(student8);
 
         try {
@@ -149,7 +141,6 @@ public class Student {
         }
 
         Student student9 = new Student(7, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(3,4,5,3,4)));
-//        System.out.println(student9.toString());
         storage.add(student9);
 
         try {
@@ -159,9 +150,10 @@ public class Student {
         }
 
         Student student10 = new Student(8, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5,4,2,3,4)));
-//        System.out.println(student10.toString());
         storage.add(student10);
+    }
 
-//        listIdStudents.stream().forEach(x -> System.out.print(x + " "));
+    public void printAllStudentInformation() {
+        storage.printAllStudents();
     }
 }

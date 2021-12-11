@@ -34,9 +34,10 @@ public class Menu {
                 showMenuMediumUserGroupUniversity();
             } else if (inputUserItemMenu.equals("3")) {
                 showTitleSotedStudentByMediamRatings();
-                SotedStudentByMediamRatings();
+                sortedStudentByMedianRatings();
             } else if (inputUserItemMenu.equals("4")) {
-
+                showTitlePrintAllUserGroupUniversity();
+                showMenuPrintAllUserGroupUniversity();
             } else if (inputUserItemMenu.equals("5")) {
                 readerDataFromConsole.readerClose();
                 System.exit(0);
@@ -56,6 +57,10 @@ public class Menu {
 
     private void showTitleSotedStudentByMediamRatings() {
         System.out.println("\nCортировки студентов в группе по среднему рейтингу\n");
+    }
+
+    private void showTitlePrintAllUserGroupUniversity() {
+        System.out.println("\nВывод всей информации\n");
     }
 
     private void showMenuAddUserGroupUniversity() {
@@ -89,10 +94,32 @@ public class Menu {
 
         } else if (inputUserItemMenu.equals("3")) {
 
+        } else {
+            System.out.println("\nДанного пункта меню нет");
         }
     }
 
-    private void SotedStudentByMediamRatings() {
+    private void sortedStudentByMedianRatings() {
 
     }
+
+    private void showMenuPrintAllUserGroupUniversity() {
+        System.out.println("1 - вывод информации о студентах");
+        System.out.println("2 - вывод информации о группах");
+        System.out.println("3 - вывод инцормации об университетах\n");
+
+        inputUserItemMenu = readerDataFromConsole.readString();
+
+        if (inputUserItemMenu.equals("1")) {
+            student.printAllStudentInformation();
+        } else if (inputUserItemMenu.equals("2")) {
+
+        } else if (inputUserItemMenu.equals("3")) {
+
+        } else {
+            System.out.println("\nДанного пункта меню нет");
+        }
+    }
+
+
 }

@@ -9,6 +9,7 @@ public class University {
     private int id;
     private String name;
     private Set<Integer> listIdGroupInUniversity = new HashSet<>();
+
     private Storage storage = new Storage();
     public static Set<Integer> listIdUniversity = new HashSet<>();
 
