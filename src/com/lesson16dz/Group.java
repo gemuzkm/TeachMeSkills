@@ -119,6 +119,7 @@ public class Group {
                 Group group = storage.getGroup(idGroup);
                 ArrayList<Integer> listAllGradesStudents = new ArrayList<>();
                 ArrayList<Integer> listStudent = group.getListIdStudentInGroup();
+
                 for (int i = 0; i < listStudent.size(); i++) {
                     listAllGradesStudents.addAll(storage.getStudentFromId(listStudent.get(i)).getListStudentGrades());
                 }
