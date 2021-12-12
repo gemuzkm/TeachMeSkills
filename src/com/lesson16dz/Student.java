@@ -1,15 +1,13 @@
 package com.lesson16dz;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Student {
     private int id;
     private String firsName;
     private String lastName;
-    private List<Integer> listStudentGrades;
+    private ArrayList<Integer> listStudentGrades;
+    //ID всех студентов
     public static Set<Integer> listIdStudents = new HashSet<>();
 
     private Storage storage = new Storage();
@@ -17,7 +15,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(int id, String firsName, String lastName, List<Integer> listStudentGrades) {
+    public Student(int id, String firsName, String lastName, ArrayList<Integer> listStudentGrades) {
         this.id = id;
         this.firsName = firsName;
         this.lastName = lastName;
@@ -48,11 +46,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public List<Integer> getListStudentGrades() {
+    public ArrayList<Integer> getListStudentGrades() {
         return listStudentGrades;
     }
 
-    public void setListStudentGrades(List<Integer> listStudentGrades) {
+    public void setListStudentGrades(ArrayList<Integer> listStudentGrades) {
         this.listStudentGrades = listStudentGrades;
     }
 
@@ -156,4 +154,35 @@ public class Student {
     public void printAllStudentInformation() {
         storage.printAllStudents();
     }
+
+    public void countingAverageRating() {
+        if (listIdStudents.size() == 0) {
+            System.out.println("\nВ базе нет студентов");
+        } else {
+            System.out.println("Средний рейтинг студентов\n");
+
+            for (Integer idStudent : listIdStudents) {
+                Student student = storage.getStudentFromId(idStudent);
+//                double averageStudent = average(student.listStudentGrades);
+                double averageStudent = 0;
+                List<Integer> studentGrades = student.getListStudentGrades();
+                OptionalDouble average  = studentGrades.stream().mapToInt(e -> e).average();
+                if (average.isPresent()) {
+                    averageStudent = average.getAsDouble();
+                }
+
+                System.out.println("ID - " + student.id + ", Имя: " + student.getFirsName() +
+                        ", Фамилия - " + student.getLastName() + ", Рейтинг - " + averageStudent);
+            }
+        }
+    }
+
+//    private double average(ArrayList<Integer> list) {
+//        double sum = 0;
+//
+//        for (Integer item: list) {
+//            sum += item;
+//        }
+//        return sum / list.size();
+//    }
 }

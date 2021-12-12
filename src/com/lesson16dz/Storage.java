@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Storage {
     private String fileNameUniversity = "src/com/lesson16dz/university.json";
@@ -48,11 +50,11 @@ public class Storage {
 
     public void printAllStudents() {
         if (Student.listIdStudents.size() == 0) {
-            System.out.println("В базе нет студентов");
+            System.out.println("\nВ базе нет студентов\n");
         } else {
             File file = new File(fileNameStudents);
             if (!file.exists() || file.length() == 0) {
-                System.out.println("В базе нет студентов");
+                System.out.println("\nВ базе нет студентов\n");
             } else {
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameStudents));
@@ -107,7 +109,7 @@ public class Storage {
             try {
                 String json = objectMapper.writeValueAsString(group);
 
-                //В файл дописывываются данные
+                //В файл дописываются данные
                 fileWriterGroups = new FileWriter(new File(fileNameGroups), true);
                 fileWriterGroups.write(json + "\n");
                 fileWriterGroups.close();
@@ -122,11 +124,11 @@ public class Storage {
 
     public void printAllGroups() {
         if (Group.listIdUGroup.size() == 0) {
-            System.out.println("В базе нет групп");
+            System.out.println("\nВ базе нет групп\n");
         } else {
             File file = new File(fileNameGroups);
             if (!file.exists() || file.length() == 0) {
-                System.out.println("В базе нет студентов");
+                System.out.println("\nВ базе нет групп\n");
             } else {
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameGroups));
@@ -143,7 +145,23 @@ public class Storage {
     }
 
     public Group getGroup(int idGroup) {
-        return new Group();
+        if (Group.listIdUGroup.contains(idGroup)) {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameGroups));
+                while (bufferedReader.ready()) {
+                    String json = bufferedReader.readLine();
+                    Group group = objectMapper.readValue(json, Group.class);
+                    if (group.getId() == idGroup) {
+                        return group;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Студента с данным ID не существует");
+        }
+        return new Group(-1, "", new HashSet<>());
     }
 
     public void add(University university) {
@@ -181,11 +199,11 @@ public class Storage {
 
     public void printAllUniversity() {
         if (University.listIdUniversity.size() == 0) {
-            System.out.println("В базе нет университетов");
+            System.out.println("\nВ базе нет университетов\n");
         }  else {
             File file = new File(fileNameUniversity);
             if (!file.exists() || file.length() == 0) {
-                System.out.println("В базе нет университетов");
+                System.out.println("\nВ базе нет университетов\n");
             } else {
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameUniversity));

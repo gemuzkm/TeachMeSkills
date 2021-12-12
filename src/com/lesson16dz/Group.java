@@ -1,5 +1,6 @@
 package com.lesson16dz;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,14 +8,16 @@ import java.util.Set;
 public class Group {
     private int id;
     private String name;
-    private Set<Integer> listIdStudentInGroup = new HashSet<>();
-    public static Set<Integer> listIdUGroup = new HashSet<>();
+    //ID студентов в группе
+    private HashSet<Integer> listIdStudentInGroup = new HashSet<>();
+    //ID всех групп
+    public static HashSet<Integer> listIdUGroup = new HashSet<>();
     private Storage storage = new Storage();
 
     public Group() {
     }
 
-    public Group(int id, String name, Set<Integer> listIdStudentInGroup) {
+    public Group(int id, String name, HashSet<Integer> listIdStudentInGroup) {
         this.id = id;
         this.name = name;
         this.listIdStudentInGroup = listIdStudentInGroup;
@@ -36,19 +39,19 @@ public class Group {
         this.name = name;
     }
 
-    public Set<Integer> getListIdStudentInGroup() {
+    public HashSet<Integer> getListIdStudentInGroup() {
         return listIdStudentInGroup;
     }
 
-    public void setListIdStudentInGroup(Set<Integer> listIdStudentInGroup) {
+    public void setListIdStudentInGroup(HashSet<Integer> listIdStudentInGroup) {
         this.listIdStudentInGroup = listIdStudentInGroup;
     }
 
-    public static Set<Integer> getListIdUGroup() {
+    public static HashSet<Integer> getListIdUGroup() {
         return listIdUGroup;
     }
 
-    public static void setListIdUGroup(Set<Integer> listIdUGroup) {
+    public static void setListIdUGroup(HashSet<Integer> listIdUGroup) {
         Group.listIdUGroup = listIdUGroup;
     }
 
@@ -106,5 +109,27 @@ public class Group {
 
     public void printAllGroupInformation() {
         storage.printAllGroups();
+    }
+
+    public void countingAverageRating() {
+        System.out.println("\nСредний рейтинг группы");
+
+        if (listIdUGroup.size() == 0) {
+            System.out.println("В базе нет групп\n");
+        } else {
+            for (Integer idGroup: listIdUGroup) {
+
+
+            }
+        }
+    }
+
+    private double average(ArrayList<Integer> list) {
+        double sum = 0;
+
+        for (Integer item: list) {
+            sum += item;
+        }
+        return sum / list.size();
     }
 }
