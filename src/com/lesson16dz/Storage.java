@@ -1,6 +1,7 @@
 package com.lesson16dz;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,12 +17,10 @@ public class Storage {
     private FileWriter fileWriterStudent;
     private FileWriter fileWriterGroups;
     private FileWriter fileWriterUniversity;
-    private FileReader fileReaderStudent;
-
 
     public void add(Student student) {
         if (Student.listIdStudents.contains(student.getId())) {
-            System.out.println("Студет с таким ID = " + student.getId() + " уже существует\n");
+            System.out.println("Студент с таким ID = " + student.getId() + " уже существует\n");
         } else {
             //Если уже такой файл есть, то удаляем, т.к. в файл дописывается информация
             if (Student.listIdStudents.size() == 0) {
@@ -33,12 +32,14 @@ public class Storage {
             Student.listIdStudents.add(student.getId());
 
             try {
+                ObjectMapper objectMapper = new ObjectMapper();
                 String json = objectMapper.writeValueAsString(student);
-
                 //В файл дописывываются данные
                 fileWriterStudent = new FileWriter(new File(fileNameStudents), true);
                 fileWriterStudent.write(json + "\n");
                 fileWriterStudent.close();
+
+                System.out.println();
 
                 System.out.println(json);
             } catch (IOException e) {
@@ -96,7 +97,6 @@ public class Storage {
         } else if (Group.listIdUGroup.contains(group.getId())) {
             System.out.println("Группа с таким ID = " + group.getId() + " уже существует\n");
         } else {
-
             //Если уже такой файл есть, то удаляем, т.к. в файл дописывается информация
             if (Group.listIdUGroup.size() == 0) {
                 File file = new File(fileNameGroups);
@@ -108,7 +108,6 @@ public class Storage {
 
             try {
                 String json = objectMapper.writeValueAsString(group);
-
                 //В файл дописываются данные
                 fileWriterGroups = new FileWriter(new File(fileNameGroups), true);
                 fileWriterGroups.write(json + "\n");
@@ -170,7 +169,6 @@ public class Storage {
         } else if (University.listIdUniversity.contains(university.getId())) {
             System.out.println("Университет с таким ID = " + university.getId() + " уже существует\n");
         } else {
-
             //Если уже такой файл есть, то удаляем, т.к. в файл дописывается информация
             if (University.listIdUniversity.size() == 0) {
                 File file = new File(fileNameUniversity);
@@ -219,8 +217,23 @@ public class Storage {
         }
     }
 
-
     public University getUniversity(int idUniversity) {
-        return new University();
+        if (University.listIdUniversity.contains(idUniversity)) {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(fileNameUniversity));
+                while (bufferedReader.ready()) {
+                    String json = bufferedReader.readLine();
+                    University university = objectMapper.readValue(json, University.class);
+                    if (university.getId() == idUniversity) {
+                        return university;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Университета с данным ID не существует");
+        }
+        return new University(-1, "", new ArrayList<>());
     }
 }

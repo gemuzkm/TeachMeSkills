@@ -166,7 +166,6 @@ public class Student {
                 Student student = storage.getStudentFromId(idStudent);
                 List<Integer> studentGrades = student.getListStudentGrades();
 //                double averageStudent = average(student.listStudentGrades);
-
                 OptionalDouble average  = studentGrades.stream().mapToInt(e -> e).average();
                 if (average.isPresent()) {
                     averageStudent = average.getAsDouble();

@@ -118,10 +118,10 @@ public class Group {
             for (Integer idGroup : listIdUGroup) {
                 Group group = storage.getGroup(idGroup);
                 ArrayList<Integer> listAllGradesStudents = new ArrayList<>();
-                ArrayList<Integer> listStudent = group.getListIdStudentInGroup();
+                ArrayList<Integer> listIdAllStudentInGroup = group.getListIdStudentInGroup();
 
-                for (int i = 0; i < listStudent.size(); i++) {
-                    listAllGradesStudents.addAll(storage.getStudentFromId(listStudent.get(i)).getListStudentGrades());
+                for (int i = 0; i < listIdAllStudentInGroup.size(); i++) {
+                    listAllGradesStudents.addAll(storage.getStudentFromId(listIdAllStudentInGroup.get(i)).getListStudentGrades());
                 }
 
                 OptionalDouble average = listAllGradesStudents.stream().mapToDouble(e -> e).average();

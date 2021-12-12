@@ -100,7 +100,7 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 group.countingAverageRating();
             } else if (inputUserItemMenu.equals("3")) {
-
+                university.countingAverageRating();
             } else if (inputUserItemMenu.equals("4")) {
                 showMainMenu();
             } else {
