@@ -157,7 +157,7 @@ public class Student {
 
     public void countingAverageRating() {
         if (listIdStudents.size() == 0) {
-            System.out.println("\nВ базе нет студентов");
+            System.out.println("\nНедостаточно данных для вычисления среднего");
         } else {
             System.out.println("\nСредний рейтинг студентов\n");
 

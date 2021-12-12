@@ -112,8 +112,8 @@ public class Group {
         System.out.println("\nСредний рейтинг группы\n");
         double averageGroup = 0;
 
-        if (listIdUGroup.size() == 0) {
-            System.out.println("В базе нет групп\n");
+        if (listIdUGroup.size() == 0 || Student.listIdStudents.size() == 0) {
+            System.out.println("Недостаточно данных для вычисления среднего\n");
         } else {
             for (Integer idGroup : listIdUGroup) {
                 Group group = storage.getGroup(idGroup);

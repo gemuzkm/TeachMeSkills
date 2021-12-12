@@ -94,8 +94,8 @@ public class University {
         System.out.println("\nСредний рейтинг университета\n");
         double averageUniversity = 0;
 
-        if (listIdUniversity.size() == 0) {
-            System.out.println("В базе нет групп\n");
+        if (listIdUniversity.size() == 0 || Group.listIdUGroup.size() == 0 || Student.listIdStudents.size() == 0) {
+            System.out.println("Недостаточно данных для вычисления среднего\n");
         } else {
             for (Integer idUniversity: listIdUniversity) {
                 University university = storage.getUniversity(idUniversity);
