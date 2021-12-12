@@ -110,7 +110,18 @@ public class Menu {
     }
 
     private void showMenuSortedStudentInGroupByRatings() {
-        group.SortedStudentInGroupByRatings();
+        while (true) {
+            group.SortedStudentInGroupByRatings();
+
+            System.out.println("\n1 - выход в главное меню\n");
+            inputUserItemMenu = readerDataFromConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                showMainMenu();
+            } else {
+                System.out.println("\nДанного пункта меню нет");
+            }
+        }
     }
 
     private void showMenuPrintAllUserGroupUniversity() {

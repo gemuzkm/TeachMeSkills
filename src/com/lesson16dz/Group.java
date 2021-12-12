@@ -10,6 +10,7 @@ public class Group {
     //ID всех групп
     public static ArrayList<Integer> listIdUGroup = new ArrayList<>();
     private Storage storage = new Storage();
+    private Student student = new Student();
 
     public Group() {
     }
@@ -134,7 +135,7 @@ public class Group {
         }
     }
 
-//        private double average(ArrayList<Integer> list) {
+    //        private double average(ArrayList<Integer> list) {
 //        double sum = 0;
 //
 //        for (Integer item: list) {
@@ -143,6 +144,17 @@ public class Group {
 //        return sum / list.size();
 //    }
     public void SortedStudentInGroupByRatings() {
-
+        if (Student.listIdStudents.size() == 0 || listIdUGroup.size() == 0) {
+            System.out.println("Недостаточно данных для сортировки в группах\n");
+        } else {
+            for (int i = 0; i < listIdUGroup.size(); i++) {
+                Group group = storage.getGroup(i);
+                ArrayList<Integer> sortStudentdIdByAsc = new ArrayList<>();
+                sortStudentdIdByAsc = student.sortStudentAsc(group.getListIdStudentInGroup());
+                System.out.println("ID - " + group.getId() + ", название - " + group.getName()
+                        + ", до сортировки - " + group.listIdStudentInGroup
+                        + ", после сортировки - " + sortStudentdIdByAsc);
+            }
+        }
     }
 }

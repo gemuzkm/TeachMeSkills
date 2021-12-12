@@ -1,6 +1,7 @@
 package com.lesson16dz;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Student {
     private int id;
@@ -75,7 +76,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student2 = new Student(1, "studentFirstName2", "studentLastName2", new ArrayList<>(List.of(5, 3, 5, 3, 2)));
+        Student student2 = new Student(1, "studentFirstName2", "studentLastName2", new ArrayList<>(List.of(2, 3, 5, 2, 2)));
         storage.add(student2);
 
         try {
@@ -177,16 +178,40 @@ public class Student {
         }
     }
 
-//    private double average(ArrayList<Integer> list) {
-//        double sum = 0;
-//
-//        for (Integer item: list) {
-//            sum += item;
-//        }
-//        return sum / list.size();
-//    }
+    private double average(ArrayList<Integer> list) {
+        double sum = 0;
 
-    public void sortStudentAsc (ArrayList<Integer> listIdStudents) {
+        for (Integer item: list) {
+            sum += item;
+        }
+        return sum / list.size();
+    }
 
+    public ArrayList<Integer> sortStudentAsc (ArrayList<Integer> listIdStudents) {
+        ArrayList<Student> listStudents = new ArrayList<>();
+        for (Integer idStudent: listIdStudents) {
+            listStudents.add(storage.getStudentFromId(idStudent));
+        }
+
+        HashMap<Integer, Double> mapStudentRating = new HashMap<>();
+        for (Student student: listStudents) {
+            mapStudentRating.put(student.getId(), average(student.getListStudentGrades()));
+        }
+
+        Map<Integer, Double> result = mapStudentRating.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        ArrayList<Integer> resultSortIdStudentByRating = new ArrayList<>();
+
+        Iterator iterator = result.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, Double> pair = (Map.Entry) iterator.next();
+            resultSortIdStudentByRating.add(pair.getKey());
+        }
+        return resultSortIdStudentByRating;
     }
 }
