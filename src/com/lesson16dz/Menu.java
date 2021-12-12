@@ -33,8 +33,8 @@ public class Menu {
                 showTitleAverageRatingUserGroupUniversity();
                 showMenuAverageRatingUserGroupUniversity();
             } else if (inputUserItemMenu.equals("3")) {
-                showTitleSotedStudentByMediamRatings();
-                sortedStudentByMedianRatings();
+                showTitleSortedStudentInGroupByRatings();
+                showMenuSortedStudentInGroupByRatings();
             } else if (inputUserItemMenu.equals("4")) {
                 showTitlePrintAllUserGroupUniversity();
                 showMenuPrintAllUserGroupUniversity();
@@ -55,7 +55,7 @@ public class Menu {
         System.out.println("\nВозможность подсчета среднего рейтинга студента/группы/университета");
     }
 
-    private void showTitleSotedStudentByMediamRatings() {
+    private void showTitleSortedStudentInGroupByRatings() {
         System.out.println("\nCортировки студентов в группе по среднему рейтингу\n");
     }
 
@@ -109,8 +109,8 @@ public class Menu {
         }
     }
 
-    private void sortedStudentByMedianRatings() {
-
+    private void showMenuSortedStudentInGroupByRatings() {
+        group.SortedStudentInGroupByRatings();
     }
 
     private void showMenuPrintAllUserGroupUniversity() {

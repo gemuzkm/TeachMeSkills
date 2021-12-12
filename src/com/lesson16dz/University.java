@@ -64,7 +64,7 @@ public class University {
             e.printStackTrace();
         }
 
-        University university2 = new University(1, "university2", new ArrayList<>(List.of(1,2)));
+        University university2 = new University(1, "university2", new ArrayList<>(List.of(1, 2)));
         storage.add(university2);
 
         try {
@@ -97,7 +97,7 @@ public class University {
         if (listIdUniversity.size() == 0 || Group.listIdUGroup.size() == 0 || Student.listIdStudents.size() == 0) {
             System.out.println("Недостаточно данных для вычисления среднего\n");
         } else {
-            for (Integer idUniversity: listIdUniversity) {
+            for (Integer idUniversity : listIdUniversity) {
                 University university = storage.getUniversity(idUniversity);
                 ArrayList<Integer> listAllGradesStudents = new ArrayList<>();
                 ArrayList<Integer> listIdAllStudentInUniversity = new ArrayList<>();

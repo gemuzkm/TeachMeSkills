@@ -66,7 +66,7 @@ public class Student {
 
     public void addStudents() {
         System.out.println("\nДобавление студентов....\n");
-        Student student1 = new Student(0, "studentFirstName1", "studentLastName1", new ArrayList<>(List.of(5,4,5,3,2)));
+        Student student1 = new Student(0, "studentFirstName1", "studentLastName1", new ArrayList<>(List.of(5, 4, 5, 3, 2)));
         storage.add(student1);
 
         try {
@@ -75,7 +75,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student2 = new Student(1, "studentFirstName2", "studentLastName2", new ArrayList<>(List.of(5,3,5,3,2)));
+        Student student2 = new Student(1, "studentFirstName2", "studentLastName2", new ArrayList<>(List.of(5, 3, 5, 3, 2)));
         storage.add(student2);
 
         try {
@@ -84,7 +84,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student3 = new Student(2, "studentFirstName3", "studentLastName3", new ArrayList<>(List.of(5,2,5,3,2)));
+        Student student3 = new Student(2, "studentFirstName3", "studentLastName3", new ArrayList<>(List.of(5, 2, 5, 3, 2)));
         storage.add(student3);
 
         try {
@@ -93,7 +93,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student4 = new Student(3, "studentFirstName4", "studentLastName4", new ArrayList<>(List.of(5,5,5,3,2)));
+        Student student4 = new Student(3, "studentFirstName4", "studentLastName4", new ArrayList<>(List.of(5, 5, 5, 3, 2)));
         storage.add(student4);
 
         try {
@@ -102,7 +102,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student5 = new Student(3, "studentFirstName5", "studentLastName5", new ArrayList<>(List.of(5,4,5,3,4)));
+        Student student5 = new Student(3, "studentFirstName5", "studentLastName5", new ArrayList<>(List.of(5, 4, 5, 3, 4)));
         storage.add(student5);
 
         try {
@@ -111,7 +111,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student6 = new Student(4, "studentFirstName6", "studentLastName6", new ArrayList<>(List.of(4,4,5,3,4)));
+        Student student6 = new Student(4, "studentFirstName6", "studentLastName6", new ArrayList<>(List.of(4, 4, 5, 3, 4)));
         storage.add(student6);
 
         try {
@@ -120,7 +120,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student7 = new Student(5, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(2,4,5,3,4)));
+        Student student7 = new Student(5, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(2, 4, 5, 3, 4)));
         storage.add(student7);
 
         try {
@@ -129,7 +129,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student8 = new Student(6, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5,4,2,3,4)));
+        Student student8 = new Student(6, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5, 4, 2, 3, 4)));
         storage.add(student8);
 
         try {
@@ -138,7 +138,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student9 = new Student(7, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(3,4,5,3,4)));
+        Student student9 = new Student(7, "studentFirstName7", "studentLastName7", new ArrayList<>(List.of(3, 4, 5, 3, 4)));
         storage.add(student9);
 
         try {
@@ -147,7 +147,7 @@ public class Student {
             e.printStackTrace();
         }
 
-        Student student10 = new Student(8, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5,4,2,3,4)));
+        Student student10 = new Student(8, "studentFirstName8", "studentLastName8", new ArrayList<>(List.of(5, 4, 2, 3, 4)));
         storage.add(student10);
     }
 
@@ -166,7 +166,7 @@ public class Student {
                 Student student = storage.getStudentFromId(idStudent);
                 List<Integer> studentGrades = student.getListStudentGrades();
 //                double averageStudent = average(student.listStudentGrades);
-                OptionalDouble average  = studentGrades.stream().mapToInt(e -> e).average();
+                OptionalDouble average = studentGrades.stream().mapToInt(e -> e).average();
                 if (average.isPresent()) {
                     averageStudent = average.getAsDouble();
                 }
@@ -185,4 +185,8 @@ public class Student {
 //        }
 //        return sum / list.size();
 //    }
+
+    public void sortStudentAsc (ArrayList<Integer> listIdStudents) {
+
+    }
 }

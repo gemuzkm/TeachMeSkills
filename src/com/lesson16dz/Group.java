@@ -134,7 +134,7 @@ public class Group {
         }
     }
 
-//    private double average(ArrayList<Integer> list) {
+//        private double average(ArrayList<Integer> list) {
 //        double sum = 0;
 //
 //        for (Integer item: list) {
@@ -142,4 +142,7 @@ public class Group {
 //        }
 //        return sum / list.size();
 //    }
+    public void SortedStudentInGroupByRatings() {
+
+    }
 }

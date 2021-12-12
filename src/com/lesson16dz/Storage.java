@@ -198,7 +198,7 @@ public class Storage {
     public void printAllUniversity() {
         if (University.listIdUniversity.size() == 0) {
             System.out.println("\nВ базе нет университетов\n");
-        }  else {
+        } else {
             File file = new File(fileNameUniversity);
             if (!file.exists() || file.length() == 0) {
                 System.out.println("\nВ базе нет университетов\n");
