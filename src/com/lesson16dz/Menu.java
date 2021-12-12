@@ -98,7 +98,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 student.countingAverageRating();
             } else if (inputUserItemMenu.equals("2")) {
-
+                group.countingAverageRating();
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {

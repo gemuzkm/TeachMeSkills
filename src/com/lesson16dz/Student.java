@@ -159,13 +159,14 @@ public class Student {
         if (listIdStudents.size() == 0) {
             System.out.println("\nВ базе нет студентов");
         } else {
-            System.out.println("Средний рейтинг студентов\n");
+            System.out.println("\nСредний рейтинг студентов\n");
 
             for (Integer idStudent : listIdStudents) {
-                Student student = storage.getStudentFromId(idStudent);
-//                double averageStudent = average(student.listStudentGrades);
                 double averageStudent = 0;
+                Student student = storage.getStudentFromId(idStudent);
                 List<Integer> studentGrades = student.getListStudentGrades();
+//                double averageStudent = average(student.listStudentGrades);
+
                 OptionalDouble average  = studentGrades.stream().mapToInt(e -> e).average();
                 if (average.isPresent()) {
                     averageStudent = average.getAsDouble();

@@ -1,23 +1,20 @@
 package com.lesson16dz;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Group {
     private int id;
     private String name;
     //ID студентов в группе
-    private HashSet<Integer> listIdStudentInGroup = new HashSet<>();
+    private ArrayList<Integer> listIdStudentInGroup = new ArrayList<>();
     //ID всех групп
-    public static HashSet<Integer> listIdUGroup = new HashSet<>();
+    public static ArrayList<Integer> listIdUGroup = new ArrayList<>();
     private Storage storage = new Storage();
 
     public Group() {
     }
 
-    public Group(int id, String name, HashSet<Integer> listIdStudentInGroup) {
+    public Group(int id, String name, ArrayList<Integer> listIdStudentInGroup) {
         this.id = id;
         this.name = name;
         this.listIdStudentInGroup = listIdStudentInGroup;
@@ -39,19 +36,19 @@ public class Group {
         this.name = name;
     }
 
-    public HashSet<Integer> getListIdStudentInGroup() {
+    public ArrayList<Integer> getListIdStudentInGroup() {
         return listIdStudentInGroup;
     }
 
-    public void setListIdStudentInGroup(HashSet<Integer> listIdStudentInGroup) {
+    public void setListIdStudentInGroup(ArrayList<Integer> listIdStudentInGroup) {
         this.listIdStudentInGroup = listIdStudentInGroup;
     }
 
-    public static HashSet<Integer> getListIdUGroup() {
+    public static ArrayList<Integer> getListIdUGroup() {
         return listIdUGroup;
     }
 
-    public static void setListIdUGroup(HashSet<Integer> listIdUGroup) {
+    public static void setListIdUGroup(ArrayList<Integer> listIdUGroup) {
         Group.listIdUGroup = listIdUGroup;
     }
 
@@ -64,10 +61,10 @@ public class Group {
                 '}';
     }
 
-    public void addGroup () {
+    public void addGroup() {
         System.out.println("\nДобавление груп....\n");
 
-        Group group1 = new Group(0, "group1", new HashSet<>(List.of(0,1)));
+        Group group1 = new Group(0, "group1", new ArrayList<>(List.of(0, 1)));
         storage.add(group1);
 
         try {
@@ -76,7 +73,7 @@ public class Group {
             e.printStackTrace();
         }
 
-        Group group2 = new Group(1, "group2", new HashSet<>(List.of(2,3)));
+        Group group2 = new Group(1, "group2", new ArrayList<>(List.of(2, 3)));
         storage.add(group2);
 
         try {
@@ -85,7 +82,7 @@ public class Group {
             e.printStackTrace();
         }
 
-        Group group3 = new Group(2, "group3", new HashSet<>(List.of(4,5)));
+        Group group3 = new Group(2, "group3", new ArrayList<>(List.of(4, 5)));
         storage.add(group3);
 
         try {
@@ -94,7 +91,7 @@ public class Group {
             e.printStackTrace();
         }
 
-        Group group4 = new Group(3, "group4", new HashSet<>(List.of(6,7, 8)));
+        Group group4 = new Group(3, "group4", new ArrayList<>(List.of(6, 7, 8)));
         storage.add(group4);
 
         try {
@@ -103,7 +100,7 @@ public class Group {
             e.printStackTrace();
         }
 
-        Group group5 = new Group(3, "group5", new HashSet<>(List.of(8)));
+        Group group5 = new Group(3, "group5", new ArrayList<>(List.of(8)));
         storage.add(group5);
     }
 
@@ -112,24 +109,36 @@ public class Group {
     }
 
     public void countingAverageRating() {
-        System.out.println("\nСредний рейтинг группы");
+        System.out.println("\nСредний рейтинг группы\n");
+        double averageGroup = 0;
 
         if (listIdUGroup.size() == 0) {
             System.out.println("В базе нет групп\n");
         } else {
-            for (Integer idGroup: listIdUGroup) {
+            for (Integer idGroup : listIdUGroup) {
+                Group group = storage.getGroup(idGroup);
+                ArrayList<Integer> listAllGradesStudents = new ArrayList<>();
+                ArrayList<Integer> listStudent = group.getListIdStudentInGroup();
+                for (int i = 0; i < listStudent.size(); i++) {
+                    listAllGradesStudents.addAll(storage.getStudentFromId(listStudent.get(i)).getListStudentGrades());
+                }
 
-
+                OptionalDouble average = listAllGradesStudents.stream().mapToDouble(e -> e).average();
+                if (average.isPresent()) {
+                    averageGroup = average.getAsDouble();
+                }
+                System.out.println("ID - " + group.getId() + ", название - " + group.getName() +
+                        ", средний рейтинг - " + averageGroup);
             }
         }
     }
 
-    private double average(ArrayList<Integer> list) {
-        double sum = 0;
-
-        for (Integer item: list) {
-            sum += item;
-        }
-        return sum / list.size();
-    }
+//    private double average(ArrayList<Integer> list) {
+//        double sum = 0;
+//
+//        for (Integer item: list) {
+//            sum += item;
+//        }
+//        return sum / list.size();
+//    }
 }

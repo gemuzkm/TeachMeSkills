@@ -161,7 +161,7 @@ public class Storage {
         } else {
             System.out.println("Студента с данным ID не существует");
         }
-        return new Group(-1, "", new HashSet<>());
+        return new Group(-1, "", new ArrayList<>());
     }
 
     public void add(University university) {
