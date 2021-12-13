@@ -111,7 +111,7 @@ public class Menu {
 
     private void showMenuSortedStudentInGroupByRatings() {
         while (true) {
-            group.SortedStudentInGroupByRatings();
+            group.sortedStudentInGroupByRatings();
 
             System.out.println("\n1 - выход в главное меню\n");
             inputUserItemMenu = readerDataFromConsole.readString();

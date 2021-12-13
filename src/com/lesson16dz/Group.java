@@ -143,7 +143,7 @@ public class Group {
 //        }
 //        return sum / list.size();
 //    }
-    public void SortedStudentInGroupByRatings() {
+    public void sortedStudentInGroupByRatings() {
         if (Student.listIdStudents.size() == 0 || listIdUGroup.size() == 0) {
             System.out.println("Недостаточно данных для сортировки в группах\n");
         } else {
