@@ -135,7 +135,7 @@ public class Group {
         }
     }
 
-    //        private double average(ArrayList<Integer> list) {
+//        private double average(ArrayList<Integer> list) {
 //        double sum = 0;
 //
 //        for (Integer item: list) {
@@ -150,7 +150,9 @@ public class Group {
             for (int i = 0; i < listIdUGroup.size(); i++) {
                 Group group = storage.getGroup(i);
                 ArrayList<Integer> sortStudentdIdByAsc = new ArrayList<>();
+
                 sortStudentdIdByAsc = student.sortStudentAsc(group.getListIdStudentInGroup());
+
                 System.out.println("ID - " + group.getId() + ", название - " + group.getName()
                         + ", до сортировки - " + group.listIdStudentInGroup
                         + ", после сортировки - " + sortStudentdIdByAsc);

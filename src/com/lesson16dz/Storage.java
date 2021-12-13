@@ -1,12 +1,8 @@
 package com.lesson16dz;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Storage {
     private String fileNameUniversity = "src/com/lesson16dz/university.json";
