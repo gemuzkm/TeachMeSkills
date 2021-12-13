@@ -135,14 +135,6 @@ public class Group {
         }
     }
 
-//        private double average(ArrayList<Integer> list) {
-//        double sum = 0;
-//
-//        for (Integer item: list) {
-//            sum += item;
-//        }
-//        return sum / list.size();
-//    }
     public void sortedStudentInGroupByRatings() {
         if (Student.listIdStudents.size() == 0 || listIdUGroup.size() == 0) {
             System.out.println("Недостаточно данных для сортировки в группах\n");
