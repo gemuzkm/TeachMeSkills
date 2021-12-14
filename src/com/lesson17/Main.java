@@ -6,5 +6,6 @@ public class Main {
         myFirstThread.start();
         myFirstThread.join();
         System.out.println("end code");
+
     }
 }
