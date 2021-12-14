@@ -33,4 +33,13 @@ public class Card {
     public void setHuman(Human human) {
         this.human = human;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", totalMoney=" + totalMoney +
+                ", human=" + human +
+                '}';
+    }
 }

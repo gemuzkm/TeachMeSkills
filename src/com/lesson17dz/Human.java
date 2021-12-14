@@ -23,4 +23,12 @@ public class Human {
     public void setCard(Card card) {
         this.card = card;
     }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "name='" + name + '\'' +
+                ", card=" + card +
+                '}';
+    }
 }

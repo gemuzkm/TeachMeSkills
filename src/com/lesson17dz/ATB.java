@@ -29,6 +29,14 @@ public class ATB {
         System.out.println(card.getTotalMoney());
     }
 
+    @Override
+    public String toString() {
+        return "ATB{" +
+                "isWork=" + isWork +
+                ", totalMoney=" + totalMoney +
+                '}';
+    }
+
     public void getMoney(Card card) {
 
     }
