@@ -39,7 +39,7 @@ public class Card {
         return "Card{" +
                 "cardNumber='" + cardNumber + '\'' +
                 ", totalMoney=" + totalMoney +
-                ", human=" + human +
+                ", human=" + human.getName() +
                 '}';
     }
 }
