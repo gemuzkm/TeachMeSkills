@@ -37,39 +37,43 @@ public class ATB {
                 '}';
     }
 
-    public synchronized void getMoney(Card card, int countMoney) {
-        if (!isWork) {
-            System.out.println("\nБанкомат не работает\n");
-        } else if (card.getTotalMoney() < countMoney) {
-            System.out.println("\nНедостаточно средств на счету");
-            System.out.println(card.toString() + " " + toString());
-            System.out.println("Попытка снять - " + countMoney + "\n");
-        } else if (getTotalMoney() < countMoney) {
-            System.out.println("\nНедостаточно средства в банкомате");
-            System.out.println(card.toString() + " " + toString());
-            System.out.println("Попытка снять - " + countMoney + "\n");
-        } else {
-            System.out.println("\n" + card.toString() + " " + toString());
+    public void getMoney(Card card, int countMoney) {
+        synchronized (card) {
+            if (!isWork) {
+                System.out.println("\nБанкомат не работает\n");
+            } else if (card.getTotalMoney() < countMoney) {
+                System.out.println("\nНедостаточно средств на счету");
+                System.out.println(card.toString() + " " + toString());
+                System.out.println("Попытка снять - " + countMoney + "\n");
+            } else if (getTotalMoney() < countMoney) {
+                System.out.println("\nНедостаточно средства в банкомате");
+                System.out.println(card.toString() + " " + toString());
+                System.out.println("Попытка снять - " + countMoney + "\n");
+            } else {
+                System.out.println("\n" + card.toString() + " " + toString());
 
-            card.setTotalMoney(card.getTotalMoney() - countMoney);
-            setTotalMoney(getTotalMoney() - countMoney);
+                card.setTotalMoney(card.getTotalMoney() - countMoney);
+                setTotalMoney(getTotalMoney() - countMoney);
 
-            System.out.println("Вы сняли - " + countMoney + "");
-            System.out.println(card.toString() + " " + toString() + "\n");
+                System.out.println("Вы сняли - " + countMoney + "");
+                System.out.println(card.toString() + " " + toString() + "\n");
+            }
         }
     }
 
-    public synchronized void addMoney(Card card, int countMoney) {
-        if (!isWork) {
-            System.out.println("\nБанкомат не работает");
-        }  else {
-            System.out.println("\n" + card.toString() + " " + toString());
-            System.out.println("Пополнение на - " + countMoney);
+    public void addMoney(Card card, int countMoney) {
+        synchronized (card) {
+            if (!isWork) {
+                System.out.println("\nБанкомат не работает");
+            } else {
+                System.out.println("\n" + card.toString() + " " + toString());
+                System.out.println("Пополнение на - " + countMoney);
 
-            card.setTotalMoney(card.getTotalMoney() + countMoney);
-            setTotalMoney(getTotalMoney() + countMoney);
+                card.setTotalMoney(card.getTotalMoney() + countMoney);
+                setTotalMoney(getTotalMoney() + countMoney);
 
-            System.out.println(card.toString() + " " + toString() + "\n");
+                System.out.println(card.toString() + " " + toString() + "\n");
+            }
         }
     }
 }
