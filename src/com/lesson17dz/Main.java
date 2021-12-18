@@ -23,11 +23,11 @@ public class Main {
         human3.setCard(card3);
         card3.setHuman(human3);
 
-        MyThread myThread1 = new MyThread(atb3, card1);
+        MyThread myThread1 = new MyThread(atb3, card3);
         Thread thread1 = new Thread(myThread1);
         thread1.start();
 
-        MyThread myThread2 = new MyThread(atb3, card2);
+        MyThread myThread2 = new MyThread(atb3, card3);
         Thread thread2 = new Thread(myThread2);
         thread2.start();
 
