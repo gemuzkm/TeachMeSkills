@@ -42,6 +42,8 @@ public class Main {
 //                statement.execute("insert into Customers(CustomerName, ContactName, Address, City, PostalCode, Country) " +
 //                        "values('Berglunds snabbköp', 'Christina Berglund', 'Berguvsvägen 8', 'Luleå', 'S-958 22', 'Sweden')");
 
+
+
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException | SQLException e) {
             e.printStackTrace();
