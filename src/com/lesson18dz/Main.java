@@ -17,15 +17,15 @@ public class Main {
             try (Connection connection = DriverManager.getConnection(url, name, password)) {
                 Statement statement = connection.createStatement();
 
-                statement.execute("create table Customers(" +
-                        "CustomerID int auto_increment primary key," +
-                        "CustomerName varchar(50) not null," +
-                        "ContactName varchar(50) not null," +
-                        "Address varchar(50) not null, " +
-                        "City varchar(30) not null, " +
-                        "PostalCode varchar(30) not null," +
-                        "Country varchar(30) not null" +
-                        ")");
+//                statement.execute("create table Customers(" +
+//                        "CustomerID int auto_increment primary key," +
+//                        "CustomerName varchar(50) not null," +
+//                        "ContactName varchar(50) not null," +
+//                        "Address varchar(50) not null, " +
+//                        "City varchar(30) not null, " +
+//                        "PostalCode varchar(30) not null," +
+//                        "Country varchar(30) not null" +
+//                        ")");
 
 //                statement.execute("insert into Customers(CustomerName, ContactName, Address, City, PostalCode, Country) " +
 //                        "values('Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57', 'Berlin', '12209', 'Germany')");
