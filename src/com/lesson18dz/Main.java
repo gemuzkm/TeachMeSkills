@@ -26,7 +26,7 @@ public class Main {
 //                        "PostalCode varchar(30) not null," +
 //                        "Country varchar(30) not null" +
 //                        ")");
-
+//
 //                statement.execute("insert into Customers(CustomerName, ContactName, Address, City, PostalCode, Country) " +
 //                        "values('Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57', 'Berlin', '12209', 'Germany')");
 //
