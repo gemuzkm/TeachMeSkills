@@ -1,9 +1,10 @@
 package com.project.ToDoList.controller;
 
-public class LoginMenu {
+public class LoginMenu implements Menu {
     private String selectMenu;
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
 
+    @Override
     public void show() {
         showTitle();
         showMenu();

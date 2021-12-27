@@ -1,4 +1,8 @@
 package com.project.ToDoList.controller;
 
-public class ManagerMenu {
+public class ManagerMenu implements Menu {
+    @Override
+    public void show() {
+
+    }
 }
