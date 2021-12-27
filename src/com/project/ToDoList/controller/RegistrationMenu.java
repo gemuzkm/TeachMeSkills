@@ -21,7 +21,7 @@ public class RegistrationMenu implements Menu {
         UserServiceImpl userService = new UserServiceImpl();
         String login = "";
         String password = "";
-        boolean loginIsFree;
+        boolean loginIsFree = false;
 
         while (true) {
             System.out.println("Введите имя пользователя:");
