@@ -1,9 +1,10 @@
 package com.project.ToDoList;
 
-import com.project.ToDoList.controller.Menu;
+import com.project.ToDoList.controller.ToDoListMenu;
 
 public class Main {
     public static void main(String[] args) {
-        Menu menu = new Menu();
+        ToDoListMenu toDoListMenu = new ToDoListMenu();
+        toDoListMenu.show();
     }
 }
