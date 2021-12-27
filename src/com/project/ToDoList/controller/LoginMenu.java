@@ -1,7 +1,7 @@
 package com.project.ToDoList.controller;
 
 public class LoginMenu implements Menu {
-    private String selectMenu;
+    private String inputUserItemMenu;
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
 
     @Override
@@ -11,29 +11,29 @@ public class LoginMenu implements Menu {
     }
 
     private void showTitle() {
-        System.out.println("Для работы с приложением нужен пользователь");
-        System.out.println("Если нет пользователя, то пройдите регистрацию\n");
+        System.out.println("\nДля работы с приложением нужен пользователь");
+        System.out.println("Если нет пользователя, то пройдите регистрацию");
     }
 
     private void showMenu() {
-        System.out.println("Введите \"1\" для регистрации");
-        System.out.println("Введите \"2\" для входа при помощи логина/пароля");
-        System.out.println("Нажмите \"3\" для выхода из приложения\n");
-        System.out.println("Введите цифру нужного меню:");
-    }
+        while (true) {
+            System.out.println("\n1 - для регистрации");
+            System.out.println("2 - для входа при помощи логина/пароля");
+            System.out.println("3 - для выхода из приложения\n");
+            System.out.println("Введите цифру нужного меню:");
 
-    public void selectMenu() {
-        selectMenu = inputUserDataConsole.readString();
+            inputUserItemMenu = inputUserDataConsole.readString();
 
-        if (selectMenu.equals("1")) {
+            if (inputUserItemMenu.equals("1")) {
 
-        } else if (selectMenu.equals("2")) {
+            } else if (inputUserItemMenu.equals("2")) {
 
-        } else if (selectMenu.equals("3")) {
-            inputUserDataConsole.readerClose();
-            System.exit(0);
-        } else {
-            System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов\n");
+            } else if (inputUserItemMenu.equals("3")) {
+                inputUserDataConsole.readerClose();
+                System.exit(0);
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
         }
     }
 }
