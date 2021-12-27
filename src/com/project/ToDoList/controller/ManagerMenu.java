@@ -1,4 +1,4 @@
 package com.project.ToDoList.controller;
 
-public class ToDoListUserMenu {
+public class ManagerMenu {
 }

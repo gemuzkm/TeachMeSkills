@@ -1,8 +1,11 @@
 package com.project.ToDoList.controller;
 
-public class ToDoListRegistrationMenu {
+public class RegistrationMenu {
     ReaderDataFromConsole readerDataFromConsole = new ReaderDataFromConsole();
 
+    public void show() {
+
+    }
 
 
 
