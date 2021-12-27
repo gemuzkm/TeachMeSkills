@@ -5,16 +5,13 @@ import java.util.regex.Pattern;
 
 public class LoginValidation {
     public boolean isValid(String userInputLogin) {
-        if (userInputLogin.length() <= 2) {
-            return false;
+        Pattern patternLogin = Pattern.compile("^[a-zA-Z0-9]{2,}");
+        Matcher matcherLogin = patternLogin.matcher(userInputLogin);
+        if (matcherLogin.find()) {
+            return true;
         } else {
-            Pattern patternLogin = Pattern.compile("[a-zA-Z0-9]]");
-            Matcher matcherLogin = patternLogin.matcher(userInputLogin);
-            if (matcherLogin.find()) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 }
+
