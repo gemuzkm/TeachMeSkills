@@ -4,7 +4,7 @@ public class MainMenu implements Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginMenu loginMenu = new LoginMenu();
     private RegistrationMenu registrationMenu = new RegistrationMenu();
-    private String inputUserItemMenu;
+    private String inputUserItemMenu = "";
 
     @Override
     public void show() {
