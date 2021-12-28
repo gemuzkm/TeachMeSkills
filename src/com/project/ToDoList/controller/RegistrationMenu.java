@@ -24,13 +24,13 @@ public class RegistrationMenu implements Menu {
         boolean loginIsFree = false;
 
         while (true) {
-            System.out.println("Введите имя пользователя:");
+            System.out.println("Введите логин пользователя:");
 
             login = inputUserDataConsole.readString();
             if (!loginValidation.isValid(login)) {
                 System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!\n");
             } else if (userService.getUserID(login) != -1) {
-                System.out.println("\nВведенное имя пользователя уже занято!\n");
+                System.out.println("\nВведенный логин пользователя уже занят!\n");
             } else {
                 loginIsFree = true;
                 break;
@@ -38,7 +38,7 @@ public class RegistrationMenu implements Menu {
         }
 
         while (true && loginIsFree) {
-            System.out.println("Введите пароль:");
+            System.out.println("\nВведите пароль:");
 
             password = inputUserDataConsole.readString();
             if (!loginValidation.isValid(password)) {

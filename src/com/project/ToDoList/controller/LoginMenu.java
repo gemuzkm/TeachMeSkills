@@ -1,8 +1,13 @@
 package com.project.ToDoList.controller;
 
+import com.project.ToDoList.service.UserServiceImpl;
+import com.project.ToDoList.validator.LoginValidation;
+
 public class LoginMenu implements Menu {
     private String inputUserItemMenu;
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
+    private LoginValidation loginValidation = new LoginValidation();
+    private UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     public void show() {
@@ -16,23 +21,32 @@ public class LoginMenu implements Menu {
     }
 
     private void showMenu() {
+        String login = "";
+        String password = "";
+        boolean loginIsTrue = false;
+
         while (true) {
-            System.out.println("\n1 - для регистрации");
-            System.out.println("2 - для входа при помощи логина/пароля");
-            System.out.println("3 - для выхода из приложения\n");
-            System.out.println("Введите цифру нужного меню:");
+            System.out.println("\nВведите логин пользователя:");
 
-            inputUserItemMenu = inputUserDataConsole.readString();
-
-            if (inputUserItemMenu.equals("1")) {
-
-            } else if (inputUserItemMenu.equals("2")) {
-
-            } else if (inputUserItemMenu.equals("3")) {
-                inputUserDataConsole.readerClose();
-                System.exit(0);
+            login = inputUserDataConsole.readString();
+            if (!loginValidation.isValid(login)) {
+                System.out.println("\nОшибка. Логин не существует");
+            } else if (userService.getUserID(login) == -1) {
+                System.out.println("\nПользователь с таким логином не существует");
             } else {
-                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+                loginIsTrue = true;
+                break;
+            }
+        }
+
+        while (true && loginIsTrue) {
+            System.out.println("\nВведите пароль:");
+
+            password = inputUserDataConsole.readString();
+            if (!loginValidation.isValid(password)) {
+                System.out.println("\nОшибка. Введенный данные не верны\n");
+            } else {
+                break;
             }
         }
     }
