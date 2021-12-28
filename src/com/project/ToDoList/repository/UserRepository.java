@@ -54,7 +54,7 @@ public class UserRepository {
         return 1;
     }
 
-    public int getUserID (User user) {
+    public int getUserID(User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -74,7 +74,7 @@ public class UserRepository {
         return -1;
     }
 
-    public int getUserID (String login) {
+    public int getUserID(String login) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
