@@ -5,8 +5,8 @@ import com.project.ToDoList.entity.User;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
-public class DBRepository {
-    private String url = "jdbc:mysql://localhost:3306/users?useUnicode=true&serverTimezone=UTC";
+public class UserRepository {
+    private String url = "jdbc:mysql://localhost:3306/todolist?useUnicode=true&serverTimezone=UTC";
     private String username = "root";
     private String password = "admin";
 
@@ -23,10 +23,21 @@ public class DBRepository {
             e.printStackTrace();
         }
 
+        // -1 - если узер не добавился, значит и не найден в БД, иначе возврат ID в BD юзера
+        int userID = getUserID(user);
+        if (userID != -1) {
+            return userID;
+        } else {
+            return -1;
+        }
+    }
+
+    public int dellUser(User user) {
+
         return 1;
     }
 
-    private int getUserID (User user) {
+    public int getUserID (User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -46,7 +57,7 @@ public class DBRepository {
         return -1;
     }
 
-    private int getUserID (String login) {
+    public int getUserID (String login) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {

@@ -6,6 +6,7 @@ import com.project.ToDoList.validator.LoginValidation;
 public class RegistrationMenu implements Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
+    private UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     public void show() {
@@ -18,7 +19,6 @@ public class RegistrationMenu implements Menu {
     }
 
     private void showMenu() {
-        UserServiceImpl userService = new UserServiceImpl();
         String login = "";
         String password = "";
         boolean loginIsFree = false;
@@ -29,7 +29,9 @@ public class RegistrationMenu implements Menu {
             login = inputUserDataConsole.readString();
             if (!loginValidation.isValid(login)) {
                 System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!\n");
-            } else { //добавить проверку на наличие юзера в БД
+            } else if (userService.getUserID(login) != -1) {
+                System.out.println("\nВведенное имя пользователя уже занято!\n");
+            } else {
                 loginIsFree = true;
                 break;
             }
