@@ -1,7 +1,7 @@
 package com.project.ToDoList.controller;
 
 import com.project.ToDoList.service.UserServiceImpl;
-import com.project.ToDoList.validation.LoginValidation;
+import com.project.ToDoList.validator.LoginValidation;
 
 public class RegistrationMenu implements Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();

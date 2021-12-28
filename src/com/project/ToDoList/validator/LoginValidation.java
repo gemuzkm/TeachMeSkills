@@ -1,4 +1,4 @@
-package com.project.ToDoList.validation;
+package com.project.ToDoList.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
