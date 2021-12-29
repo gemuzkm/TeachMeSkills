@@ -51,10 +51,6 @@ create table status_task
         primary key (id)
 );
 
-
-select users.login, user_role.name from users
-inner join user_role on users.role = user_role.id;
-
 alter table users
     add constraint users_user_role_id_fk
         foreign key (role) references user_role (id);
@@ -70,3 +66,12 @@ alter table user_task
 alter table user_task
     add constraint user_task_category_task_id_fk
         foreign key (category_id) references category_task (id);
+
+
+select users.login, user_role.name, user_task.name, category_task.name from users
+inner join user_role on users.role = user_role.id
+inner join user_task on user_task.user_id = users.id
+inner join category_task on category_task.id = user_task.category_id;
+
+select users.login, user_role.name from users
+inner join user_role on users.role = user_role.id;
