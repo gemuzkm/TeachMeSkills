@@ -12,3 +12,61 @@ create table users
 
 create unique index users_login_uindex
     on users (login);
+
+create table user_role
+(
+    id   int auto_increment,
+    name varchar(50) null,
+    constraint user_role_pk
+        primary key (id)
+);
+
+create unique index user_role_name_uindex
+    on user_role (name);
+
+create table user_task
+(
+    id          int auto_increment
+        primary key,
+    name        varchar(50)  null,
+    user_id     int          null,
+    status_id   int          null,
+    category_id int          null,
+    description varchar(250) null
+);
+
+create table category_task
+(
+    id   int auto_increment,
+    name varchar(50) null,
+    constraint category_task_pk
+        primary key (id)
+);
+
+create table status_task
+(
+    id   int auto_increment,
+    name varchar(50) null,
+    constraint status_task_pk
+        primary key (id)
+);
+
+
+select users.login, user_role.name from users
+inner join user_role on users.role = user_role.id;
+
+alter table users
+    add constraint users_user_role_id_fk
+        foreign key (role) references user_role (id);
+
+alter table user_task
+    add constraint user_task_users_id_fk
+        foreign key (user_id) references users (id);
+
+alter table user_task
+    add constraint user_task_status_task_id_fk
+        foreign key (status_id) references status_task (id);
+
+alter table user_task
+    add constraint user_task_category_task_id_fk
+        foreign key (category_id) references category_task (id);
