@@ -13,7 +13,7 @@ public class MainMenu implements Menu {
     }
 
     private void showTitle() {
-        System.out.println("Добропожаловть в ToDoList. \n\nВыберите нужный пункт меню:");
+        System.out.println("Добро пожаловать в ToDoList. \n\nВыберите нужный пункт меню:");
     }
 
     private void showMenu() {

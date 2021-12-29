@@ -2,10 +2,12 @@ package com.project.ToDoList.controller;
 
 import com.project.ToDoList.service.UserServiceImpl;
 import com.project.ToDoList.validator.LoginValidation;
+import com.project.ToDoList.validator.PasswordValidation;
 
 public class RegistrationMenu implements Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
+    private PasswordValidation passwordValidation = new PasswordValidation();
     private UserServiceImpl userService = new UserServiceImpl();
 
     @Override
@@ -41,7 +43,7 @@ public class RegistrationMenu implements Menu {
             System.out.println("\nВведите пароль:");
 
             password = inputUserDataConsole.readString();
-            if (!loginValidation.isValid(password)) {
+            if (!passwordValidation.isValid(password)) {
                 System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!\n");
             } else {
                 break;

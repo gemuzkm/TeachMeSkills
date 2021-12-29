@@ -2,11 +2,13 @@ package com.project.ToDoList.controller;
 
 import com.project.ToDoList.service.UserServiceImpl;
 import com.project.ToDoList.validator.LoginValidation;
+import com.project.ToDoList.validator.PasswordValidation;
 
 public class LoginMenu implements Menu {
     private String inputUserItemMenu;
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
+    private PasswordValidation passwordValidation = new PasswordValidation();
     private UserServiceImpl userService = new UserServiceImpl();
 
     @Override
@@ -43,7 +45,7 @@ public class LoginMenu implements Menu {
             System.out.println("\nВведите пароль:");
 
             password = inputUserDataConsole.readString();
-            if (!loginValidation.isValid(password)) {
+            if (!passwordValidation.isValid(password)) {
                 System.out.println("\nОшибка. Введенный данные не верны\n");
             } else {
                 break;
