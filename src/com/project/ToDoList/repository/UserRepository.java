@@ -14,9 +14,10 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (login, password) values (?,?)");
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (login, password, role ) values (?,?,?)");
                 preparedStatement.setString(1, user.getLogin());
                 preparedStatement.setString(2, user.getPassword());
+                preparedStatement.setInt(3, user.getRole());
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {

@@ -1,14 +1,18 @@
 package com.project.ToDoList.service;
 
 import com.project.ToDoList.entity.User;
+import com.project.ToDoList.repository.RoleRepository;
 import com.project.ToDoList.repository.UserRepository;
 
-public class UserServiceImpl {
+import java.util.HashMap;
+
+public class UserService {
     private UserRepository userRepository = new UserRepository();
+    private RoleRepository repository = new RoleRepository();
     private User user;
 
-    public boolean addUser(String login, String password) {
-        user = new User(login, password);
+    public boolean addUser(String login, String password, int role) {
+        user = new User(login, password, role);
         int userResulAddFromBD = userRepository.addUser(user);
         if (userResulAddFromBD != -1) {
             user.setId(userResulAddFromBD);
@@ -24,5 +28,9 @@ public class UserServiceImpl {
     public int getUserID(String login) {
         int userIDFormBD = userRepository.getUserID(login);
         return userIDFormBD;
+    }
+
+    public HashMap<Integer, String> listUserRole() {
+        return repository.getListRole();
     }
 }

@@ -1,14 +1,18 @@
 package com.project.ToDoList.controller;
 
-import com.project.ToDoList.service.UserServiceImpl;
+import com.project.ToDoList.service.UserService;
 import com.project.ToDoList.validator.LoginValidation;
 import com.project.ToDoList.validator.PasswordValidation;
+import com.project.ToDoList.validator.RoleValidation;
+
+import java.util.HashMap;
 
 public class MainMenu implements Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
     private PasswordValidation passwordValidation = new PasswordValidation();
-    private UserServiceImpl userService = new UserServiceImpl();
+    private RoleValidation  roleValidation = new RoleValidation();
+    private UserService userService = new UserService();
     private String inputUserItemMenu = "";
 
     @Override
@@ -44,7 +48,10 @@ public class MainMenu implements Menu {
     private void showRegistrationMenu() {
         String login = "";
         String password = "";
+        int idRole = -1;
+        String idRoleString = "";
         boolean loginIsFree = false;
+        boolean passwordIsValid = false;
 
         while (true) {
             System.out.println("Введите логин пользователя:");
@@ -67,11 +74,32 @@ public class MainMenu implements Menu {
             if (!passwordValidation.isValid(password)) {
                 System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!\n");
             } else {
+                passwordIsValid = true;
                 break;
             }
         }
 
-        if (userService.addUser(login, password)) {
+        while (true && loginIsFree && passwordIsValid) {
+            System.out.println("\nВыберите ID роли пользователя:");
+            listRoleUser();
+            System.out.println("\nВведите необходимый ID роли");
+
+            idRoleString =  inputUserDataConsole.readString();
+            if (roleValidation.isNumeric(idRoleString)) {
+                idRole = Integer.parseInt(idRoleString);
+            } else {
+                System.out.println("\nВведенное ID не существует");
+                continue;
+            }
+
+            if (!roleValidation.isValid(idRole)) {
+                System.out.println("\nВведенное ID не существует");
+            } else {
+                break;
+            }
+        }
+
+        if (userService.addUser(login, password, idRole)) {
             System.out.println("\nПользователь успешно создан");
         } else {
             System.out.println("\nОшибка во время добавления пользователя");
@@ -81,7 +109,8 @@ public class MainMenu implements Menu {
     private void showLoginMenu() {
         String login = "";
         String password = "";
-        boolean loginIsTrue = false;
+        boolean loginIsValid = false; //валидация пройдена, логин есть в базе
+        boolean passwordIsValid = false; //валидация пройдена, пароль не проверен в базе
 
         while (true) {
             System.out.println("\nВведите логин пользователя:");
@@ -92,20 +121,25 @@ public class MainMenu implements Menu {
             } else if (userService.getUserID(login) == -1) {
                 System.out.println("\nПользователь с таким логином не существует");
             } else {
-                loginIsTrue = true;
+                loginIsValid = true;
                 break;
             }
         }
 
-        while (true && loginIsTrue) {
+        while (true && loginIsValid) {
             System.out.println("\nВведите пароль:");
 
             password = inputUserDataConsole.readString();
             if (!passwordValidation.isValid(password)) {
                 System.out.println("\nОшибка. Введенный данные не верны\n");
             } else {
+                passwordIsValid = true;
                 break;
             }
+        }
+
+        if (loginIsValid && passwordIsValid) {
+
         }
     }
 
@@ -122,6 +156,10 @@ public class MainMenu implements Menu {
         System.out.println("Если нет пользователя, то пройдите регистрацию");
     }
 
-
-
+     private void listRoleUser() {
+         HashMap<Integer, String> listUserRole = userService.listUserRole();
+         listUserRole.forEach((k, v) -> {
+             System.out.println("ID - " + k + ", Название роли - " + v);
+         });
+     }
 }
