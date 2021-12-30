@@ -152,7 +152,7 @@ public class MainMenu implements Menu {
             if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("user")) {
                 showUserMenuTitle();
                 showUserMenu();
-            } else if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("manger")) {
+            } else if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("manager")) {
                 showManagerMenuTitle();
                 showManagerMenu();
             }
