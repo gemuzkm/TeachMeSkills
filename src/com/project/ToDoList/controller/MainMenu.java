@@ -131,7 +131,7 @@ public class MainMenu implements Menu {
             }
         }
 
-        while (true && loginIsValid) {
+        while (true && loginIsValid) { //сделать проверку пароля в БД
             System.out.println("\nВведите пароль:");
 
             password = inputUserDataConsole.readString();
