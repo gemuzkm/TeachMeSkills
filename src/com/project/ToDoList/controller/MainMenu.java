@@ -1,5 +1,6 @@
 package com.project.ToDoList.controller;
 
+import com.project.ToDoList.service.RoleService;
 import com.project.ToDoList.service.UserService;
 import com.project.ToDoList.validator.LoginValidation;
 import com.project.ToDoList.validator.PasswordValidation;
@@ -13,6 +14,7 @@ public class MainMenu implements Menu {
     private PasswordValidation passwordValidation = new PasswordValidation();
     private RoleValidation  roleValidation = new RoleValidation();
     private UserService userService = new UserService();
+    private RoleService roleService = new RoleService();
     private String inputUserItemMenu = "";
 
     @Override
@@ -59,7 +61,7 @@ public class MainMenu implements Menu {
             login = inputUserDataConsole.readString();
             if (!loginValidation.isValid(login)) {
                 System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!\n");
-            } else if (userService.getUserID(login) != -1) {
+            } else if (userService.getUserIDFromBD(login) != -1) {
                 System.out.println("\nВведенный логин пользователя уже занят!\n");
             } else {
                 loginIsFree = true;
@@ -99,7 +101,7 @@ public class MainMenu implements Menu {
             }
         }
 
-        if (userService.addUser(login, password, idRole)) {
+        if (userService.addUserFromBD(login, password, idRole)) {
             System.out.println("\nПользователь успешно создан");
         } else {
             System.out.println("\nОшибка во время добавления пользователя");
@@ -109,6 +111,9 @@ public class MainMenu implements Menu {
     private void showLoginMenu() {
         String login = "";
         String password = "";
+        int idUser = -1;
+        int idRole = -1;
+
         boolean loginIsValid = false; //валидация пройдена, логин есть в базе
         boolean passwordIsValid = false; //валидация пройдена, пароль не проверен в базе
 
@@ -118,7 +123,7 @@ public class MainMenu implements Menu {
             login = inputUserDataConsole.readString();
             if (!loginValidation.isValid(login)) {
                 System.out.println("\nОшибка. Логин не существует");
-            } else if (userService.getUserID(login) == -1) {
+            } else if (userService.getUserIDFromBD(login) == -1) {
                 System.out.println("\nПользователь с таким логином не существует");
             } else {
                 loginIsValid = true;
@@ -139,8 +144,27 @@ public class MainMenu implements Menu {
         }
 
         if (loginIsValid && passwordIsValid) {
+            idUser = userService.getUserIDFromBD(login);
+            idRole = roleService.getRoleID(login);
 
+            userService.createAuthorizedUser(idUser, login, password, idRole);
+
+            if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("user")) {
+                showUserMenuTitle();
+                showUserMenu();
+            } else if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("manger")) {
+                showManagerMenuTitle();
+                showManagerMenu();
+            }
         }
+    }
+
+    private void showManagerMenu() {
+
+    }
+
+    private void showUserMenu() {
+
     }
 
     private void showMainTitle() {
@@ -154,6 +178,14 @@ public class MainMenu implements Menu {
     private void showLoginMenuTitle() {
         System.out.println("\nДля работы с приложением нужен пользователь");
         System.out.println("Если нет пользователя, то пройдите регистрацию");
+    }
+
+    private void showManagerMenuTitle() {
+        System.out.println("\nМеню менеджера\n");
+    }
+
+    private void showUserMenuTitle() {
+        System.out.println("\nМеню юзера\n");
     }
 
      private void listRoleUser() {

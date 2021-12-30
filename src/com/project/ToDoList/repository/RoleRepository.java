@@ -46,4 +46,44 @@ public class RoleRepository {
         }
         return -1;
     }
+
+    public int getRoleID(String login) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.role from users where login = ?;");
+                preparedStatement.setString(1, login);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return id;
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public String getRoleNameFromIdRole(int idRole) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select name from user_role where id=?;");
+                preparedStatement.setInt(1, idRole);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    String roleName = resultSet.getString(1);
+                    return roleName;
+                } else {
+                    return "";
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }
