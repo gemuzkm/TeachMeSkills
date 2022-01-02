@@ -169,8 +169,6 @@ public class MainMenu implements Menu {
 
     private void showMainTitle() {
         System.out.println("Добро пожаловать в ToDoList. \n\nВыберите нужный пункт меню:");
-        System.out.println("Кто бы ты ни был, не нужно клонировать проект! :-) Это все отслеживается");
-        System.out.println("C новым 2022 годом");
     }
 
     private void showRegistrationMenuTitle() {

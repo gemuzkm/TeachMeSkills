@@ -14,7 +14,7 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (login, password, role ) values (?,?,?)");
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into users (user_login, user_password, user_role ) values (?,?,?)");
                 preparedStatement.setString(1, user.getLogin());
                 preparedStatement.setString(2, user.getPassword());
                 preparedStatement.setInt(3, user.getRole());
@@ -37,7 +37,7 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("delete from users where id = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from users where user_id = ?");
                 preparedStatement.setInt(1, user.getId());
                 preparedStatement.execute();
             }
@@ -59,7 +59,7 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select users.id from users where login = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_login = ?");
                 preparedStatement.setString(1, user.getLogin());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
@@ -79,7 +79,7 @@ public class UserRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select users.id from users where login = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where user_login = ?");
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {

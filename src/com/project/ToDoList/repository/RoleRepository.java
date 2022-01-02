@@ -14,7 +14,7 @@ public class RoleRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select * from user_role order by id");
+                PreparedStatement preparedStatement = connection.prepareStatement("select * from user_role order by role_id");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     listRole.put(resultSet.getInt(1), resultSet.getString(2));
@@ -31,7 +31,7 @@ public class RoleRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select user_role.id from user_role where id = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("select user_role.role_id from user_role where role_id = ?");
                 preparedStatement.setInt(1, iDrole);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
@@ -51,7 +51,7 @@ public class RoleRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select users.role from users where login = ?;");
+                PreparedStatement preparedStatement = connection.prepareStatement("select user_role from users where user_login = ?;");
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
@@ -71,7 +71,7 @@ public class RoleRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select name from user_role where id=?;");
+                PreparedStatement preparedStatement = connection.prepareStatement("select role_name from user_role where role_id = ?;");
                 preparedStatement.setInt(1, idRole);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
