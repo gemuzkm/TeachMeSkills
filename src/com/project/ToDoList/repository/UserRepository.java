@@ -24,7 +24,7 @@ public class UserRepository {
             e.printStackTrace();
         }
 
-        // -1 - если узер не добавился, значит и не найден в БД, иначе возврат ID в BD юзера
+        // -1 - если юзер не добавился, значит и не найден в БД, иначе возврат ID в BD юзера
         int userID = getUserID(user);
         if (userID != -1) {
             return userID;
@@ -93,5 +93,25 @@ public class UserRepository {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public boolean checkUserPassword(String userLogin, String userPassword) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select user_login, user_password from users where user_login = ?");
+                preparedStatement.setString(1, userLogin);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    String userLoginFromDB = resultSet.getString(1);
+                    String userPasswordFromDB = resultSet.getString(2);
+                    if (userLogin.equals(userLoginFromDB) && userPassword.equals(userPasswordFromDB))
+                    return true;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -48,8 +48,8 @@ public class MainMenu implements Menu {
     }
 
     private void showRegistrationMenu() {
-        String login = "";
-        String password = "";
+        String inputUserLogin = "";
+        String inputUserPassword = "";
         int idRole = -1;
         String idRoleString = "";
         boolean loginIsFree = false;
@@ -58,10 +58,10 @@ public class MainMenu implements Menu {
         while (true) {
             System.out.println("Введите логин пользователя:");
 
-            login = inputUserDataConsole.readString();
-            if (!loginValidation.isValid(login)) {
+            inputUserLogin = inputUserDataConsole.readString();
+            if (!loginValidation.isValidMinLength(inputUserLogin)) {
                 System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!\n");
-            } else if (userService.getUserIDFromBD(login) != -1) {
+            } else if (loginValidation.findLoginFromBD(inputUserLogin)) {
                 System.out.println("\nВведенный логин пользователя уже занят!\n");
             } else {
                 loginIsFree = true;
@@ -72,8 +72,8 @@ public class MainMenu implements Menu {
         while (true && loginIsFree) {
             System.out.println("\nВведите пароль:");
 
-            password = inputUserDataConsole.readString();
-            if (!passwordValidation.isValid(password)) {
+            inputUserPassword = inputUserDataConsole.readString();
+            if (!passwordValidation.isValidMinLength(inputUserPassword)) {
                 System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!\n");
             } else {
                 passwordIsValid = true;
@@ -101,7 +101,7 @@ public class MainMenu implements Menu {
             }
         }
 
-        if (userService.addUserFromBD(login, password, idRole)) {
+        if (userService.addUserFromBD(inputUserLogin, inputUserPassword, idRole)) {
             System.out.println("\nПользователь успешно создан");
         } else {
             System.out.println("\nОшибка во время добавления пользователя");
@@ -109,8 +109,8 @@ public class MainMenu implements Menu {
     }
 
     private void showLoginMenu() {
-        String login = "";
-        String password = "";
+        String inputUserLogin = "";
+        String inputUserPassword = "";
         int idUser = -1;
         int idRole = -1;
 
@@ -120,11 +120,11 @@ public class MainMenu implements Menu {
         while (true) {
             System.out.println("\nВведите логин пользователя:");
 
-            login = inputUserDataConsole.readString();
-            if (!loginValidation.isValid(login)) {
-                System.out.println("\nОшибка. Логин не существует");
-            } else if (userService.getUserIDFromBD(login) == -1) {
-                System.out.println("\nПользователь с таким логином не существует");
+            inputUserLogin = inputUserDataConsole.readString();
+            if (!loginValidation.isValidMinLength(inputUserLogin)) {
+                System.out.println("\nЛогин не существует или введен неверно!");
+            } else if (!loginValidation.findLoginFromBD(inputUserLogin)) {
+                System.out.println("\nПользователь с введенным логином не существует!");
             } else {
                 loginIsValid = true;
                 break;
@@ -133,10 +133,12 @@ public class MainMenu implements Menu {
 
         while (true && loginIsValid) { //сделать проверку пароля в БД
             System.out.println("\nВведите пароль:");
+            inputUserPassword = inputUserDataConsole.readString();
 
-            password = inputUserDataConsole.readString();
-            if (!passwordValidation.isValid(password)) {
-                System.out.println("\nОшибка. Введенный данные не верны\n");
+            if (!passwordValidation.isValidMinLength(inputUserPassword)) {
+                System.out.println("\nПароль введен не верно");
+            } else if (!passwordValidation.checkPasswordFromBD(inputUserLogin, inputUserPassword)) {
+                System.out.println("\nПароль введен не верно");
             } else {
                 passwordIsValid = true;
                 break;
@@ -144,10 +146,10 @@ public class MainMenu implements Menu {
         }
 
         if (loginIsValid && passwordIsValid) {
-            idUser = userService.getUserIDFromBD(login);
-            idRole = roleService.getRoleID(login);
+            idUser = userService.getUserIDFromBD(inputUserLogin);
+            idRole = roleService.getRoleID(inputUserLogin);
 
-            userService.createAuthorizedUser(idUser, login, password, idRole);
+            userService.createAuthorizedUser(idUser, inputUserLogin, inputUserPassword, idRole);
 
             if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("user")) {
                 showUserMenuTitle();
