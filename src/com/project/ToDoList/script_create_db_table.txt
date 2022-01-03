@@ -41,7 +41,7 @@ create unique index task_status_status_id_uindex
 create table task_category
 (
     category_id   int auto_increment,
-    category_name varchar(30) null,
+    category_name varchar(30) not null,
     constraint task_category_pk
         primary key (category_id)
 );
@@ -56,9 +56,9 @@ create table user_task
 (
     task_id       int auto_increment,
     task_name     varchar(50) not null,
-    user_id       int         null,
-    task_status   int         null,
-    task_category int         null,
+    user_id       int         mot null,
+    task_status   int         mot null,
+    task_category int         not null,
     constraint user_task_pk
         primary key (task_id)
 );

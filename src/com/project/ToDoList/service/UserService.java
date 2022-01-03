@@ -4,8 +4,6 @@ import com.project.ToDoList.entity.User;
 import com.project.ToDoList.repository.RoleRepository;
 import com.project.ToDoList.repository.UserRepository;
 
-import java.util.HashMap;
-
 public class UserService {
     private UserRepository userRepository = new UserRepository();
     private RoleRepository repository = new RoleRepository();
@@ -51,7 +49,14 @@ public class UserService {
         return userIDFormBD;
     }
 
-    public HashMap<Integer, String> listUserRole() {
-        return repository.getListRole();
+    public void updateUserDataFromDB(int idUser, String login, String password) {
+
     }
+
+    public void updateUserDataFromDB(int idUser, String login, String password, int role) {
+
+    }
+
+
+
 }
