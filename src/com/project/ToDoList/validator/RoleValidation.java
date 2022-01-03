@@ -21,5 +21,4 @@ public class RoleValidation {
         }
         return true;
     }
-
 }

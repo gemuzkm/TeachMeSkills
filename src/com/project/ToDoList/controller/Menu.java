@@ -6,12 +6,14 @@ import com.project.ToDoList.service.UserService;
 import com.project.ToDoList.validator.LoginValidation;
 import com.project.ToDoList.validator.PasswordValidation;
 import com.project.ToDoList.validator.RoleValidation;
+import com.project.ToDoList.validator.TaskValidation;
 
 public class Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
     private PasswordValidation passwordValidation = new PasswordValidation();
     private RoleValidation roleValidation = new RoleValidation();
+    private TaskValidation taskValidation = new TaskValidation();
     private UserService userService = new UserService();
     private RoleService roleService = new RoleService();
     private TaskService taskService = new TaskService();
@@ -206,7 +208,21 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 taskService.listTaskUser(userService.getAuthorizedUserID());
             } else if (inputUserItemMenu.equals("2")) {
+                String inputUserTaskID = "";
 
+                while (true) {
+                    System.out.println("\nВведите ID задания:");
+                    inputUserTaskID = inputUserDataConsole.readString();
+
+                    if (!taskValidation.isNumeric(inputUserTaskID)) {
+                        System.out.println("\nВведите ID задания");
+                    } else {
+                        break;
+                    }
+                }
+
+                String taskInfoFromId = taskService.getTaskInfoFromID(userService.getAuthorizedUserID(), Integer.parseInt(inputUserTaskID));
+                System.out.println("\n" + taskInfoFromId);
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {

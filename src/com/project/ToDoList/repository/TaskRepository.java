@@ -34,4 +34,34 @@ public class TaskRepository {
 
         return listTaskByUser;
     }
+
+    public String getTaskInfoFromID(int idUser, int idTask) {
+        String taskInfo = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("" +
+                        "select user_task.task_id, user_task.task_name, task_status.status_name, task_category.category_name from user_task " +
+                        "inner join task_status on user_task.task_status = task_status.status_id " +
+                        "inner join task_category on user_task.task_category = task_category.category_id where user_task.user_id = ? and user_task.task_id = ?;");
+                preparedStatement.setInt(1, idUser);
+                preparedStatement.setInt(2, idTask);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    taskInfo = "ID - " + resultSet.getInt(1) +
+                            ", Task - " + resultSet.getString(2) +
+                            ", Status - " + resultSet.getString(3) +
+                            ", Category - " + resultSet.getString(4);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return taskInfo;
+    }
+
+
+
 }

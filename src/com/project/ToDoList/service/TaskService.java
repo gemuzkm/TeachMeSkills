@@ -17,4 +17,12 @@ public class TaskService {
         System.out.println("\nСписок заданий пользователя:\n");
         listUserTask.forEach(System.out::println);
     }
+
+    public String getTaskInfoFromID(int idUser, int idTask) {
+        String taskInfo = taskRepository.getTaskInfoFromID(idUser, idTask);
+        if (taskInfo.length() == 0) {
+            return  "Проверьте корректность вводимых данных";
+        }
+        return taskInfo;
+    }
 }
