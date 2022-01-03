@@ -129,4 +129,28 @@ public class UserRepository {
         }
         return false;
     }
+
+    public String getUserInfo(int idUser) {
+        String userInfo = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("" +
+                        "select users.user_id, users.user_login, users.user_password, user_role.role_name from users " +
+                        "inner join user_role on users.user_id = user_role.role_id where users.user_id = ?;");
+                preparedStatement.setInt(1, idUser);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    userInfo = "ID - " + resultSet.getInt(1) +
+                            ", Login - " + resultSet.getString(2) +
+                            ", Password - " + resultSet.getString(3) +
+                            ", Role - " + resultSet.getString(4);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return userInfo;
+    }
 }

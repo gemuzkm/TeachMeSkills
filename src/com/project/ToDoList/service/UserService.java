@@ -66,4 +66,8 @@ public class UserService {
             return false;
         }
     }
+
+    public String getUserInfo(int idUser) {
+        return userRepository.getUserInfo(idUser);
+    }
 }

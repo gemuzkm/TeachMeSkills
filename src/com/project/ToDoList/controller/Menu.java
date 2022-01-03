@@ -166,23 +166,26 @@ public class Menu {
 
     private void showUserMenu() {
         while (true) {
-            System.out.println("\n1 - вывод всех task");
-            System.out.println("2 - работа с task");
-            System.out.println("3 - изменить данные пользователя");
-            System.out.println("4 - завершить сессию пользователя\n");
+            System.out.println("\n1 - вывод данных текущего пользователя");
+            System.out.println("2 - вывод всех task");
+            System.out.println("3 - работа с task");
+            System.out.println("4 - изменить данные пользователя");
+            System.out.println("5 - завершить сессию пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
             inputUserItemMenu = inputUserDataConsole.readString();
 
             if (inputUserItemMenu.equals("1")) {
-                taskService.listTaskUser(userService.getAuthorizedUserID());
+                printUserInfo();
             } else if (inputUserItemMenu.equals("2")) {
+                taskService.listTaskUser(userService.getAuthorizedUserID());
+            } else if (inputUserItemMenu.equals("3")) {
                 showTaskUserMenuTitle();
                 showTaskUserMenu();
-            } else if (inputUserItemMenu.equals("3")) {
+            } else if (inputUserItemMenu.equals("4")) {
                 showEditUserMenuTitle();
                 showEditUserMenu();
-            } else if (inputUserItemMenu.equals("4")) {
+            } else if (inputUserItemMenu.equals("5")) {
                 show();
             } else {
                 System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
@@ -246,6 +249,12 @@ public class Menu {
     private void showUserMenuTitle() {
         System.out.println("\nГлавное меню пользователя.");
         System.out.println("Привет, " + userService.getAuthorizedUserLogin() + ". Для работы выбери нужное меню:");
+    }
+
+    private void printUserInfo() {
+        System.out.println("\nВывод информации о пользователе:");
+        String userInfo = userService.getUserInfo(userService.getAuthorizedUserID());
+        System.out.println(userInfo);
     }
 
     private void changeUserLogin() {
