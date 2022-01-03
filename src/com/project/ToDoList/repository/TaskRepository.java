@@ -1,11 +1,8 @@
 package com.project.ToDoList.repository;
 
-import com.lesson17.A;
-
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TaskRepository {
     private String url = "jdbc:mysql://localhost:3306/todolist?useUnicode=true&serverTimezone=UTC";

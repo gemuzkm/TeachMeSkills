@@ -33,6 +33,29 @@ public class UserRepository {
         }
     }
 
+    public int updateUser(User user) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_login = ?, user_password = ? where user_id = ?;");
+                preparedStatement.setString(1, user.getLogin());
+                preparedStatement.setString(2, user.getPassword());
+                preparedStatement.setInt(3, user.getId());
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        // -1 - если юзер не обновился, значит и не найден в БД, иначе возврат ID
+        int userID = getUserID(user.getLogin());
+        if (userID != -1) {
+            return userID;
+        } else {
+            return -1;
+        }
+    }
+
     public int dellUser(User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();

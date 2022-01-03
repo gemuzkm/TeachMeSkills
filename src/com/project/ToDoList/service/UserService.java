@@ -49,14 +49,17 @@ public class UserService {
         return userIDFormBD;
     }
 
-    public void updateUserDataFromDB(int idUser, String login, String password) {
-
+    public boolean updateAuthorizedUserLogin(String newUserLogin) {
+        user.setLogin(newUserLogin);
+        if (userRepository.updateUser(user) != -1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void updateUserDataFromDB(int idUser, String login, String password, int role) {
+    public void updateAuthorizedUserPassword(String newUserPassword) {
+
 
     }
-
-
-
 }

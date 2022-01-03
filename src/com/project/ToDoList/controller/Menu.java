@@ -11,7 +11,7 @@ public class Menu {
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
     private PasswordValidation passwordValidation = new PasswordValidation();
-    private RoleValidation  roleValidation = new RoleValidation();
+    private RoleValidation roleValidation = new RoleValidation();
     private UserService userService = new UserService();
     private RoleService roleService = new RoleService();
     private TaskService taskService = new TaskService();
@@ -85,7 +85,7 @@ public class Menu {
             roleService.listRoleUser();
             System.out.println("\nВведите необходимый ID роли");
 
-            idRoleString =  inputUserDataConsole.readString();
+            idRoleString = inputUserDataConsole.readString();
             if (roleValidation.isNumeric(idRoleString)) {
                 idRole = Integer.parseInt(idRoleString);
             } else {
@@ -195,12 +195,41 @@ public class Menu {
     }
 
     private void showEditUserMenu() {
-        System.out.println();
+        System.out.println("\nКакие данные нужно изменить:");
 
+        while (true) {
+            System.out.println("\n1 - логин");
+            System.out.println("2 - пароль");
+            System.out.println("3 - выход в главное меню пользователя");
+
+            System.out.println("\nВведите цифру нужного меню:");
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                System.out.println("\nВведите желаемый логин:");
+                String newLogin = inputUserDataConsole.readString();
+                if (!loginValidation.isValidMinLength(newLogin)) {
+                    System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!");
+                } else if (userService.getUserIDFromBD(newLogin) != -1) {
+                    System.out.println("\nЛогин занят");
+                } else if (userService.updateAuthorizedUserLogin(newLogin)) {
+                    System.out.println("\nЛогин пользователя успешно изменен");
+                } else {
+                    System.out.println("\nНе удалось изменить логин пользователя");
+                }
+            } else if (inputUserItemMenu.equals("2")) {
+
+            } else if (inputUserItemMenu.equals("3")) {
+                showUserMenuTitle();
+                showUserMenu();
+            } else {
+                System.out.println("\nВведите номер меню из списка");
+            }
+        }
     }
 
     private void showEditUserMenuTitle() {
-        System.out.println("\nМеню изменения данных пользователя:\n");
+        System.out.println("\nМеню изменения данных пользователя");
     }
 
     private void showTaskUserMenuTitle() {
