@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class RoleService {
     private RoleRepository repository = new RoleRepository();
 
-    public int getRoleID(String login) {
+    public int getRoleIdFromBD(String login) {
         return repository.getRoleID(login);
     }
 

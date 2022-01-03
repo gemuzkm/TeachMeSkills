@@ -9,7 +9,7 @@ public class UserService {
     private RoleRepository repository = new RoleRepository();
     private User user;
 
-    public boolean addUserFromBD(String login, String password, int role) {
+    public boolean addUserToBD(String login, String password, int role) {
         user = new User(login, password, role);
         int userResulAddFromBD = userRepository.addUser(user);
         if (userResulAddFromBD != -1) {

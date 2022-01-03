@@ -18,7 +18,7 @@ public class LoginValidation {
         }
     }
 
-    public boolean findLoginFromBD(String inputUserLogin) {
+    public boolean findLoginToBD(String inputUserLogin) {
         if (userService.getUserIDFromBD(inputUserLogin) != -1) {
             return true;
         } else {

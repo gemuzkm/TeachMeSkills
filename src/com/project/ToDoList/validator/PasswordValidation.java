@@ -18,7 +18,7 @@ public class PasswordValidation {
         }
     }
 
-    public boolean checkPasswordFromBD(String inputUserLogin, String inputUserPassword) {
+    public boolean checkPasswordInBD(String inputUserLogin, String inputUserPassword) {
         if (userRepository.checkUserPassword(inputUserLogin, inputUserPassword)) {
             return true;
         } else {

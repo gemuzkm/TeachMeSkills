@@ -62,7 +62,7 @@ public class Menu {
             inputUserLogin = inputUserDataConsole.readString();
             if (!loginValidation.isValidMinLength(inputUserLogin)) {
                 System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!\n");
-            } else if (loginValidation.findLoginFromBD(inputUserLogin)) {
+            } else if (loginValidation.findLoginToBD(inputUserLogin)) {
                 System.out.println("\nВведенный логин пользователя уже занят!\n");
             } else {
                 loginIsFree = true;
@@ -102,7 +102,7 @@ public class Menu {
             }
         }
 
-        if (userService.addUserFromBD(inputUserLogin, inputUserPassword, idRole)) {
+        if (userService.addUserToBD(inputUserLogin, inputUserPassword, idRole)) {
             System.out.println("\nПользователь успешно создан");
         } else {
             System.out.println("\nОшибка во время добавления пользователя");
@@ -124,7 +124,7 @@ public class Menu {
             inputUserLogin = inputUserDataConsole.readString();
             if (!loginValidation.isValidMinLength(inputUserLogin)) {
                 System.out.println("\nЛогин не существует или введен неверно!");
-            } else if (!loginValidation.findLoginFromBD(inputUserLogin)) {
+            } else if (!loginValidation.findLoginToBD(inputUserLogin)) {
                 System.out.println("\nПользователь с введенным логином не существует!");
             } else {
                 loginIsValid = true;
@@ -138,7 +138,7 @@ public class Menu {
 
             if (!passwordValidation.isValidMinLength(inputUserPassword)) {
                 System.out.println("\nПароль введен не верно");
-            } else if (!passwordValidation.checkPasswordFromBD(inputUserLogin, inputUserPassword)) {
+            } else if (!passwordValidation.checkPasswordInBD(inputUserLogin, inputUserPassword)) {
                 System.out.println("\nПароль введен не верно");
             } else {
                 passwordIsValid = true;
@@ -148,7 +148,7 @@ public class Menu {
 
         if (loginIsValid && passwordIsValid) {
             idUser = userService.getUserIDFromBD(inputUserLogin);
-            idRole = roleService.getRoleID(inputUserLogin);
+            idRole = roleService.getRoleIdFromBD(inputUserLogin);
 
             userService.createAuthorizedUser(idUser, inputUserLogin, inputUserPassword, idRole);
 
@@ -208,7 +208,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 taskService.listTaskUser(userService.getAuthorizedUserID());
             } else if (inputUserItemMenu.equals("2")) {
-                printTaskInfoFromIDtaskByUser();
+                printTaskInfoFromIdTaskByUser();
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {
@@ -272,7 +272,7 @@ public class Menu {
         System.out.println("Привет, " + userService.getAuthorizedUserLogin() + ". Для работы выбери нужное меню:");
     }
 
-    private void printTaskInfoFromIDtaskByUser() {
+    private void printTaskInfoFromIdTaskByUser() {
         String inputUserTaskID = "";
 
         while (true) {
