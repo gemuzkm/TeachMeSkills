@@ -67,14 +67,6 @@ public class UserRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-
-//        // -1 - если узер не добавился, значит и не найден в БД, иначе возврат ID в BD юзера
-//        int userID = getUserID(user);
-//        if (userID != -1) {
-//            return userID;
-//        } else {
-//            return -1;
-//        }
         return 1;
     }
 

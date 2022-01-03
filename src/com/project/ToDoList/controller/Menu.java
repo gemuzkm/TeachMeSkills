@@ -218,7 +218,13 @@ public class Menu {
                     System.out.println("\nНе удалось изменить логин пользователя");
                 }
             } else if (inputUserItemMenu.equals("2")) {
-
+                System.out.println("\nВведите желаемый пароль:");
+                String newPassword = inputUserDataConsole.readString();
+                if (!passwordValidation.isValidMinLength(newPassword)) {
+                    System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!");
+                } else if (userService.updateAuthorizedUserPassword(newPassword)) {
+                    System.out.println("\nПароль пользователя успешно изменен");
+                }
             } else if (inputUserItemMenu.equals("3")) {
                 showUserMenuTitle();
                 showUserMenu();

@@ -58,8 +58,12 @@ public class UserService {
         }
     }
 
-    public void updateAuthorizedUserPassword(String newUserPassword) {
-
-
+    public boolean updateAuthorizedUserPassword(String newUserPassword) {
+        user.setPassword(newUserPassword);
+        if (userRepository.updateUser(user) != -1 && userRepository.checkUserPassword(user.getLogin(), user.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
