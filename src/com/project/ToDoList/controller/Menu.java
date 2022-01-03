@@ -208,21 +208,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 taskService.listTaskUser(userService.getAuthorizedUserID());
             } else if (inputUserItemMenu.equals("2")) {
-                String inputUserTaskID = "";
-
-                while (true) {
-                    System.out.println("\nВведите ID задания:");
-                    inputUserTaskID = inputUserDataConsole.readString();
-
-                    if (!taskValidation.isNumeric(inputUserTaskID)) {
-                        System.out.println("\nВведите ID задания");
-                    } else {
-                        break;
-                    }
-                }
-
-                String taskInfoFromId = taskService.getTaskInfoFromID(userService.getAuthorizedUserID(), Integer.parseInt(inputUserTaskID));
-                System.out.println("\n" + taskInfoFromId);
+                printTaskInfoFromIDtaskByUser();
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {
@@ -284,6 +270,24 @@ public class Menu {
     private void showUserMenuTitle() {
         System.out.println("\nГлавное меню пользователя.");
         System.out.println("Привет, " + userService.getAuthorizedUserLogin() + ". Для работы выбери нужное меню:");
+    }
+
+    private void printTaskInfoFromIDtaskByUser() {
+        String inputUserTaskID = "";
+
+        while (true) {
+            System.out.println("\nВведите ID задания:");
+            inputUserTaskID = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputUserTaskID)) {
+                System.out.println("\nВведите ID задания");
+            } else {
+                break;
+            }
+        }
+
+        String taskInfoFromId = taskService.getTaskInfoFromID(userService.getAuthorizedUserID(), Integer.parseInt(inputUserTaskID));
+        System.out.println("\n" + taskInfoFromId);
     }
 
     private void printUserInfo() {
