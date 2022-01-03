@@ -206,25 +206,9 @@ public class Menu {
             inputUserItemMenu = inputUserDataConsole.readString();
 
             if (inputUserItemMenu.equals("1")) {
-                System.out.println("\nВведите желаемый логин:");
-                String newLogin = inputUserDataConsole.readString();
-                if (!loginValidation.isValidMinLength(newLogin)) {
-                    System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!");
-                } else if (userService.getUserIDFromBD(newLogin) != -1) {
-                    System.out.println("\nЛогин занят");
-                } else if (userService.updateAuthorizedUserLogin(newLogin)) {
-                    System.out.println("\nЛогин пользователя успешно изменен");
-                } else {
-                    System.out.println("\nНе удалось изменить логин пользователя");
-                }
+                changeUserLogin();
             } else if (inputUserItemMenu.equals("2")) {
-                System.out.println("\nВведите желаемый пароль:");
-                String newPassword = inputUserDataConsole.readString();
-                if (!passwordValidation.isValidMinLength(newPassword)) {
-                    System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!");
-                } else if (userService.updateAuthorizedUserPassword(newPassword)) {
-                    System.out.println("\nПароль пользователя успешно изменен");
-                }
+                changeUserPassword();
             } else if (inputUserItemMenu.equals("3")) {
                 showUserMenuTitle();
                 showUserMenu();
@@ -262,5 +246,29 @@ public class Menu {
     private void showUserMenuTitle() {
         System.out.println("\nГлавное меню пользователя.");
         System.out.println("Привет, " + userService.getAuthorizedUserLogin() + ". Для работы выбери нужное меню:");
+    }
+
+    private void changeUserLogin() {
+        System.out.println("\nВведите желаемый логин:");
+        String newLogin = inputUserDataConsole.readString();
+        if (!loginValidation.isValidMinLength(newLogin)) {
+            System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!");
+        } else if (userService.getUserIDFromBD(newLogin) != -1) {
+            System.out.println("\nЛогин занят");
+        } else if (userService.updateAuthorizedUserLogin(newLogin)) {
+            System.out.println("\nЛогин пользователя успешно изменен");
+        } else {
+            System.out.println("\nНе удалось изменить логин пользователя");
+        }
+    }
+
+    private void changeUserPassword() {
+        System.out.println("\nВведите желаемый пароль:");
+        String newPassword = inputUserDataConsole.readString();
+        if (!passwordValidation.isValidMinLength(newPassword)) {
+            System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!");
+        } else if (userService.updateAuthorizedUserPassword(newPassword)) {
+            System.out.println("\nПароль пользователя успешно изменен");
+        }
     }
 }
