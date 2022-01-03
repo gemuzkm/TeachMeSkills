@@ -194,7 +194,7 @@ public class Menu {
     }
 
     private void showTaskUserMenu() {
-        System.out.println("1 - ");
+        System.out.println("\n1 - ");
     }
 
     private void showEditUserMenu() {
@@ -226,7 +226,7 @@ public class Menu {
     }
 
     private void showTaskUserMenuTitle() {
-        System.out.println("\nМеню работы с заданиями:\n");
+        System.out.println("\nМеню работы с заданиями:");
     }
 
     private void showMainTitle() {
