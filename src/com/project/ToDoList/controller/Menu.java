@@ -194,7 +194,26 @@ public class Menu {
     }
 
     private void showTaskUserMenu() {
-        System.out.println("\n1 - ");
+        while (true) {
+            System.out.println("\n1 - вывод всех task пользователя");
+            System.out.println("2 - вывод информации о task по ID task");
+            System.out.println("3 - изменение статуса task");
+            System.out.println("4 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                taskService.listTaskUser(userService.getAuthorizedUserID());
+            } else if (inputUserItemMenu.equals("2")) {
+
+            } else if (inputUserItemMenu.equals("3")) {
+
+            } else if (inputUserItemMenu.equals("4")) {
+                showUserMenuTitle();
+                showUserMenu();
+            }
+        }
     }
 
     private void showEditUserMenu() {
