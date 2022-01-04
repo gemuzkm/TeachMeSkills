@@ -36,6 +36,33 @@ public class TaskRepository {
         return listTaskByUser;
     }
 
+    public ArrayList<String> getAllListTask() {
+        ArrayList<String> listTaskByUser = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("" +
+                        "select task_id, task_name, task_status.status_name,task_category.category_name,users.user_login from user_task\n" +
+                        "inner join task_status on user_task.task_status = task_status.status_id\n" +
+                        "inner join task_category on user_task.task_category = task_category.category_id\n" +
+                        "inner join users on user_task.user_id = users.user_id\n" +
+                        "order by task_id;");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    listTaskByUser.add("ID - " + resultSet.getInt(1) +
+                            ", Name - " + resultSet.getString(2) +
+                            ", Status - " + resultSet.getString(3) +
+                            ", Category - " + resultSet.getString(4) +
+                            ", Owner - " + resultSet.getString(5));
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return listTaskByUser;
+    }
+
     public String getTaskInfoFromID(int idUser, int idTask) {
         String taskInfo = "";
 

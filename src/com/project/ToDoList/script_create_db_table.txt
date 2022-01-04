@@ -84,3 +84,10 @@ alter table user_task
     add constraint user_task_task_category_category_id_fk
         foreign key (task_category) references task_category (category_id);
 
+#############
+alter table users
+    drop foreign key users_user_role_role_id_fk;
+
+alter table users
+    add constraint users_user_role_role_id_fk
+        foreign key (user_role) references user_role (role_id);

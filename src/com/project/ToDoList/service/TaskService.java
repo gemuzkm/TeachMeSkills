@@ -42,4 +42,10 @@ public class TaskService {
         int resultUpdate =  taskRepository.updateTaskStatus(idTask, idStatus);
         return resultUpdate;
     }
+
+    public void printAllTaskInfo() {
+        ArrayList<String> listAllTaskInfo =  taskRepository.getAllListTask();
+        System.out.println("\nСписок всех task:");
+        listAllTaskInfo.forEach(System.out::println);
+    }
 }

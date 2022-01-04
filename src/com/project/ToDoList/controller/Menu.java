@@ -163,7 +163,36 @@ public class Menu {
     }
 
     private void showManagerMenu() {
+        while (true) {
+            System.out.println("\n1 - вывод данных текущего пользователя");
+            System.out.println("2 - вывод всех данных (пользователей/task)");
+            System.out.println("3 - вывод данные по ID (пользователя/task)");
+            System.out.println("4 - работа с пользователями (добавление/удаление/изменение)");
+            System.out.println("5 - работа с task (добавление/удаление/обновление/изменение статуса)");
+            System.out.println("6 - работа с category (добавление/удаление/обновление/изменение)");
+            System.out.println("7 - завершить сессию пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
 
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                printUserInfo();
+            } else if (inputUserItemMenu.equals("2")) {
+                showPrintAllUserAndAllTaskInfoMenu();
+            } else if (inputUserItemMenu.equals("3")) {
+
+            } else if (inputUserItemMenu.equals("4")) {
+
+            } else if (inputUserItemMenu.equals("5")) {
+
+            } else if (inputUserItemMenu.equals("6")) {
+
+            } else if (inputUserItemMenu.equals("7")) {
+                show();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
     }
 
     private void showUserMenu() {
@@ -242,6 +271,27 @@ public class Menu {
         }
     }
 
+    private void showPrintAllUserAndAllTaskInfoMenu() {
+        while (true) {
+            System.out.println("\n1 - вывод информации о всех пользователях");
+            System.out.println("2 - вывод информации о всех task");
+            System.out.println("3 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                userService.printAllUserInfo();
+            } else if (inputUserItemMenu.equals("2")) {
+                taskService.printAllTaskInfo();
+            } else if (inputUserItemMenu.equals("3")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
+    }
+
     private void showEditUserMenuTitle() {
         System.out.println("\nМеню изменения данных пользователя");
     }
@@ -264,7 +314,8 @@ public class Menu {
     }
 
     private void showManagerMenuTitle() {
-        System.out.println("\nМеню менеджера\n");
+        System.out.println("\nГлавное меню менеджера");
+        System.out.println("Привет, " + userService.getAuthorizedUserLogin() + ". Для работы выбери нужное меню:");
     }
 
     private void showUserMenuTitle() {
@@ -278,7 +329,6 @@ public class Menu {
         String inputNewTaskStatusIdString = "";
         String taskInfoFromId = "";
         int inputNewTaskId = -1;
-
 
         System.out.println("\nИзменением статуса task");
 

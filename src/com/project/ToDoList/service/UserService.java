@@ -4,6 +4,8 @@ import com.project.ToDoList.entity.User;
 import com.project.ToDoList.repository.RoleRepository;
 import com.project.ToDoList.repository.UserRepository;
 
+import java.util.ArrayList;
+
 public class UserService {
     private UserRepository userRepository = new UserRepository();
     private RoleRepository repository = new RoleRepository();
@@ -70,4 +72,11 @@ public class UserService {
     public String getUserInfo(int idUser) {
         return userRepository.getUserInfo(idUser);
     }
+
+    public void printAllUserInfo() {
+        ArrayList<String> listAllUserInfo = userRepository.getAllUserInfo();
+        System.out.println("\nСписок всех пользователей:");
+        listAllUserInfo.forEach(System.out::println);
+    }
+
 }
