@@ -9,6 +9,7 @@ import com.project.ToDoList.validator.RoleValidation;
 import com.project.ToDoList.validator.TaskValidation;
 
 public class Menu {
+
     private ReaderDataFromConsole inputUserDataConsole = new ReaderDataFromConsole();
     private LoginValidation loginValidation = new LoginValidation();
     private PasswordValidation passwordValidation = new PasswordValidation();
@@ -180,7 +181,7 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 showPrintAllUserAndAllTaskInfoMenu();
             } else if (inputUserItemMenu.equals("3")) {
-
+                showPrintUserAndTaskInfoByIDMenu();
             } else if (inputUserItemMenu.equals("4")) {
 
             } else if (inputUserItemMenu.equals("5")) {
@@ -292,6 +293,27 @@ public class Menu {
         }
     }
 
+    private void showPrintUserAndTaskInfoByIDMenu() {
+        while (true) {
+            System.out.println("\n1 - вывод информации о пользователе по ID");
+            System.out.println("2 - вывод информации о task по ID");
+            System.out.println("3 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                printUserInfoByID();
+            } else if (inputUserItemMenu.equals("2")) {
+                printTaskInfoByID();
+            } else if (inputUserItemMenu.equals("3")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
+    }
+
     private void showEditUserMenuTitle() {
         System.out.println("\nМеню изменения данных пользователя");
     }
@@ -301,7 +323,7 @@ public class Menu {
     }
 
     private void showMainTitle() {
-        System.out.println("Добро пожаловать в ToDoList. \n\nВыберите нужный пункт меню:");
+        System.out.println("\nДобро пожаловать в ToDoList. \n\nВыберите нужный пункт меню:");
     }
 
     private void showRegistrationMenuTitle() {
@@ -393,6 +415,52 @@ public class Menu {
         System.out.println("\nВывод информации о пользователе:");
         String userInfo = userService.getUserInfo(userService.getAuthorizedUserID());
         System.out.println(userInfo);
+    }
+
+    private void printUserInfoByID() {
+        String inputUserIdString = "";
+        int inputUserId = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя");
+            inputUserIdString = inputUserDataConsole.readString();
+
+            if(!roleValidation.isNumeric(inputUserIdString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else {
+                inputUserId = Integer.parseInt(inputUserIdString);
+                System.out.println("\nИнформация о пользователе с ID - " + inputUserId + ":");
+                System.out.printf(userService.getUserInfo(inputUserId) + "\n");
+                break;
+            }
+        }
+    }
+
+    private void printTaskInfoByID() {
+        String inputTaskIdString = "";
+        int inputTaskId = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID task");
+            inputTaskIdString = inputUserDataConsole.readString();
+
+            if(!taskValidation.isNumeric(inputTaskIdString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputTaskIdString)) == -1) {
+                System.out.println("\nНет task с таким ID");
+                continue;
+            } else {
+                inputTaskId = Integer.parseInt(inputTaskIdString);
+                System.out.println("\nИнформация о task с ID - " + inputTaskId + ":");
+                System.out.printf(taskService.getTaskInfo(inputTaskId) + "\n");
+                break;
+            }
+        }
     }
 
     private void changeUserLogin() {

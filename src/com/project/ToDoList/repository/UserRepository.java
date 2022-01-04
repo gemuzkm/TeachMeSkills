@@ -111,6 +111,26 @@ public class UserRepository {
         return -1;
     }
 
+    public int getUserID(int idUser) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select users.user_id from users where users.user_id = ?");
+                preparedStatement.setInt(1, idUser);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return id;
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public boolean checkUserPassword(String userLogin, String userPassword) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();

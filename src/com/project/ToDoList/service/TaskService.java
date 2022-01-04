@@ -9,10 +9,6 @@ import java.util.HashMap;
 public class TaskService {
     private TaskRepository taskRepository = new TaskRepository();
 
-    public void listTaskUser(User user) {
-
-    }
-
     public void listTaskUser(int userID) {
         ArrayList<String> listUserTask = taskRepository.getListTask(userID);
         System.out.println("\nСписок заданий пользователя:\n");
@@ -31,6 +27,11 @@ public class TaskService {
         return taskInfo;
     }
 
+    public int getTaskIDFromBD(int idTask) {
+        int userIDFormBD = taskRepository.getTaskID(idTask);
+        return userIDFormBD;
+    }
+
     public void listTaskStatus() {
         HashMap<Integer, String> listUserRole = taskRepository.getListStatus();;
         listUserRole.forEach((k, v) -> {
@@ -41,6 +42,10 @@ public class TaskService {
     public int updateTaskStatus(int idTask, int idStatus) {
         int resultUpdate =  taskRepository.updateTaskStatus(idTask, idStatus);
         return resultUpdate;
+    }
+
+    public String getTaskInfo(int idTask) {
+        return taskRepository.getTaskInfo(idTask);
     }
 
     public void printAllTaskInfo() {

@@ -51,6 +51,11 @@ public class UserService {
         return userIDFormBD;
     }
 
+    public int getUserIDFromBD(int idUser) {
+        int userIDFormBD = userRepository.getUserID(idUser);
+        return userIDFormBD;
+    }
+
     public boolean updateAuthorizedUserLogin(String newUserLogin) {
         user.setLogin(newUserLogin);
         if (userRepository.updateUser(user) != -1) {
