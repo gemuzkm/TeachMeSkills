@@ -272,6 +272,32 @@ public class Menu {
         }
     }
 
+    private void showEditUserForManagerMenu() {
+        System.out.println("\nКакие данные нужно изменить:");
+
+        while (true) {
+            System.out.println("\n1 - логин");
+            System.out.println("2 - пароль");
+            System.out.println("3 - Role");
+            System.out.println("4 - выход в главное меню пользователя");
+
+            System.out.println("\nВведите цифру нужного меню:");
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                changeUserLoginForManager();
+            } else if (inputUserItemMenu.equals("2")) {
+
+            } else if (inputUserItemMenu.equals("3")) {
+
+            } else if (inputUserItemMenu.equals("4")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nВведите номер меню из списка");
+            }
+        }
+    }
+
     private void showPrintAllUserAndAllTaskInfoMenu() {
         while (true) {
             System.out.println("\n1 - вывод информации о всех пользователях");
@@ -330,7 +356,7 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 deleteUserByID();
             } else if (inputUserItemMenu.equals("3")) {
-
+                showEditUserForManagerMenu();
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
@@ -502,11 +528,48 @@ public class Menu {
         }
     }
 
+    private void changeUserLoginForManager() {
+        String inputUserIdString = "";
+        int inputUserId = -1;
+        String newLogin = "";
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя");
+            inputUserIdString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputUserIdString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else {
+                inputUserId = Integer.parseInt(inputUserIdString);
+                break;
+            }
+        }
+
+        System.out.println("\n" + userService.getUserInfo(inputUserId));
+
+        System.out.println("\nВведите желаемый логин:");
+        newLogin = inputUserDataConsole.readString();
+
+        if (!loginValidation.isValidMinLength(newLogin)) {
+            System.out.println("\nОшибка. Минимальная длина логина 2 символа, может состоять только из En букв и цифр!");
+        } else if (userService.getUserIDFromBD(newLogin) != -1) {
+            System.out.println("\nЛогин занят");
+        } else if (userService.updateUserLogin(inputUserId, newLogin)) {
+            System.out.println("\nЛогин пользователя успешно изменен");
+        } else {
+            System.out.println("\nНе удалось изменить логин пользователя");
+        }
+    }
+
     private void changeUserPassword() {
         System.out.println("\nВведите желаемый пароль:");
         String newPassword = inputUserDataConsole.readString();
         if (!passwordValidation.isValidMinLength(newPassword)) {
-            System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!");
+            System.out.println("\nОшибка. Минимальная длина пароля 2 символа, может состоять только из En букв и цифр!");
         } else if (userService.updateAuthorizedUserPassword(newPassword)) {
             System.out.println("\nПароль пользователя успешно изменен");
         }
