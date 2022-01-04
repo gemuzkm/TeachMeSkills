@@ -34,7 +34,7 @@ public class UserRepository {
         }
     }
 
-    public int updateUser(User user) {
+    public int updateUserLogin(User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -57,12 +57,34 @@ public class UserRepository {
         }
     }
 
-    public int updateUser(int idUser, String newLogin) {
+    public int updateUserLogin(int idUser, String newLogin) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update users set user_login = ? where user_id = ?;");
                 preparedStatement.setString(1, newLogin);
+                preparedStatement.setInt(2, idUser);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        // -1 - если юзер не обновился, значит и не найден в БД, иначе возврат ID
+        int userID = getUserID(idUser);
+        if (userID != -1) {
+            return userID;
+        } else {
+            return -1;
+        }
+    }
+
+    public int updateUserPassword(int idUser, String newPassword) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_password = ? where user_id = ?;");
+                preparedStatement.setString(1, newPassword);
                 preparedStatement.setInt(2, idUser);
                 preparedStatement.execute();
             }

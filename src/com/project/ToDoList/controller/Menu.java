@@ -287,7 +287,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 changeUserLoginForManager();
             } else if (inputUserItemMenu.equals("2")) {
-
+                changeUserPasswordForManager();
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {
@@ -550,7 +550,6 @@ public class Menu {
         }
 
         System.out.println("\n" + userService.getUserInfo(inputUserId));
-
         System.out.println("\nВведите желаемый логин:");
         newLogin = inputUserDataConsole.readString();
 
@@ -562,6 +561,38 @@ public class Menu {
             System.out.println("\nЛогин пользователя успешно изменен");
         } else {
             System.out.println("\nНе удалось изменить логин пользователя");
+        }
+    }
+
+    private void changeUserPasswordForManager() {
+        String inputUserIdString = "";
+        int inputUserId = -1;
+        String newPassword = "";
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя");
+            inputUserIdString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputUserIdString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else {
+                inputUserId = Integer.parseInt(inputUserIdString);
+                break;
+            }
+        }
+
+        System.out.println("\n" + userService.getUserInfo(inputUserId));
+        System.out.println("\nВведите желаемый пароль:");
+        newPassword = inputUserDataConsole.readString();
+
+        if (!passwordValidation.isValidMinLength(newPassword)) {
+            System.out.println("\nОшибка. Минимальная длина пароля 2 символа, может состоять только из En букв и цифр!");
+        } else if (userService.updateUserPassword(inputUserId, newPassword)) {
+            System.out.println("\nПароль пользователя успешно изменен");
         }
     }
 

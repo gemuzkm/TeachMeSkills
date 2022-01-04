@@ -62,7 +62,7 @@ public class UserService {
 
     public boolean updateAuthorizedUserLogin(String newUserLogin) {
         user.setLogin(newUserLogin);
-        if (userRepository.updateUser(user) != -1) {
+        if (userRepository.updateUserLogin(user) != -1) {
             return true;
         } else {
             return false;
@@ -70,7 +70,7 @@ public class UserService {
     }
 
     public boolean updateUserLogin(int idUser, String newLogin) {
-        if (userRepository.updateUser(idUser, newLogin) != -1) {
+        if (userRepository.updateUserLogin(idUser, newLogin) != -1) {
             return true;
         } else {
             return false;
@@ -79,7 +79,15 @@ public class UserService {
 
     public boolean updateAuthorizedUserPassword(String newUserPassword) {
         user.setPassword(newUserPassword);
-        if (userRepository.updateUser(user) != -1 && userRepository.checkUserPassword(user.getLogin(), user.getPassword())) {
+        if (userRepository.updateUserLogin(user) != -1 && userRepository.checkUserPassword(user.getLogin(), user.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateUserPassword(int idUser, String newPassword) {
+        if (userRepository.updateUserPassword(idUser, newPassword) != -1) {
             return true;
         } else {
             return false;
