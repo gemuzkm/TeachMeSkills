@@ -63,10 +63,10 @@ public class TaskRepository {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select task_id, task_name, task_status.status_name,task_category.category_name,users.user_login from user_task\n" +
-                        "inner join task_status on user_task.task_status = task_status.status_id\n" +
-                        "inner join task_category on user_task.task_category = task_category.category_id\n" +
-                        "inner join users on user_task.user_id = users.user_id\n" +
+                        "select task_id, task_name, task_status.status_name,task_category.category_name,users.user_login from user_task " +
+                        "inner join task_status on user_task.task_status = task_status.status_id " +
+                        "inner join task_category on user_task.task_category = task_category.category_id " +
+                        "inner join users on user_task.user_id = users.user_id " +
                         "where user_task.task_id = ?");
                 preparedStatement.setInt(1, idTask);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -90,10 +90,10 @@ public class TaskRepository {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select task_id, task_name, task_status.status_name,task_category.category_name,users.user_login from user_task\n" +
-                        "inner join task_status on user_task.task_status = task_status.status_id\n" +
-                        "inner join task_category on user_task.task_category = task_category.category_id\n" +
-                        "inner join users on user_task.user_id = users.user_id\n" +
+                        "select task_id, task_name, task_status.status_name,task_category.category_name,users.user_login from user_task " +
+                        "inner join task_status on user_task.task_status = task_status.status_id " +
+                        "inner join task_category on user_task.task_category = task_category.category_id " +
+                        "inner join users on user_task.user_id = users.user_id " +
                         "order by task_id;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
@@ -213,5 +213,4 @@ public class TaskRepository {
         }
         return -1;
     }
-
 }

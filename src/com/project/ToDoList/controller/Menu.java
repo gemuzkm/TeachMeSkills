@@ -169,8 +169,8 @@ public class Menu {
             System.out.println("2 - вывод всех данных (пользователей/task)");
             System.out.println("3 - вывод данные по ID (пользователя/task)");
             System.out.println("4 - работа с пользователями (добавление/удаление/изменение)");
-            System.out.println("5 - работа с task (добавление/удаление/обновление/изменение статуса)");
-            System.out.println("6 - работа с category (добавление/удаление/обновление/изменение)");
+            System.out.println("5 - работа с task (добавление/удаление/изменение статуса)");
+            System.out.println("6 - работа с category (добавление/удаление/изменение)");
             System.out.println("7 - завершить сессию пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
@@ -181,9 +181,9 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 showPrintAllUserAndAllTaskInfoMenu();
             } else if (inputUserItemMenu.equals("3")) {
-                showPrintUserAndTaskInfoByIDMenu();
+                showPrintUserAndTaskInfoByIdMenu();
             } else if (inputUserItemMenu.equals("4")) {
-
+                showUserAddDellEditMenu();
             } else if (inputUserItemMenu.equals("5")) {
 
             } else if (inputUserItemMenu.equals("6")) {
@@ -293,7 +293,7 @@ public class Menu {
         }
     }
 
-    private void showPrintUserAndTaskInfoByIDMenu() {
+    private void showPrintUserAndTaskInfoByIdMenu() {
         while (true) {
             System.out.println("\n1 - вывод информации о пользователе по ID");
             System.out.println("2 - вывод информации о task по ID");
@@ -307,6 +307,31 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 printTaskInfoByID();
             } else if (inputUserItemMenu.equals("3")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
+    }
+
+    private void showUserAddDellEditMenu() {
+        while (true) {
+            System.out.println("\n1 - добавление пользователя");
+            System.out.println("2 - удаление пользователя");
+            System.out.println("3 - изменение пользователя");
+            System.out.println("4 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                showRegistrationMenuTitle();
+                showRegistrationMenu();
+            } else if (inputUserItemMenu.equals("2")) {
+                deleteUserByID();
+            } else if (inputUserItemMenu.equals("3")) {
+
+            } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
                 System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
@@ -425,7 +450,7 @@ public class Menu {
             System.out.println("\nВведите ID пользователя");
             inputUserIdString = inputUserDataConsole.readString();
 
-            if(!roleValidation.isNumeric(inputUserIdString)) {
+            if (!roleValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
             } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
@@ -448,7 +473,7 @@ public class Menu {
             System.out.println("\nВведите ID task");
             inputTaskIdString = inputUserDataConsole.readString();
 
-            if(!taskValidation.isNumeric(inputTaskIdString)) {
+            if (!taskValidation.isNumeric(inputTaskIdString)) {
                 System.out.println("\nВведите число");
                 continue;
             } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputTaskIdString)) == -1) {
@@ -484,6 +509,38 @@ public class Menu {
             System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!");
         } else if (userService.updateAuthorizedUserPassword(newPassword)) {
             System.out.println("\nПароль пользователя успешно изменен");
+        }
+    }
+
+    private void deleteUserByID() {
+        System.out.println("\nУдаление пользователя по ID");
+        System.out.println("ВНИМАНИЕ! При удалении пользователя удалятся и все его task");
+
+        String inputUserIdString = "";
+        int inputUserId = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя");
+            inputUserIdString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputUserIdString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else if (userService.getAuthorizedUserID() == Integer.parseInt(inputUserIdString)) {
+                System.out.println("\nНевозможно удалить самого себя!");
+                continue;
+            } else {
+                inputUserId = Integer.parseInt(inputUserIdString);
+                if (userService.dellUserFromDB(inputUserId)) {
+                    System.out.println("\nПользователь с ID - " + inputUserId + " успешно удален");
+                } else {
+                    System.out.println("\nНе удалось удалить пользователя с ID - " + inputUserId);
+                }
+                break;
+            }
         }
     }
 }

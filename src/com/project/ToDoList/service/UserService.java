@@ -21,6 +21,10 @@ public class UserService {
         return false;
     }
 
+    public boolean dellUserFromDB(int idUser) {
+        return  userRepository.dellUser(idUser);
+    }
+
     public void createAuthorizedUser(String login, String password, int role) {
         user = new User(login, password, role);
     }

@@ -71,6 +71,25 @@ public class UserRepository {
         return 1;
     }
 
+    public boolean dellUser(int idUser) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from users where user_id = ?");
+                preparedStatement.setInt(1, idUser);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        int userID = getUserID(idUser);
+        if (userID == -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int getUserID(User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -158,7 +177,7 @@ public class UserRepository {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select users.user_id, users.user_login, users.user_password, user_role.role_name from users\n" +
+                        "select users.user_id, users.user_login, users.user_password, user_role.role_name from users " +
                         "inner join user_role on users.user_role = user_role.role_id where users.user_id = ?;");
                 preparedStatement.setInt(1, idUser);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -182,8 +201,8 @@ public class UserRepository {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
-                        "select users.user_id, users.user_login, users.user_password, user_role.role_name from users\n" +
-                        "inner join user_role on users.user_role = user_role.role_id;");
+                        "select users.user_id, users.user_login, users.user_password, user_role.role_name from users " +
+                        "inner join user_role on users.user_role = user_role.role_id order by users.user_id;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     listAllUserInfo.add("ID - " + resultSet.getInt(1) +
