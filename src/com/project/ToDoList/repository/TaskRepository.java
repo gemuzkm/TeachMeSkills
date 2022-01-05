@@ -273,6 +273,25 @@ public class TaskRepository {
         return -1;
     }
 
+    public boolean checkTaskNameByUser(String taskName, int idUser) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select task_id from user_task where user_id = ? and task_name = ?;");
+                preparedStatement.setInt(1, idUser);
+                preparedStatement.setString(2, taskName);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return true;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public int getIdCategory(int idCategory) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -309,5 +328,24 @@ public class TaskRepository {
             return false;
         }
         return true;
+    }
+
+    public boolean delTaskFromBdByIdTask(int idTask) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from user_task where task_id = ?;");
+                preparedStatement.setInt(1, idTask);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+            return false;
+        }
+        if (getTaskID(idTask) == -1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

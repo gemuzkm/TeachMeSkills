@@ -378,7 +378,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 addTaskForManagerMenu();
             } else if (inputUserItemMenu.equals("2")) {
-
+                delTaskForManagerMenu();
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {
@@ -726,9 +726,6 @@ public class Menu {
         String inputIdCategoryForTaskString = "";
         int inputIdCategoryForTask = -1;
 
-        System.out.println("\nВведите название task");
-        inputTaskNameString = inputUserDataConsole.readString();
-
         while (true) {
             System.out.println("\nВведите ID пользователя, для которого добавляется task");
             inputIdUserForTaskString = inputUserDataConsole.readString();
@@ -744,6 +741,18 @@ public class Menu {
                 continue;
             } else {
                 inputIdUserForTask = Integer.parseInt(inputIdUserForTaskString);
+                break;
+            }
+        }
+
+        while (true) {
+            System.out.println("\nВведите название task");
+            inputTaskNameString = inputUserDataConsole.readString();
+
+            if (taskService.checkTaskNameByUser(inputTaskNameString, inputIdUserForTask)) {
+                System.out.println("\nTask с таким названием уже существует у пользователя с ID - " + inputIdUserForTask);
+                continue;
+            } else {
                 break;
             }
         }
@@ -778,6 +787,35 @@ public class Menu {
             System.out.println("\nTask успешно создан для пользователя с ID - " + inputIdUserForTask);
         } else {
             System.out.println("\nОшибка при добавлении Task");
+        }
+    }
+
+    private void delTaskForManagerMenu() {
+        System.out.println("\nУдаление task");
+
+        String inputIdTaskString = "";
+        int inputIdTask = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID task для удаления");
+            inputIdTaskString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputIdTaskString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+                System.out.println("\nНет task с таким ID");
+                continue;
+            } else {
+                inputIdTask = Integer.parseInt(inputIdTaskString);
+                break;
+            }
+        }
+
+        if (taskService.delTaskFromBdByIdTask(inputIdTask)) {
+            System.out.println("\nTask c ID - " + inputIdTask + " успешно удалено");
+        } else {
+            System.out.println("\nОшибка при удалении Task с ID - " + inputIdTask);
         }
     }
 }

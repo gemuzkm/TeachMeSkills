@@ -82,4 +82,12 @@ public class TaskService {
         task = new Task(taskName, idUser, idStatus, idCategory);
         return taskRepository.addTaskToDB(task);
     }
+
+    public boolean checkTaskNameByUser(String taskName, int idUser) {
+        return taskRepository.checkTaskNameByUser(taskName, idUser);
+    }
+
+    public boolean delTaskFromBdByIdTask(int idTask) {
+        return taskRepository.delTaskFromBdByIdTask(idTask);
+    }
 }
