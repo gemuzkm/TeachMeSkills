@@ -187,7 +187,7 @@ public class Menu {
             } else if (inputUserItemMenu.equals("5")) {
                 showTaskAddDelEditMenu();
             } else if (inputUserItemMenu.equals("6")) {
-
+                showCategoryAddDelEditMenu();
             } else if (inputUserItemMenu.equals("7")) {
                 show();
             } else {
@@ -381,6 +381,30 @@ public class Menu {
                 delTaskForManagerMenu();
             } else if (inputUserItemMenu.equals("3")) {
                 showEditTaskForManagerMenu();
+            } else if (inputUserItemMenu.equals("4")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
+    }
+
+    private void showCategoryAddDelEditMenu() {
+        while (true) {
+            System.out.println("\n1 - добавление категории");
+            System.out.println("2 - удаление категории");
+            System.out.println("3 - изменение категории");
+            System.out.println("4 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                addCategory();
+            } else if (inputUserItemMenu.equals("2")) {
+
+            } else if (inputUserItemMenu.equals("3")) {
+
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
@@ -1025,6 +1049,30 @@ public class Menu {
             System.out.println("\nИзменение категории для задания с ID - " + inputIdTask + " прошло успешно");
         } else {
             System.out.println("\nОшибка изменения категории для задания с ID - " + inputIdTask);
+        }
+    }
+
+    private void addCategory() {
+        System.out.println("\nДобавление категории");
+
+        String inputNewCategoryNameString = "";
+
+        while (true) {
+            System.out.println("\nВведите название новой категории");
+            inputNewCategoryNameString = inputUserDataConsole.readString();
+
+            if (taskService.getIdForCategoryName(inputNewCategoryNameString) != -1) {
+                System.out.println("\nТакая категория уже существует");
+                continue;
+            } else {
+                 break;
+            }
+        }
+
+        if (taskService.addCategoryToBD(inputNewCategoryNameString)) {
+            System.out.println("\nКатегория \"" + inputNewCategoryNameString + "\" успешно создана");
+        } else {
+            System.out.println("\nОшибка при создании категории \"" + inputNewCategoryNameString + "\"");
         }
     }
 }

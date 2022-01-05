@@ -103,4 +103,8 @@ public class TaskService {
         return taskRepository.updateCategoryIdForTask(idTask, idCategory);
     }
 
+    public boolean addCategoryToBD(String nameCategory) {
+        return taskRepository.addCategoryToBD(nameCategory);
+    }
+
 }

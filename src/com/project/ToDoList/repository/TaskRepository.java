@@ -446,4 +446,22 @@ public class TaskRepository {
         }
         return checkTaskByTaskIdAndCategoryId(idTask, idCategory);
     }
+
+    public boolean addCategoryToBD(String nameCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into  task_category (category_name) values (?);");
+                preparedStatement.setString(1, nameCategory);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        if (getIdForCategoryName(nameCategory) != -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
