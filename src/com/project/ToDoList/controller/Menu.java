@@ -407,6 +407,8 @@ public class Menu {
             } else if (inputUserItemMenu.equals("3")) {
                 changeStatusForTask();
             } else if (inputUserItemMenu.equals("4")) {
+
+            } else if (inputUserItemMenu.equals("5")) {
                 showManagerMenu();
             } else {
                 System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
