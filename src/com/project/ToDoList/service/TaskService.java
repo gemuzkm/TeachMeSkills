@@ -94,4 +94,8 @@ public class TaskService {
     public boolean updateTaskName(int idTask, String newTaskName) {
         return taskRepository.updateTaskName(idTask, newTaskName);
     }
+
+    public boolean updateUserIdForTask(int idTask, int idUser) {
+        return taskRepository.updateUserIdForTask(idTask, idUser);
+    }
 }

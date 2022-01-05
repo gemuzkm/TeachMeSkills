@@ -401,9 +401,9 @@ public class Menu {
             inputUserItemMenu = inputUserDataConsole.readString();
 
             if (inputUserItemMenu.equals("1")) {
-                changeTaskName();
+                changeTaskNameForTask();
             } else if (inputUserItemMenu.equals("2")) {
-
+                changeUserIdForTask();
             } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {
@@ -844,7 +844,7 @@ public class Menu {
         }
     }
 
-    private void changeTaskName() {
+    private void changeTaskNameForTask() {
         System.out.println("\nИзменение название задания");
 
         String inputIdTaskString = "";
@@ -872,6 +872,53 @@ public class Menu {
 
         if (taskService.updateTaskName(inputIdTask, inputNewTaskName)) {
             System.out.println("\nИзменение название для задания с ID - " + inputIdTask + " прошло успешно");
+        } else {
+            System.out.println("\nОшибка изменения названия для задания с ID - " + inputIdTask);
+        }
+    }
+
+    private void changeUserIdForTask() {
+        System.out.println("\nИзменение владельца задания");
+
+        String inputIdTaskString = "";
+        String inputIdUserString = "";
+        int inputIdTask = -1;
+        int inputIdUser = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID задания, для которого нужно изменить владельца");
+            inputIdTaskString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputIdTaskString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+                System.out.println("\nНет задания с таким ID");
+                continue;
+            } else {
+                inputIdTask = Integer.parseInt(inputIdTaskString);
+                break;
+            }
+        }
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя, которому нужно добавить задание");
+            inputIdUserString = inputUserDataConsole.readString();
+
+            if(!taskValidation.isNumeric(inputIdUserString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputIdUserString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else {
+                inputIdUser = Integer.parseInt(inputIdUserString);
+                break;
+            }
+        }
+
+        if (taskService.updateUserIdForTask(inputIdTask, inputIdUser)) {
+            System.out.println("\nИзменение владельца для задания с ID - " + inputIdTask + " прошло успешно");
         } else {
             System.out.println("\nОшибка изменения названия для задания с ID - " + inputIdTask);
         }
