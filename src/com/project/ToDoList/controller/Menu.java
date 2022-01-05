@@ -289,7 +289,7 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 changeUserPasswordForManager();
             } else if (inputUserItemMenu.equals("3")) {
-
+                changeUserRoleForManager();
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
@@ -606,6 +606,59 @@ public class Menu {
         }
     }
 
+    private void changeUserRoleForManager() {
+        String inputUserIdString = "";
+        int inputUserId = -1;
+        String newIdRoleString = "";
+        int newIdRole = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя");
+            inputUserIdString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputUserIdString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else {
+                inputUserId = Integer.parseInt(inputUserIdString);
+                break;
+            }
+        }
+
+        if (userService.getAuthorizedUserRole() == inputUserId) {
+            System.out.println("\nЗапрещено менять ID Role текущему пользователю");
+        } else {
+            while (true) {
+                System.out.println("\nВыберите ID роли пользователя:");
+                roleService.listRoleUser();
+                System.out.println("\nВведите необходимый ID роли");
+
+                newIdRoleString = inputUserDataConsole.readString();
+                if (roleValidation.isNumeric(newIdRoleString)) {
+                    newIdRole = Integer.parseInt(newIdRoleString);
+                } else {
+                    System.out.println("\nВведенное ID не существует");
+                    continue;
+                }
+
+                if (!roleValidation.isValid(newIdRole)) {
+                    System.out.println("\nВведенное ID не существует");
+                } else {
+                    break;
+                }
+            }
+
+            if (userService.updateUserRole(inputUserId, newIdRole)) {
+                System.out.println("\nRole пользователя успешно изменена");
+            } else {
+                System.out.println("\nОшибка при изменении Role пользователя");
+            }
+        }
+    }
+
     private void deleteUserByID() {
         System.out.println("\nУдаление пользователя по ID");
         System.out.println("ВНИМАНИЕ! При удалении пользователя удалятся и все его task");
@@ -628,7 +681,7 @@ public class Menu {
                 continue;
             } else {
                 inputUserId = Integer.parseInt(inputUserIdString);
-                if (userService.dellUserFromDB(inputUserId)) {
+                if (userService.deleteUserFromDB(inputUserId)) {
                     System.out.println("\nПользователь с ID - " + inputUserId + " успешно удален");
                 } else {
                     System.out.println("\nНе удалось удалить пользователя с ID - " + inputUserId);

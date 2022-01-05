@@ -21,7 +21,7 @@ public class UserService {
         return false;
     }
 
-    public boolean dellUserFromDB(int idUser) {
+    public boolean deleteUserFromDB(int idUser) {
         return  userRepository.dellUser(idUser);
     }
 
@@ -44,10 +44,6 @@ public class UserService {
 
     public int getAuthorizedUserRole() {
         return user.getRole();
-    }
-
-    public int getUserIDFromBD(User user) {
-        return user.getId();
     }
 
     public int getUserIDFromBD(String login) {
@@ -77,8 +73,8 @@ public class UserService {
         }
     }
 
-    public boolean updateAuthorizedUserPassword(String newUserPassword) {
-        user.setPassword(newUserPassword);
+    public boolean updateAuthorizedUserPassword(String newPassword) {
+        user.setPassword(newPassword);
         if (userRepository.updateUserLogin(user) != -1 && userRepository.checkUserPassword(user.getLogin(), user.getPassword())) {
             return true;
         } else {
@@ -104,4 +100,8 @@ public class UserService {
         listAllUserInfo.forEach(System.out::println);
     }
 
+    public boolean updateUserRole (int idUser, int idNewRole) {
+        boolean result = userRepository.updateUserRole(idUser, idNewRole);
+        return result;
+    }
 }

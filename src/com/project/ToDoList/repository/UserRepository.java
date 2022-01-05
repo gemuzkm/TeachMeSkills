@@ -101,6 +101,26 @@ public class UserRepository {
         }
     }
 
+    public boolean updateUserRole (int idUser, int idNewRole) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("update users set user_role = ? where user_id = ?;");
+                preparedStatement.setInt(1, idNewRole);
+                preparedStatement.setInt(2, idUser);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        if (checkUserRole(idUser, idNewRole)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int dellUser(User user) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -192,6 +212,26 @@ public class UserRepository {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public boolean checkUserRole(int idUser, int idRole) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select user_id, user_role from users where user_id = ?;");
+                preparedStatement.setInt(1, idUser);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int userIdFromDB = resultSet.getInt(1);
+                    int userIdRoledFromDB = resultSet.getInt(2);
+                    if (idUser == userIdFromDB && idRole == userIdRoledFromDB)
+                        return true;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean checkUserPassword(String userLogin, String userPassword) {
