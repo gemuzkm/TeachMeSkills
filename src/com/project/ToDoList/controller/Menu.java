@@ -402,9 +402,9 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 addCategory();
             } else if (inputUserItemMenu.equals("2")) {
-
+                delCategory();
             } else if (inputUserItemMenu.equals("3")) {
-
+                changeCategory();
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
@@ -1073,6 +1073,75 @@ public class Menu {
             System.out.println("\nКатегория \"" + inputNewCategoryNameString + "\" успешно создана");
         } else {
             System.out.println("\nОшибка при создании категории \"" + inputNewCategoryNameString + "\"");
+        }
+    }
+
+    private void delCategory() {
+        System.out.println("\nУдаление категории");
+
+        String inputIdCategoryString = "";
+        int inputIdCategory = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID категории для удаления");
+            inputIdCategoryString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputIdCategoryString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryString)) == -1) {
+                System.out.println("\nНет категории с таким ID");
+                continue;
+            } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputIdCategoryString)).equals("default")) {
+                System.out.println("\nНевозможно удалить категорию по умолчанию");
+                continue;
+            } else {
+                inputIdCategory = Integer.parseInt(inputIdCategoryString);
+                break;
+            }
+        }
+
+        int idDefaultCategory = taskService.getIdForCategoryName("default");
+        if (taskService.delCategoryFromBD(inputIdCategory, idDefaultCategory)) {
+            System.out.println("\nКатегория с ID - " + inputIdCategory + " успешно удалена");
+        } else {
+            System.out.println("\nОшибка при удалении категории с ID - " + inputIdCategory);
+        }
+    }
+
+    private void changeCategory() {
+        System.out.println("\nИзменение категории");
+
+        String inputIdCategoryString = "";
+        String inputNewCategoryName = "";
+        int inputIdCategory = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID категории для изменения");
+            inputIdCategoryString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputIdCategoryString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryString)) == -1) {
+                System.out.println("\nНет категории с таким ID");
+                continue;
+            } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputIdCategoryString)).equals("default")) {
+                System.out.println("\nНевозможно изменить категорию по умолчанию");
+                continue;
+            } else {
+                inputIdCategory = Integer.parseInt(inputIdCategoryString);
+                break;
+            }
+        }
+
+        System.out.println("\nВведите новое название категории");
+        inputNewCategoryName = inputUserDataConsole.readString();
+
+        if (taskService.updateCategoryName(inputIdCategory,inputNewCategoryName )) {
+            System.out.println("\nНазвание категории успешно изменено");
+        } else {
+            System.out.println("\nОшибка во время изменения названия категории");
         }
     }
 }

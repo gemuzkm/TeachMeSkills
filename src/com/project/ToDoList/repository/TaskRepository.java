@@ -464,4 +464,66 @@ public class TaskRepository {
             return false;
         }
     }
+
+    public String getNameCategoryForIdCategory(int idCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select category_name from task_category where category_id = ?;");
+                preparedStatement.setInt(1, idCategory);
+                preparedStatement.execute();
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getString(1);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    return "";
+    }
+
+    public boolean delCategoryFromBD(int idCategory, int idDefaultCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement updateToDefaultCategory = connection.prepareStatement("update user_task set task_category = ? where task_category = ?;");
+                updateToDefaultCategory.setInt(1, idDefaultCategory);
+                updateToDefaultCategory.setInt(2, idCategory);
+                updateToDefaultCategory.execute();
+                PreparedStatement deleteCategory = connection.prepareStatement("delete from task_category where category_id = ?;");
+                deleteCategory.setInt(1, idCategory);
+                deleteCategory.execute();
+
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        if (getIdCategory(idCategory) == -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateCategoryName(int idCategory, String newNameCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("update task_category set category_name = ? where category_id = ?;");
+                preparedStatement.setString(1, newNameCategory);
+                preparedStatement.setInt(2, idCategory);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        if (getIdForCategoryName(newNameCategory) == idCategory) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

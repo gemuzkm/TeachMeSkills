@@ -107,4 +107,16 @@ public class TaskService {
         return taskRepository.addCategoryToBD(nameCategory);
     }
 
+    public String getNameCategoryForIdCategory(int idCategory) {
+        return taskRepository.getNameCategoryForIdCategory(idCategory);
+    }
+
+    public boolean delCategoryFromBD(int idCategory, int idDefaultCategory) {
+        return taskRepository.delCategoryFromBD(idCategory, idDefaultCategory);
+    }
+
+    public boolean updateCategoryName(int idCategory, String newNameCategory) {
+        return taskRepository.updateCategoryName(idCategory, newNameCategory);
+    }
+
 }
