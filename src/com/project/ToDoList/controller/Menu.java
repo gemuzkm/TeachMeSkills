@@ -459,6 +459,8 @@ public class Menu {
             inputUserIdTaskForEditStatusString = inputUserDataConsole.readString();
             if (!taskValidation.isNumeric(inputUserIdTaskForEditStatusString)) {
                 System.out.println("\nНеобходимо ввести число");
+            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
+                System.out.println("\nЗадания с таким ID не существует");
             } else {
                 inputUserIdTaskForEditStatus = Integer.parseInt(inputUserIdTaskForEditStatusString);
                 taskInfoFromId = taskService.getTaskInfoFromID(userService.getAuthorizedUserID(), inputUserIdTaskForEditStatus);
