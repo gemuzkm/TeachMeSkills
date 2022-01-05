@@ -405,7 +405,7 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 changeUserIdForTask();
             } else if (inputUserItemMenu.equals("3")) {
-
+                changeStatusForTask();
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
@@ -911,6 +911,9 @@ public class Menu {
             } else if (userService.getUserIDFromBD(Integer.parseInt(inputIdUserString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
+            }  else if (roleService.getNameRoleFromID(Integer.parseInt(inputIdUserString)).toLowerCase().equals("manager")) {
+                System.out.println("\nДля Manager нельзя добавлять задания");
+                continue;
             } else {
                 inputIdUser = Integer.parseInt(inputIdUserString);
                 break;
@@ -921,6 +924,56 @@ public class Menu {
             System.out.println("\nИзменение владельца для задания с ID - " + inputIdTask + " прошло успешно");
         } else {
             System.out.println("\nОшибка изменения названия для задания с ID - " + inputIdTask);
+        }
+    }
+
+    private void changeStatusForTask() {
+        String inputUserIdTaskForEditStatusString = "";
+        int inputUserIdTaskForEditStatus = -1;
+        String inputNewTaskStatusIdString = "";
+        String taskInfoFromId = "";
+        int inputNewTaskId = -1;
+
+        System.out.println("\nИзменением статуса task");
+
+        while (true) {
+            System.out.println("\nВведите ID task для смены статуса");
+            inputUserIdTaskForEditStatusString = inputUserDataConsole.readString();
+            if (!taskValidation.isNumeric(inputUserIdTaskForEditStatusString)) {
+                System.out.println("\nНеобходимо ввести число");
+            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
+                System.out.println("\nЗадания с таким ID не существует");
+            } else {
+                inputUserIdTaskForEditStatus = Integer.parseInt(inputUserIdTaskForEditStatusString);
+                taskInfoFromId = taskService.getTaskInfo(inputUserIdTaskForEditStatus);
+                System.out.println("\n" + taskInfoFromId);
+                break;
+            }
+        }
+
+        if (taskInfoFromId.contains("ID")) {
+            System.out.println("\nСписок поддерживаемых статусов task:");
+            taskService.listTaskStatus();
+
+            while (true) {
+                System.out.println("\nВведите новый ID статуса задания");
+                inputNewTaskStatusIdString = inputUserDataConsole.readString();
+                if (!taskValidation.isNumeric(inputNewTaskStatusIdString)) {
+                    System.out.println("\nНеобходимо ввести число");
+                } else if (taskService.getTaskStatusIdFromBD(Integer.parseInt(inputNewTaskStatusIdString)) == -1) {
+                    System.out.println("\nВведите ID нового статуса из списка");
+                } else {
+                    inputNewTaskId = Integer.parseInt(inputNewTaskStatusIdString);
+                    int resultUpdate = taskService.updateTaskStatus(inputUserIdTaskForEditStatus, inputNewTaskId);
+
+                    if (resultUpdate == -1) {
+                        System.out.println("\nОшибка, во время смены статуса задания");
+                    } else {
+                        System.out.println("\nСтатус задания успешно обновлен");
+                    }
+                    break;
+                }
+            }
         }
     }
 }
