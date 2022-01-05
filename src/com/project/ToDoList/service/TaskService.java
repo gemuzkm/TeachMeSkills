@@ -90,4 +90,8 @@ public class TaskService {
     public boolean delTaskFromBdByIdTask(int idTask) {
         return taskRepository.delTaskFromBdByIdTask(idTask);
     }
+
+    public boolean updateTaskName(int idTask, String newTaskName) {
+        return taskRepository.updateTaskName(idTask, newTaskName);
+    }
 }

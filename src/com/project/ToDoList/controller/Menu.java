@@ -380,6 +380,31 @@ public class Menu {
             } else if (inputUserItemMenu.equals("2")) {
                 delTaskForManagerMenu();
             } else if (inputUserItemMenu.equals("3")) {
+                showEditTaskForManagerMenu();
+            } else if (inputUserItemMenu.equals("4")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
+    }
+
+    private void showEditTaskForManagerMenu() {
+        while (true) {
+            System.out.println("\n1 - изменить имя задания");
+            System.out.println("2 - изменить владельца задания");
+            System.out.println("3 - изменить статус задания");
+            System.out.println("4 - изменить категорию задания");
+            System.out.println("5 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                changeTaskName();
+            } else if (inputUserItemMenu.equals("2")) {
+
+            } else if (inputUserItemMenu.equals("3")) {
 
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
@@ -816,6 +841,39 @@ public class Menu {
             System.out.println("\nTask c ID - " + inputIdTask + " успешно удалено");
         } else {
             System.out.println("\nОшибка при удалении Task с ID - " + inputIdTask);
+        }
+    }
+
+    private void changeTaskName() {
+        System.out.println("\nИзменение название задания");
+
+        String inputIdTaskString = "";
+        String inputNewTaskName = "";
+        int inputIdTask = -1;
+
+        while (true) {
+            System.out.println("\nВведите ID задания, для которого нужно изменить имя");
+            inputIdTaskString = inputUserDataConsole.readString();
+
+            if (!taskValidation.isNumeric(inputIdTaskString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+                System.out.println("\nНет задания с таким ID");
+                continue;
+            } else {
+                inputIdTask = Integer.parseInt(inputIdTaskString);
+                break;
+            }
+        }
+
+        System.out.println("\nВведите новое имя задания:");
+        inputNewTaskName = inputUserDataConsole.readString();
+
+        if (taskService.updateTaskName(inputIdTask, inputNewTaskName)) {
+            System.out.println("\nИзменение название для задания с ID - " + inputIdTask + " прошло успешно");
+        } else {
+            System.out.println("\nОшибка изменения названия для задания с ID - " + inputIdTask);
         }
     }
 }

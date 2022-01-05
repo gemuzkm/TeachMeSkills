@@ -348,4 +348,20 @@ public class TaskRepository {
             return false;
         }
     }
+
+    public boolean updateTaskName(int idTask, String newName) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("update user_task set task_name = ? where task_id = ?;");
+                preparedStatement.setString(1, newName);
+                preparedStatement.setInt(2, idTask);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return !checkTaskNameByUser(newName, idTask);
+    }
 }
