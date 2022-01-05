@@ -327,7 +327,23 @@ public class TaskRepository {
         return false;
     }
 
-
+    public boolean checkTaskByTaskIdAndCategoryId(int idTask, int idCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select task_id from user_task where task_id = ? and task_category = ?;");
+                preparedStatement.setInt(1, idTask);
+                preparedStatement.setInt(2, idCategory);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public int getIdCategory(int idCategory) {
         try {
@@ -405,7 +421,7 @@ public class TaskRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("update user_task set user_id = ? where task_id = ?;;");
+                PreparedStatement preparedStatement = connection.prepareStatement("update user_task set user_id = ? where task_id = ?;");
                 preparedStatement.setInt(1, idUser);
                 preparedStatement.setInt(2, idTask);
                 preparedStatement.execute();
@@ -414,5 +430,20 @@ public class TaskRepository {
             e.printStackTrace();
         }
         return checkTaskByTaskIdAndUserId(idTask, idUser);
+    }
+
+    public boolean updateCategoryIdForTask(int idTask, int idCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("update user_task set task_category = ? where task_id = ?;");
+                preparedStatement.setInt(1, idCategory);
+                preparedStatement.setInt(2, idTask);
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return checkTaskByTaskIdAndCategoryId(idTask, idCategory);
     }
 }

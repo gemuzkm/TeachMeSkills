@@ -98,4 +98,9 @@ public class TaskService {
     public boolean updateUserIdForTask(int idTask, int idUser) {
         return taskRepository.updateUserIdForTask(idTask, idUser);
     }
+
+    public boolean updateCategoryIdForTask(int idTask, int idCategory) {
+        return taskRepository.updateCategoryIdForTask(idTask, idCategory);
+    }
+
 }
