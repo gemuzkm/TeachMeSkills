@@ -1,5 +1,7 @@
 package com.project.ToDoList.repository;
 
+import com.project.ToDoList.entity.Task;
+
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -155,6 +157,23 @@ public class TaskRepository {
         return listStatus;
     }
 
+    public HashMap<Integer, String> getListCategory() {
+        HashMap<Integer, String> listStatus = new HashMap<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select * from task_category order by category_id;");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    listStatus.put(resultSet.getInt(1), resultSet.getString(2));
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return listStatus;
+    }
+
     public int getStatusId(int idStatus) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -212,5 +231,83 @@ public class TaskRepository {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public int getIdForStatusName(String statusName) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select task_status.status_id from task_status where status_name = ?;");
+                preparedStatement.setString(1, statusName);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return id;
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public int getIdForCategoryName(String categoryName) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select category_id from task_category where category_name = ?;");
+                preparedStatement.setString(1, categoryName);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return id;
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public int getIdCategory(int idCategory) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("select category_id from task_category where category_id = ?;");
+                preparedStatement.setInt(1, idCategory);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return id;
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public boolean addTaskToDB(Task task) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into user_task (task_name, user_id, task_status, task_category) values (?,?,?,?);");
+                preparedStatement.setString(1, task.getName());
+                preparedStatement.setInt(2, task.getIdUser());
+                preparedStatement.setInt(3, task.getStatus());
+                preparedStatement.setInt(4, task.getIdCategory());
+                preparedStatement.execute();
+            }
+        } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

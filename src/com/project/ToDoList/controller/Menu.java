@@ -168,7 +168,7 @@ public class Menu {
             System.out.println("\n1 - вывод данных текущего пользователя");
             System.out.println("2 - вывод всех данных (пользователей/task)");
             System.out.println("3 - вывод данные по ID (пользователя/task)");
-            System.out.println("4 - работа с пользователями (добавление/удаление/изменение)");
+            System.out.println("4 - работа с пользователями (добавление/удаление/изменение(логин, пароль, role))");
             System.out.println("5 - работа с task (добавление/удаление/изменение статуса)");
             System.out.println("6 - работа с category (добавление/удаление/изменение)");
             System.out.println("7 - завершить сессию пользователя\n");
@@ -183,9 +183,9 @@ public class Menu {
             } else if (inputUserItemMenu.equals("3")) {
                 showPrintUserAndTaskInfoByIdMenu();
             } else if (inputUserItemMenu.equals("4")) {
-                showUserAddDellEditMenu();
+                showUserAddDelEditMenu();
             } else if (inputUserItemMenu.equals("5")) {
-
+                showTaskAddDelEditMenu();
             } else if (inputUserItemMenu.equals("6")) {
 
             } else if (inputUserItemMenu.equals("7")) {
@@ -340,7 +340,7 @@ public class Menu {
         }
     }
 
-    private void showUserAddDellEditMenu() {
+    private void showUserAddDelEditMenu() {
         while (true) {
             System.out.println("\n1 - добавление пользователя");
             System.out.println("2 - удаление пользователя");
@@ -357,6 +357,30 @@ public class Menu {
                 deleteUserByID();
             } else if (inputUserItemMenu.equals("3")) {
                 showEditUserForManagerMenu();
+            } else if (inputUserItemMenu.equals("4")) {
+                showManagerMenu();
+            } else {
+                System.out.println("\nТакого меню не существует. Выбери только из указанных вариантов");
+            }
+        }
+    }
+
+    public void showTaskAddDelEditMenu() {
+        while (true) {
+            System.out.println("\n1 - добавление task");
+            System.out.println("2 - удаление task");
+            System.out.println("3 - изменение task");
+            System.out.println("4 - выход в главное меню пользователя\n");
+            System.out.println("Введите цифру нужного меню:");
+
+            inputUserItemMenu = inputUserDataConsole.readString();
+
+            if (inputUserItemMenu.equals("1")) {
+                addTaskForManagerMenu();
+            } else if (inputUserItemMenu.equals("2")) {
+
+            } else if (inputUserItemMenu.equals("3")) {
+
             } else if (inputUserItemMenu.equals("4")) {
                 showManagerMenu();
             } else {
@@ -689,5 +713,72 @@ public class Menu {
                 break;
             }
         }
+    }
+
+    private void addTaskForManagerMenu() {
+        System.out.println("\nДобавление task");
+
+        String inputTaskNameString = "";
+        String inputIdUserForTaskString = "";
+        int inputIdUserForTask = -1;
+        String inputIdStatusForTaskString = "";
+        int inputIdStatusForTask = -1;
+        String inputIdCategoryForTaskString = "";
+        int inputIdCategoryForTask = -1;
+
+        System.out.println("\nВведите название task");
+        inputTaskNameString = inputUserDataConsole.readString();
+
+        while (true) {
+            System.out.println("\nВведите ID пользователя, для которого добавляется task");
+            inputIdUserForTaskString = inputUserDataConsole.readString();
+
+            if (!roleValidation.isNumeric(inputIdUserForTaskString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (userService.getUserIDFromBD(Integer.parseInt(inputIdUserForTaskString)) == -1) {
+                System.out.println("\nНет пользователя с таким ID");
+                continue;
+            } else if (roleService.getNameRoleFromID(Integer.parseInt(inputIdUserForTaskString)).toLowerCase().equals("manager")) {
+                System.out.println("\n Для Manager нельзя добавлять task");
+                continue;
+            } else {
+                inputIdUserForTask = Integer.parseInt(inputIdUserForTaskString);
+                break;
+            }
+        }
+
+        //для всех task начальное значение "to do", если нужно другое, то реализовать ввод id статуса
+        inputIdStatusForTaskString = "to do";
+        inputIdStatusForTask = taskService.getIdForStatusName(inputIdStatusForTaskString);
+
+        while (true) {
+            System.out.println("\nВыберите ID категории:");
+            taskService.printAllListCategory();
+            System.out.println("\nВведите необходимый ID категории или нажмите Enter (будет назначена категория default):");
+
+            inputIdCategoryForTaskString = inputUserDataConsole.readString();
+
+            if (inputIdCategoryForTaskString.equals("")) {
+                inputIdCategoryForTask = taskService.getIdForCategoryName("default");
+                break;
+            } else if (!taskValidation.isNumeric(inputIdCategoryForTaskString)) {
+                System.out.println("\nВведите число");
+                continue;
+            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryForTaskString)) == -1) {
+                System.out.println("\nНет категории с таким ID");
+                continue;
+            } else {
+                inputIdCategoryForTask = Integer.parseInt(inputIdCategoryForTaskString);
+                break;
+            }
+        }
+
+        if (taskService.addTaskToDB(inputTaskNameString, inputIdUserForTask, inputIdStatusForTask, inputIdCategoryForTask)) {
+            System.out.println("\nTask успешно создан для пользователя с ID - " + inputIdUserForTask);
+        } else {
+            System.out.println("\nОшибка при добавлении Task");
+        }
+
     }
 }

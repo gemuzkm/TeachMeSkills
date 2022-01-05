@@ -1,5 +1,6 @@
 package com.project.ToDoList.service;
 
+import com.project.ToDoList.entity.Task;
 import com.project.ToDoList.entity.User;
 import com.project.ToDoList.repository.TaskRepository;
 
@@ -8,6 +9,7 @@ import java.util.HashMap;
 
 public class TaskService {
     private TaskRepository taskRepository = new TaskRepository();
+    private Task task;
 
     public void listTaskUser(int userID) {
         ArrayList<String> listUserTask = taskRepository.getListTask(userID);
@@ -48,9 +50,36 @@ public class TaskService {
         return taskRepository.getTaskInfo(idTask);
     }
 
+    public int getIdForStatusName(String statusName) {
+        int idStatus = taskRepository.getIdForStatusName(statusName);
+        return idStatus;
+    }
+
+    public int getIdForCategoryName(String categoryName) {
+        int idCategory = taskRepository.getIdForCategoryName(categoryName);
+        return idCategory;
+    }
+
+    public int getIdCategory(int idCategory) {
+         return taskRepository.getIdCategory(idCategory);
+    }
+
     public void printAllTaskInfo() {
         ArrayList<String> listAllTaskInfo =  taskRepository.getAllListTask();
         System.out.println("\nСписок всех task:");
         listAllTaskInfo.forEach(System.out::println);
+    }
+
+    public void printAllListCategory() {
+        HashMap<Integer, String> listUserCategory = taskRepository.getListCategory();
+        System.out.println("\nСписок всех категорий:");
+        listUserCategory.forEach((k,v) -> {
+            System.out.println("ID - " + k + ", название категории - " + v);
+        });
+    }
+
+    public boolean addTaskToDB(String taskName, int idUser, int idStatus, int idCategory) {
+        task = new Task(taskName, idUser, idStatus, idCategory);
+        return taskRepository.addTaskToDB(task);
     }
 }
