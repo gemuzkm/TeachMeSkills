@@ -12,12 +12,12 @@ public class TaskRepository {
     private String username = "root";
     private String password = "admin";
 
-    public int getTaskID(int idTask) {
+    public int getTaskId(int taskId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_task.task_id from user_task where task_id = ?;");
-                preparedStatement.setInt(1, idTask);
+                preparedStatement.setInt(1, taskId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
@@ -33,8 +33,8 @@ public class TaskRepository {
     }
 
 
-    public ArrayList<String> getListTask(int userID) {
-       ArrayList<String> listTaskByUser = new ArrayList<>();
+    public ArrayList<String> getListTasksFromUserId(int userId) {
+        ArrayList<String> listTasks = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -43,10 +43,10 @@ public class TaskRepository {
                         "inner join task_status on user_task.task_status = task_status.status_id " +
                         "inner join task_category on user_task.task_category = task_category.category_id " +
                         "where user_task.user_id = ? order by task_id;");
-                preparedStatement.setInt(1, userID);
+                preparedStatement.setInt(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    listTaskByUser.add("ID - " + resultSet.getInt(1) +
+                    listTasks.add("ID - " + resultSet.getInt(1) +
                             ", Name - " + resultSet.getString(2) +
                             ", Status - " + resultSet.getString(3) +
                             ", Category - " + resultSet.getString(4));
@@ -55,11 +55,10 @@ public class TaskRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-
-        return listTaskByUser;
+        return listTasks;
     }
 
-    public String getTaskInfo(int idTask) {
+    public String getTaskInfoByTaskId(int taskId) {
         String taskInfo = "";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -70,7 +69,7 @@ public class TaskRepository {
                         "inner join task_category on user_task.task_category = task_category.category_id " +
                         "inner join users on user_task.user_id = users.user_id " +
                         "where user_task.task_id = ?");
-                preparedStatement.setInt(1, idTask);
+                preparedStatement.setInt(1, taskId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     taskInfo = "ID - " + resultSet.getInt(1) +
@@ -86,8 +85,8 @@ public class TaskRepository {
         return taskInfo;
     }
 
-    public ArrayList<String> getAllListTask() {
-        ArrayList<String> listTaskByUser = new ArrayList<>();
+    public ArrayList<String> getTasks() {
+        ArrayList<String> listTasks = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -99,7 +98,7 @@ public class TaskRepository {
                         "order by task_id;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    listTaskByUser.add("ID - " + resultSet.getInt(1) +
+                    listTasks.add("ID - " + resultSet.getInt(1) +
                             ", Name - " + resultSet.getString(2) +
                             ", Status - " + resultSet.getString(3) +
                             ", Category - " + resultSet.getString(4) +
@@ -109,11 +108,10 @@ public class TaskRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-
-        return listTaskByUser;
+        return listTasks;
     }
 
-    public String getTaskInfoFromID(int idUser, int idTask) {
+    public String getTaskInfoFromUserIdAndTaskId(int userId, int taskId) {
         String taskInfo = "";
 
         try {
@@ -123,8 +121,8 @@ public class TaskRepository {
                         "select user_task.task_id, user_task.task_name, task_status.status_name, task_category.category_name from user_task " +
                         "inner join task_status on user_task.task_status = task_status.status_id " +
                         "inner join task_category on user_task.task_category = task_category.category_id where user_task.user_id = ? and user_task.task_id = ?;");
-                preparedStatement.setInt(1, idUser);
-                preparedStatement.setInt(2, idTask);
+                preparedStatement.setInt(1, userId);
+                preparedStatement.setInt(2, taskId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     taskInfo = "ID - " + resultSet.getInt(1) +
@@ -136,11 +134,10 @@ public class TaskRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-
         return taskInfo;
     }
 
-    public HashMap<Integer, String> getListStatus () {
+    public HashMap<Integer, String> getListStatus() {
         HashMap<Integer, String> listStatus = new HashMap<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -158,20 +155,20 @@ public class TaskRepository {
     }
 
     public HashMap<Integer, String> getListCategory() {
-        HashMap<Integer, String> listStatus = new HashMap<>();
+        HashMap<Integer, String> listCategory = new HashMap<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("select * from task_category order by category_id;");
+                PreparedStatement preparedStatement = connection.prepareStatement("select category_id,category_name from task_category order by category_id;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    listStatus.put(resultSet.getInt(1), resultSet.getString(2));
+                    listCategory.put(resultSet.getInt(1), resultSet.getString(2));
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        return listStatus;
+        return listCategory;
     }
 
     public int getStatusId(int idStatus) {
@@ -194,37 +191,35 @@ public class TaskRepository {
         return -1;
     }
 
-    public int updateTaskStatus(int idTask, int idStatus) {
+    public int updateTaskStatusByTaskIdAndStatusId(int taskId, int statusId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update user_task set task_status = ? where task_id = ?;");
-                preparedStatement.setInt(1, idStatus);
-                preparedStatement.setInt(2, idTask);
+                preparedStatement.setInt(1, statusId);
+                preparedStatement.setInt(2, taskId);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        if (getStatusIdByTask(idTask) == idStatus) {
-            return idStatus;
+        if (getStatusIdByTaskId(taskId) == statusId) {
+            return statusId;
         }
         return -1;
     }
 
-    private int getStatusIdByTask(int idTask) {
+    private int getStatusIdByTaskId(int taskId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_task.task_status from user_task where task_id = ?;");
-                preparedStatement.setInt(1, idTask);
+                preparedStatement.setInt(1, taskId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     return id;
-                } else {
-                    return -1;
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
@@ -243,8 +238,6 @@ public class TaskRepository {
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     return id;
-                } else {
-                    return -1;
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
@@ -263,8 +256,6 @@ public class TaskRepository {
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     return id;
-                } else {
-                    return -1;
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
@@ -273,12 +264,12 @@ public class TaskRepository {
         return -1;
     }
 
-    public boolean checkTaskNameByUser(String taskName, int idUser) {
+    public boolean checkTaskNameByTaskNameAndUserId(String taskName, int userId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select task_id from user_task where user_id = ? and task_name = ?;");
-                preparedStatement.setInt(1, idUser);
+                preparedStatement.setInt(1, userId);
                 preparedStatement.setString(2, taskName);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
@@ -291,13 +282,13 @@ public class TaskRepository {
         return false;
     }
 
-    public boolean checkTaskByTaskNameAndIdTask(String taskName, int idTask) {
+    public boolean checkTaskByTaskNameAndTaskId(String taskName, int taskId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select task_id from user_task where task_id = ? and task_name = ?;");
                 preparedStatement.setString(1, taskName);
-                preparedStatement.setInt(2, idTask);
+                preparedStatement.setInt(2, taskId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     return true;
@@ -309,13 +300,13 @@ public class TaskRepository {
         return false;
     }
 
-    public boolean checkTaskByTaskIdAndUserId(int idTask, int idUser) {
+    public boolean checkTaskByTaskIdAndUserId(int taskId, int userId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select task_id from user_task where task_id = ? and user_id = ?;");
-                preparedStatement.setInt(1, idTask);
-                preparedStatement.setInt(2, idUser);
+                preparedStatement.setInt(1, taskId);
+                preparedStatement.setInt(2, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     return true;
@@ -327,13 +318,13 @@ public class TaskRepository {
         return false;
     }
 
-    public boolean checkTaskByTaskIdAndCategoryId(int idTask, int idCategory) {
+    public boolean checkTaskByTaskIdAndCategoryId(int taskId, int categoryId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select task_id from user_task where task_id = ? and task_category = ?;");
-                preparedStatement.setInt(1, idTask);
-                preparedStatement.setInt(2, idCategory);
+                preparedStatement.setInt(1, taskId);
+                preparedStatement.setInt(2, categoryId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     return true;
@@ -345,18 +336,16 @@ public class TaskRepository {
         return false;
     }
 
-    public int getIdCategory(int idCategory) {
+    public int getCategoryId(int categoryId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select category_id from task_category where category_id = ?;");
-                preparedStatement.setInt(1, idCategory);
+                preparedStatement.setInt(1, categoryId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     return id;
-                } else {
-                    return -1;
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
@@ -365,7 +354,7 @@ public class TaskRepository {
         return -1;
     }
 
-    public boolean addTaskToDB(Task task) {
+    public boolean addTask(Task task) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -378,24 +367,22 @@ public class TaskRepository {
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return checkTaskNameByTaskNameAndUserId(task.getName(),task.getIdUser());
     }
 
-    public boolean delTaskFromBdByIdTask(int idTask) {
+    public boolean delTaskByTaskId(int taskId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("delete from user_task where task_id = ?;");
-                preparedStatement.setInt(1, idTask);
+                preparedStatement.setInt(1, taskId);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
-            return false;
         }
-        if (getTaskID(idTask) == -1) {
+        if (getTaskId(taskId) == -1) {
             return true;
         } else {
             return false;
@@ -414,63 +401,63 @@ public class TaskRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        return checkTaskByTaskNameAndIdTask(newTaskName, idTask);
+        return checkTaskByTaskNameAndTaskId(newTaskName, idTask);
     }
 
-    public boolean updateUserIdForTask(int idTask, int idUser) {
+    public boolean updateUserIdByTaskIdAndUserId(int taskId, int userId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update user_task set user_id = ? where task_id = ?;");
-                preparedStatement.setInt(1, idUser);
-                preparedStatement.setInt(2, idTask);
+                preparedStatement.setInt(1, userId);
+                preparedStatement.setInt(2, taskId);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        return checkTaskByTaskIdAndUserId(idTask, idUser);
+        return checkTaskByTaskIdAndUserId(taskId, userId);
     }
 
-    public boolean updateCategoryIdForTask(int idTask, int idCategory) {
+    public boolean updateCategoryIdByTaskIdAndCategoryId(int taskId, int categoryId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update user_task set task_category = ? where task_id = ?;");
-                preparedStatement.setInt(1, idCategory);
-                preparedStatement.setInt(2, idTask);
+                preparedStatement.setInt(1, categoryId);
+                preparedStatement.setInt(2, taskId);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        return checkTaskByTaskIdAndCategoryId(idTask, idCategory);
+        return checkTaskByTaskIdAndCategoryId(taskId, categoryId);
     }
 
-    public boolean addCategoryToBD(String nameCategory) {
+    public boolean addCategory(String categoryName) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("insert into  task_category (category_name) values (?);");
-                preparedStatement.setString(1, nameCategory);
+                preparedStatement.setString(1, categoryName);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        if (getIdForCategoryName(nameCategory) != -1) {
+        if (getIdForCategoryName(categoryName) != -1) {
             return true;
         } else {
             return false;
         }
     }
 
-    public String getNameCategoryForIdCategory(int idCategory) {
+    public String getNameCategoryForCategoryId(int categoryId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select category_name from task_category where category_id = ?;");
-                preparedStatement.setInt(1, idCategory);
+                preparedStatement.setInt(1, categoryId);
                 preparedStatement.execute();
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
@@ -480,47 +467,46 @@ public class TaskRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-    return "";
+        return "";
     }
 
-    public boolean delCategoryFromBD(int idCategory, int idDefaultCategory) {
+    public boolean delCategory(int categoryId, int defaultCategoryId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement updateToDefaultCategory = connection.prepareStatement("update user_task set task_category = ? where task_category = ?;");
-                updateToDefaultCategory.setInt(1, idDefaultCategory);
-                updateToDefaultCategory.setInt(2, idCategory);
+                updateToDefaultCategory.setInt(1, defaultCategoryId);
+                updateToDefaultCategory.setInt(2, categoryId);
                 updateToDefaultCategory.execute();
                 PreparedStatement deleteCategory = connection.prepareStatement("delete from task_category where category_id = ?;");
-                deleteCategory.setInt(1, idCategory);
+                deleteCategory.setInt(1, categoryId);
                 deleteCategory.execute();
-
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        if (getIdCategory(idCategory) == -1) {
+        if (getCategoryId(categoryId) == -1) {
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean updateCategoryName(int idCategory, String newNameCategory) {
+    public boolean updateCategoryName(int categoryId, String newNameCategory) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("update task_category set category_name = ? where category_id = ?;");
                 preparedStatement.setString(1, newNameCategory);
-                preparedStatement.setInt(2, idCategory);
+                preparedStatement.setInt(2, categoryId);
                 preparedStatement.execute();
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        if (getIdForCategoryName(newNameCategory) == idCategory) {
+        if (getIdForCategoryName(newNameCategory) == categoryId) {
             return true;
         } else {
             return false;

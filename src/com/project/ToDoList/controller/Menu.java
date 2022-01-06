@@ -148,7 +148,7 @@ public class Menu {
         }
 
         if (loginIsValid && passwordIsValid) {
-            idUser = userService.getUserIDFromBD(inputUserLogin);
+            idUser = userService.getUserId(inputUserLogin);
             idRole = roleService.getRoleIdFromBD(inputUserLogin);
 
             userService.createAuthorizedUser(idUser, inputUserLogin, inputUserPassword, idRole);
@@ -556,7 +556,7 @@ public class Menu {
             if (!roleValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else {
@@ -596,7 +596,7 @@ public class Menu {
         String newLogin = inputUserDataConsole.readString();
         if (!loginValidation.isValidMinLength(newLogin)) {
             System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!");
-        } else if (userService.getUserIDFromBD(newLogin) != -1) {
+        } else if (userService.getUserId(newLogin) != -1) {
             System.out.println("\nЛогин занят");
         } else if (userService.updateAuthorizedUserLogin(newLogin)) {
             System.out.println("\nЛогин пользователя успешно изменен");
@@ -617,7 +617,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else {
@@ -632,7 +632,7 @@ public class Menu {
 
         if (!loginValidation.isValidMinLength(newLogin)) {
             System.out.println("\nОшибка. Минимальная длина логина 2 символа, может состоять только из En букв и цифр!");
-        } else if (userService.getUserIDFromBD(newLogin) != -1) {
+        } else if (userService.getUserId(newLogin) != -1) {
             System.out.println("\nЛогин занят");
         } else if (userService.updateUserLogin(inputUserId, newLogin)) {
             System.out.println("\nЛогин пользователя успешно изменен");
@@ -653,7 +653,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else {
@@ -696,7 +696,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else {
@@ -750,7 +750,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputUserIdString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else if (userService.getAuthorizedUserID() == Integer.parseInt(inputUserIdString)) {
@@ -758,7 +758,7 @@ public class Menu {
                 continue;
             } else {
                 inputUserId = Integer.parseInt(inputUserIdString);
-                if (userService.deleteUserFromDB(inputUserId)) {
+                if (userService.deleteUser(inputUserId)) {
                     System.out.println("\nПользователь с ID - " + inputUserId + " успешно удален");
                 } else {
                     System.out.println("\nНе удалось удалить пользователя с ID - " + inputUserId);
@@ -786,7 +786,7 @@ public class Menu {
             if (!roleValidation.isNumeric(inputIdUserForTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputIdUserForTaskString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputIdUserForTaskString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else if (roleService.getNameRoleFromID(Integer.parseInt(inputIdUserForTaskString)).toLowerCase().equals("manager")) {
@@ -936,7 +936,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdUserString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserIDFromBD(Integer.parseInt(inputIdUserString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputIdUserString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
             } else if (roleService.getNameRoleFromID(Integer.parseInt(inputIdUserString)).toLowerCase().equals("manager")) {

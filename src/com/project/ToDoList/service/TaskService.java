@@ -1,7 +1,6 @@
 package com.project.ToDoList.service;
 
 import com.project.ToDoList.entity.Task;
-import com.project.ToDoList.entity.User;
 import com.project.ToDoList.repository.TaskRepository;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class TaskService {
     private Task task;
 
     public void listTaskUser(int userID) {
-        ArrayList<String> listUserTask = taskRepository.getListTask(userID);
+        ArrayList<String> listUserTask = taskRepository.getListTasksFromUserId(userID);
         System.out.println("\nСписок заданий пользователя:\n");
         listUserTask.forEach(System.out::println);
     }
@@ -22,7 +21,7 @@ public class TaskService {
     }
 
     public String getTaskInfoFromID(int idUser, int idTask) {
-        String taskInfo = taskRepository.getTaskInfoFromID(idUser, idTask);
+        String taskInfo = taskRepository.getTaskInfoFromUserIdAndTaskId(idUser, idTask);
         if (taskInfo.length() == 0) {
             return  "Проверьте корректность вводимых данных";
         }
@@ -30,7 +29,7 @@ public class TaskService {
     }
 
     public int getTaskIDFromBD(int idTask) {
-        int userIDFormBD = taskRepository.getTaskID(idTask);
+        int userIDFormBD = taskRepository.getTaskId(idTask);
         return userIDFormBD;
     }
 
@@ -42,12 +41,12 @@ public class TaskService {
     }
 
     public int updateTaskStatus(int idTask, int idStatus) {
-        int resultUpdate =  taskRepository.updateTaskStatus(idTask, idStatus);
+        int resultUpdate =  taskRepository.updateTaskStatusByTaskIdAndStatusId(idTask, idStatus);
         return resultUpdate;
     }
 
     public String getTaskInfo(int idTask) {
-        return taskRepository.getTaskInfo(idTask);
+        return taskRepository.getTaskInfoByTaskId(idTask);
     }
 
     public int getIdForStatusName(String statusName) {
@@ -61,11 +60,11 @@ public class TaskService {
     }
 
     public int getIdCategory(int idCategory) {
-         return taskRepository.getIdCategory(idCategory);
+         return taskRepository.getCategoryId(idCategory);
     }
 
     public void printAllTaskInfo() {
-        ArrayList<String> listAllTaskInfo =  taskRepository.getAllListTask();
+        ArrayList<String> listAllTaskInfo =  taskRepository.getTasks();
         System.out.println("\nСписок всех task:");
         listAllTaskInfo.forEach(System.out::println);
     }
@@ -80,15 +79,15 @@ public class TaskService {
 
     public boolean addTaskToDB(String taskName, int idUser, int idStatus, int idCategory) {
         task = new Task(taskName, idUser, idStatus, idCategory);
-        return taskRepository.addTaskToDB(task);
+        return taskRepository.addTask(task);
     }
 
     public boolean checkTaskNameByUser(String taskName, int idUser) {
-        return taskRepository.checkTaskNameByUser(taskName, idUser);
+        return taskRepository.checkTaskNameByTaskNameAndUserId(taskName, idUser);
     }
 
     public boolean delTaskFromBdByIdTask(int idTask) {
-        return taskRepository.delTaskFromBdByIdTask(idTask);
+        return taskRepository.delTaskByTaskId(idTask);
     }
 
     public boolean updateTaskName(int idTask, String newTaskName) {
@@ -96,27 +95,26 @@ public class TaskService {
     }
 
     public boolean updateUserIdForTask(int idTask, int idUser) {
-        return taskRepository.updateUserIdForTask(idTask, idUser);
+        return taskRepository.updateUserIdByTaskIdAndUserId(idTask, idUser);
     }
 
     public boolean updateCategoryIdForTask(int idTask, int idCategory) {
-        return taskRepository.updateCategoryIdForTask(idTask, idCategory);
+        return taskRepository.updateCategoryIdByTaskIdAndCategoryId(idTask, idCategory);
     }
 
     public boolean addCategoryToBD(String nameCategory) {
-        return taskRepository.addCategoryToBD(nameCategory);
+        return taskRepository.addCategory(nameCategory);
     }
 
     public String getNameCategoryForIdCategory(int idCategory) {
-        return taskRepository.getNameCategoryForIdCategory(idCategory);
+        return taskRepository.getNameCategoryForCategoryId(idCategory);
     }
 
     public boolean delCategoryFromBD(int idCategory, int idDefaultCategory) {
-        return taskRepository.delCategoryFromBD(idCategory, idDefaultCategory);
+        return taskRepository.delCategory(idCategory, idDefaultCategory);
     }
 
     public boolean updateCategoryName(int idCategory, String newNameCategory) {
         return taskRepository.updateCategoryName(idCategory, newNameCategory);
     }
-
 }

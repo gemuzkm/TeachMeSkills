@@ -23,22 +23,19 @@ public class RoleRepository {
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-
         return listRole;
     }
 
-    public int getRoleID(int iDrole) {
+    public int getRoleID(int idRole) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 PreparedStatement preparedStatement = connection.prepareStatement("select user_role.role_id from user_role where role_id = ?");
-                preparedStatement.setInt(1, iDrole);
+                preparedStatement.setInt(1, idRole);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     return id;
-                } else {
-                    return -1;
                 }
             }
         } catch (SQLException | ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {

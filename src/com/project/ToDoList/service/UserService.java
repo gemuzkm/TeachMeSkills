@@ -1,14 +1,12 @@
 package com.project.ToDoList.service;
 
 import com.project.ToDoList.entity.User;
-import com.project.ToDoList.repository.RoleRepository;
 import com.project.ToDoList.repository.UserRepository;
 
 import java.util.ArrayList;
 
 public class UserService {
     private UserRepository userRepository = new UserRepository();
-    private RoleRepository repository = new RoleRepository();
     private User user;
 
     public boolean addUserToBD(String login, String password, int role) {
@@ -21,12 +19,8 @@ public class UserService {
         return false;
     }
 
-    public boolean deleteUserFromDB(int idUser) {
-        return  userRepository.dellUser(idUser);
-    }
-
-    public void createAuthorizedUser(String login, String password, int role) {
-        user = new User(login, password, role);
+    public boolean deleteUser(int idUser) {
+        return  userRepository.delUser(idUser);
     }
 
     public void createAuthorizedUser(int idUser, String login, String password, int role) {
@@ -46,14 +40,12 @@ public class UserService {
         return user.getRole();
     }
 
-    public int getUserIDFromBD(String login) {
-        int userIDFormBD = userRepository.getUserID(login);
-        return userIDFormBD;
+    public int getUserId(String login) {
+        return userRepository.getUserId(login);
     }
 
-    public int getUserIDFromBD(int idUser) {
-        int userIDFormBD = userRepository.getUserID(idUser);
-        return userIDFormBD;
+    public int getUserId(int idUser) {
+        return userRepository.getUserId(idUser);
     }
 
     public boolean updateAuthorizedUserLogin(String newUserLogin) {
@@ -95,7 +87,7 @@ public class UserService {
     }
 
     public void printAllUserInfo() {
-        ArrayList<String> listAllUserInfo = userRepository.getAllUserInfo();
+        ArrayList<String> listAllUserInfo = userRepository.getUsersInfo();
         System.out.println("\nСписок всех пользователей:");
         listAllUserInfo.forEach(System.out::println);
     }
