@@ -85,7 +85,7 @@ public class Menu {
 
         while (true && loginIsFree && passwordIsValid) {
             System.out.println("\nВыберите ID роли пользователя:");
-            roleService.listRoleUser();
+            roleService.listUserRole();
             System.out.println("\nВведите необходимый ID роли");
 
             idRoleString = inputUserDataConsole.readString();
@@ -149,14 +149,14 @@ public class Menu {
 
         if (loginIsValid && passwordIsValid) {
             idUser = userService.getUserId(inputUserLogin);
-            idRole = roleService.getRoleIdFromBD(inputUserLogin);
+            idRole = roleService.getRoleId(inputUserLogin);
 
             userService.createAuthorizedUser(idUser, inputUserLogin, inputUserPassword, idRole);
 
-            if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("user")) {
+            if (roleService.getNameRole(idRole).toLowerCase().equals("user")) {
                 showUserMenuTitle();
                 showUserMenu();
-            } else if (roleService.getNameRoleFromID(idRole).toLowerCase().equals("manager")) {
+            } else if (roleService.getNameRole(idRole).toLowerCase().equals("manager")) {
                 showManagerMenuTitle();
                 showManagerMenu();
             }
@@ -210,7 +210,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 printUserInfo();
             } else if (inputUserItemMenu.equals("2")) {
-                taskService.listTaskUser(userService.getAuthorizedUserID());
+                taskService.listUserTasks(userService.getAuthorizedUserID());
             } else if (inputUserItemMenu.equals("3")) {
                 showTaskUserMenuTitle();
                 showTaskUserMenu();
@@ -236,7 +236,7 @@ public class Menu {
             inputUserItemMenu = inputUserDataConsole.readString();
 
             if (inputUserItemMenu.equals("1")) {
-                taskService.listTaskUser(userService.getAuthorizedUserID());
+                taskService.listUserTasks(userService.getAuthorizedUserID());
             } else if (inputUserItemMenu.equals("2")) {
                 printTaskInfoFromIdTaskByUser();
             } else if (inputUserItemMenu.equals("3")) {
@@ -308,9 +308,9 @@ public class Menu {
             inputUserItemMenu = inputUserDataConsole.readString();
 
             if (inputUserItemMenu.equals("1")) {
-                userService.printAllUserInfo();
+                userService.printUsersInfo();
             } else if (inputUserItemMenu.equals("2")) {
-                taskService.printAllTaskInfo();
+                taskService.printTasksInfo();
             } else if (inputUserItemMenu.equals("3")) {
                 showManagerMenu();
             } else {
@@ -485,11 +485,11 @@ public class Menu {
             inputUserIdTaskForEditStatusString = inputUserDataConsole.readString();
             if (!taskValidation.isNumeric(inputUserIdTaskForEditStatusString)) {
                 System.out.println("\nНеобходимо ввести число");
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
                 System.out.println("\nЗадания с таким ID не существует");
             } else {
                 inputUserIdTaskForEditStatus = Integer.parseInt(inputUserIdTaskForEditStatusString);
-                taskInfoFromId = taskService.getTaskInfoFromID(userService.getAuthorizedUserID(), inputUserIdTaskForEditStatus);
+                taskInfoFromId = taskService.getTaskInfoByUserIdAndTaskId(userService.getAuthorizedUserID(), inputUserIdTaskForEditStatus);
                 System.out.println("\n" + taskInfoFromId);
                 break;
             }
@@ -504,7 +504,7 @@ public class Menu {
                 inputNewTaskStatusIdString = inputUserDataConsole.readString();
                 if (!taskValidation.isNumeric(inputNewTaskStatusIdString)) {
                     System.out.println("\nНеобходимо ввести число");
-                } else if (taskService.getTaskStatusIdFromBD(Integer.parseInt(inputNewTaskStatusIdString)) == -1) {
+                } else if (taskService.getTaskStatusId(Integer.parseInt(inputNewTaskStatusIdString)) == -1) {
                     System.out.println("\nВведите ID нового статуса из списка");
                 } else {
                     inputNewTaskId = Integer.parseInt(inputNewTaskStatusIdString);
@@ -535,7 +535,7 @@ public class Menu {
             }
         }
 
-        String taskInfoFromId = taskService.getTaskInfoFromID(userService.getAuthorizedUserID(), Integer.parseInt(inputUserTaskID));
+        String taskInfoFromId = taskService.getTaskInfoByUserIdAndTaskId(userService.getAuthorizedUserID(), Integer.parseInt(inputUserTaskID));
         System.out.println("\n" + taskInfoFromId);
     }
 
@@ -579,7 +579,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputTaskIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputTaskIdString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputTaskIdString)) == -1) {
                 System.out.println("\nНет task с таким ID");
                 continue;
             } else {
@@ -710,7 +710,7 @@ public class Menu {
         } else {
             while (true) {
                 System.out.println("\nВыберите ID роли пользователя:");
-                roleService.listRoleUser();
+                roleService.listUserRole();
                 System.out.println("\nВведите необходимый ID роли");
 
                 newIdRoleString = inputUserDataConsole.readString();
@@ -789,7 +789,7 @@ public class Menu {
             } else if (userService.getUserId(Integer.parseInt(inputIdUserForTaskString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
-            } else if (roleService.getNameRoleFromID(Integer.parseInt(inputIdUserForTaskString)).toLowerCase().equals("manager")) {
+            } else if (roleService.getNameRole(Integer.parseInt(inputIdUserForTaskString)).toLowerCase().equals("manager")) {
                 System.out.println("\n Для Manager нельзя добавлять task");
                 continue;
             } else {
@@ -816,7 +816,7 @@ public class Menu {
 
         while (true) {
             System.out.println("\nВыберите ID категории:");
-            taskService.printAllListCategory();
+            taskService.printListCategory();
             System.out.println("\nВведите необходимый ID категории или нажмите Enter (будет назначена категория default):");
 
             inputIdCategoryForTaskString = inputUserDataConsole.readString();
@@ -827,7 +827,7 @@ public class Menu {
             } else if (!taskValidation.isNumeric(inputIdCategoryForTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryForTaskString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryForTaskString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
             } else {
@@ -856,7 +856,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
                 System.out.println("\nНет task с таким ID");
                 continue;
             } else {
@@ -865,7 +865,7 @@ public class Menu {
             }
         }
 
-        if (taskService.delTaskFromBdByIdTask(inputIdTask)) {
+        if (taskService.delTaskByIdTask(inputIdTask)) {
             System.out.println("\nTask c ID - " + inputIdTask + " успешно удалено");
         } else {
             System.out.println("\nОшибка при удалении Task с ID - " + inputIdTask);
@@ -886,7 +886,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
                 System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
@@ -920,7 +920,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
                 System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
@@ -939,7 +939,7 @@ public class Menu {
             } else if (userService.getUserId(Integer.parseInt(inputIdUserString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
-            } else if (roleService.getNameRoleFromID(Integer.parseInt(inputIdUserString)).toLowerCase().equals("manager")) {
+            } else if (roleService.getNameRole(Integer.parseInt(inputIdUserString)).toLowerCase().equals("manager")) {
                 System.out.println("\nДля Manager нельзя добавлять задания");
                 continue;
             } else {
@@ -969,7 +969,7 @@ public class Menu {
             inputUserIdTaskForEditStatusString = inputUserDataConsole.readString();
             if (!taskValidation.isNumeric(inputUserIdTaskForEditStatusString)) {
                 System.out.println("\nНеобходимо ввести число");
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
                 System.out.println("\nЗадания с таким ID не существует");
             } else {
                 inputUserIdTaskForEditStatus = Integer.parseInt(inputUserIdTaskForEditStatusString);
@@ -988,7 +988,7 @@ public class Menu {
                 inputNewTaskStatusIdString = inputUserDataConsole.readString();
                 if (!taskValidation.isNumeric(inputNewTaskStatusIdString)) {
                     System.out.println("\nНеобходимо ввести число");
-                } else if (taskService.getTaskStatusIdFromBD(Integer.parseInt(inputNewTaskStatusIdString)) == -1) {
+                } else if (taskService.getTaskStatusId(Integer.parseInt(inputNewTaskStatusIdString)) == -1) {
                     System.out.println("\nВведите ID нового статуса из списка");
                 } else {
                     inputNewTaskId = Integer.parseInt(inputNewTaskStatusIdString);
@@ -1020,7 +1020,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskIDFromBD(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
                 System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
@@ -1036,7 +1036,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdCategoryString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
             } else {
@@ -1069,7 +1069,7 @@ public class Menu {
             }
         }
 
-        if (taskService.addCategoryToBD(inputNewCategoryNameString)) {
+        if (taskService.addCategory(inputNewCategoryNameString)) {
             System.out.println("\nКатегория \"" + inputNewCategoryNameString + "\" успешно создана");
         } else {
             System.out.println("\nОшибка при создании категории \"" + inputNewCategoryNameString + "\"");
@@ -1089,7 +1089,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdCategoryString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
             } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputIdCategoryString)).equals("default")) {
@@ -1102,7 +1102,7 @@ public class Menu {
         }
 
         int idDefaultCategory = taskService.getIdForCategoryName("default");
-        if (taskService.delCategoryFromBD(inputIdCategory, idDefaultCategory)) {
+        if (taskService.delCategory(inputIdCategory, idDefaultCategory)) {
             System.out.println("\nКатегория с ID - " + inputIdCategory + " успешно удалена");
         } else {
             System.out.println("\nОшибка при удалении категории с ID - " + inputIdCategory);
@@ -1123,7 +1123,7 @@ public class Menu {
             if (!taskValidation.isNumeric(inputIdCategoryString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getIdCategory(Integer.parseInt(inputIdCategoryString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
             } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputIdCategoryString)).equals("default")) {

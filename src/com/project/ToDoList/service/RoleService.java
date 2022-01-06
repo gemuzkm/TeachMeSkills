@@ -7,15 +7,15 @@ import java.util.HashMap;
 public class RoleService {
     private RoleRepository repository = new RoleRepository();
 
-    public int getRoleIdFromBD(String login) {
+    public int getRoleId(String login) {
         return repository.getRoleID(login);
     }
 
-    public String getNameRoleFromID(int idRole) {
-        return repository.getRoleNameFromIdRole(idRole);
+    public String getNameRole(int roleId) {
+        return repository.getRoleNameFromIdRole(roleId);
     }
 
-    public void listRoleUser() {
+    public void listUserRole() {
         HashMap<Integer, String> listUserRole = repository.getListRole();;
         listUserRole.forEach((k, v) -> {
             System.out.println("ID - " + k + ", Название роли - " + v);

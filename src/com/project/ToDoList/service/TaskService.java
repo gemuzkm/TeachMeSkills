@@ -10,43 +10,44 @@ public class TaskService {
     private TaskRepository taskRepository = new TaskRepository();
     private Task task;
 
-    public void listTaskUser(int userID) {
-        ArrayList<String> listUserTask = taskRepository.getListTasksFromUserId(userID);
+    public void listUserTasks(int userId) {
+        ArrayList<String> listUserTasks = taskRepository.getListTasksFromUserId(userId);
         System.out.println("\nСписок заданий пользователя:\n");
-        listUserTask.forEach(System.out::println);
+        listUserTasks.forEach(System.out::println);
     }
 
-    public int getTaskStatusIdFromBD(int idStatus) {
-        return taskRepository.getStatusId(idStatus);
+    public int getTaskStatusId(int statusId) {
+        return taskRepository.getStatusId(statusId);
     }
 
-    public String getTaskInfoFromID(int idUser, int idTask) {
-        String taskInfo = taskRepository.getTaskInfoFromUserIdAndTaskId(idUser, idTask);
+    public String getTaskInfoByUserIdAndTaskId(int userId, int taskId) {
+        String taskInfo = taskRepository.getTaskInfoFromUserIdAndTaskId(userId, taskId);
         if (taskInfo.length() == 0) {
-            return  "Проверьте корректность вводимых данных";
+            return "Проверьте корректность вводимых данных";
         }
         return taskInfo;
     }
 
-    public int getTaskIDFromBD(int idTask) {
-        int userIDFormBD = taskRepository.getTaskId(idTask);
-        return userIDFormBD;
+    public int getTaskId(int taskId) {
+        int taskIdBD = taskRepository.getTaskId(taskId);
+        return taskIdBD;
     }
 
     public void listTaskStatus() {
-        HashMap<Integer, String> listUserRole = taskRepository.getListStatus();;
-        listUserRole.forEach((k, v) -> {
+        HashMap<Integer, String> listTaskStatus = taskRepository.getListStatus();
+        ;
+        listTaskStatus.forEach((k, v) -> {
             System.out.println("ID - " + k + ", Название статуса - " + v);
         });
     }
 
-    public int updateTaskStatus(int idTask, int idStatus) {
-        int resultUpdate =  taskRepository.updateTaskStatusByTaskIdAndStatusId(idTask, idStatus);
+    public int updateTaskStatus(int taskId, int statusId) {
+        int resultUpdate = taskRepository.updateTaskStatusByTaskIdAndStatusId(taskId, statusId);
         return resultUpdate;
     }
 
-    public String getTaskInfo(int idTask) {
-        return taskRepository.getTaskInfoByTaskId(idTask);
+    public String getTaskInfo(int taskId) {
+        return taskRepository.getTaskInfoByTaskId(taskId);
     }
 
     public int getIdForStatusName(String statusName) {
@@ -59,62 +60,62 @@ public class TaskService {
         return idCategory;
     }
 
-    public int getIdCategory(int idCategory) {
-         return taskRepository.getCategoryId(idCategory);
+    public int getCategoryId(int categoryId) {
+        return taskRepository.getCategoryId(categoryId);
     }
 
-    public void printAllTaskInfo() {
-        ArrayList<String> listAllTaskInfo =  taskRepository.getTasks();
+    public void printTasksInfo() {
+        ArrayList<String> listTasksInfo = taskRepository.getTasks();
         System.out.println("\nСписок всех task:");
-        listAllTaskInfo.forEach(System.out::println);
+        listTasksInfo.forEach(System.out::println);
     }
 
-    public void printAllListCategory() {
-        HashMap<Integer, String> listUserCategory = taskRepository.getListCategory();
+    public void printListCategory() {
+        HashMap<Integer, String> listCategory = taskRepository.getListCategory();
         System.out.println("\nСписок всех категорий:");
-        listUserCategory.forEach((k,v) -> {
+        listCategory.forEach((k, v) -> {
             System.out.println("ID - " + k + ", название категории - " + v);
         });
     }
 
-    public boolean addTaskToDB(String taskName, int idUser, int idStatus, int idCategory) {
-        task = new Task(taskName, idUser, idStatus, idCategory);
+    public boolean addTaskToDB(String taskName, int userId, int statusId, int categoryId) {
+        task = new Task(taskName, userId, statusId, categoryId);
         return taskRepository.addTask(task);
     }
 
-    public boolean checkTaskNameByUser(String taskName, int idUser) {
-        return taskRepository.checkTaskNameByTaskNameAndUserId(taskName, idUser);
+    public boolean checkTaskNameByUser(String taskName, int userId) {
+        return taskRepository.checkTaskNameByTaskNameAndUserId(taskName, userId);
     }
 
-    public boolean delTaskFromBdByIdTask(int idTask) {
-        return taskRepository.delTaskByTaskId(idTask);
+    public boolean delTaskByIdTask(int taskId) {
+        return taskRepository.delTaskByTaskId(taskId);
     }
 
-    public boolean updateTaskName(int idTask, String newTaskName) {
-        return taskRepository.updateTaskName(idTask, newTaskName);
+    public boolean updateTaskName(int taskId, String newTaskName) {
+        return taskRepository.updateTaskName(taskId, newTaskName);
     }
 
-    public boolean updateUserIdForTask(int idTask, int idUser) {
-        return taskRepository.updateUserIdByTaskIdAndUserId(idTask, idUser);
+    public boolean updateUserIdForTask(int taskId, int userId) {
+        return taskRepository.updateUserIdByTaskIdAndUserId(taskId, userId);
     }
 
-    public boolean updateCategoryIdForTask(int idTask, int idCategory) {
-        return taskRepository.updateCategoryIdByTaskIdAndCategoryId(idTask, idCategory);
+    public boolean updateCategoryIdForTask(int taskId, int categoryId) {
+        return taskRepository.updateCategoryIdByTaskIdAndCategoryId(taskId, categoryId);
     }
 
-    public boolean addCategoryToBD(String nameCategory) {
+    public boolean addCategory(String nameCategory) {
         return taskRepository.addCategory(nameCategory);
     }
 
-    public String getNameCategoryForIdCategory(int idCategory) {
-        return taskRepository.getNameCategoryForCategoryId(idCategory);
+    public String getNameCategoryForIdCategory(int categoryId) {
+        return taskRepository.getNameCategoryForCategoryId(categoryId);
     }
 
-    public boolean delCategoryFromBD(int idCategory, int idDefaultCategory) {
-        return taskRepository.delCategory(idCategory, idDefaultCategory);
+    public boolean delCategory(int categoryId, int defaultCategoryId) {
+        return taskRepository.delCategory(categoryId, defaultCategoryId);
     }
 
-    public boolean updateCategoryName(int idCategory, String newNameCategory) {
-        return taskRepository.updateCategoryName(idCategory, newNameCategory);
+    public boolean updateCategoryName(int categoryId, String newNameCategory) {
+        return taskRepository.updateCategoryName(categoryId, newNameCategory);
     }
 }

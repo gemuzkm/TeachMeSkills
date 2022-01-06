@@ -19,13 +19,13 @@ public class UserService {
         return false;
     }
 
-    public boolean deleteUser(int idUser) {
-        return  userRepository.delUser(idUser);
+    public boolean deleteUser(int userId) {
+        return userRepository.delUser(userId);
     }
 
-    public void createAuthorizedUser(int idUser, String login, String password, int role) {
-        user = new User(login, password, role);
-        user.setId(idUser);
+    public void createAuthorizedUser(int userId, String login, String password, int roleId) {
+        user = new User(login, password, roleId);
+        user.setId(userId);
     }
 
     public String getAuthorizedUserLogin() {
@@ -44,8 +44,8 @@ public class UserService {
         return userRepository.getUserId(login);
     }
 
-    public int getUserId(int idUser) {
-        return userRepository.getUserId(idUser);
+    public int getUserId(int userId) {
+        return userRepository.getUserId(userId);
     }
 
     public boolean updateAuthorizedUserLogin(String newUserLogin) {
@@ -57,8 +57,8 @@ public class UserService {
         }
     }
 
-    public boolean updateUserLogin(int idUser, String newLogin) {
-        if (userRepository.updateUserLogin(idUser, newLogin) != -1) {
+    public boolean updateUserLogin(int userId, String newLogin) {
+        if (userRepository.updateUserLogin(userId, newLogin) != -1) {
             return true;
         } else {
             return false;
@@ -74,26 +74,26 @@ public class UserService {
         }
     }
 
-    public boolean updateUserPassword(int idUser, String newPassword) {
-        if (userRepository.updateUserPassword(idUser, newPassword) != -1) {
+    public boolean updateUserPassword(int userId, String newPassword) {
+        if (userRepository.updateUserPassword(userId, newPassword) != -1) {
             return true;
         } else {
             return false;
         }
     }
 
-    public String getUserInfo(int idUser) {
-        return userRepository.getUserInfo(idUser);
+    public String getUserInfo(int userId) {
+        return userRepository.getUserInfo(userId);
     }
 
-    public void printAllUserInfo() {
-        ArrayList<String> listAllUserInfo = userRepository.getUsersInfo();
+    public void printUsersInfo() {
+        ArrayList<String> listUsersInfo = userRepository.getUsersInfo();
         System.out.println("\nСписок всех пользователей:");
-        listAllUserInfo.forEach(System.out::println);
+        listUsersInfo.forEach(System.out::println);
     }
 
-    public boolean updateUserRole (int idUser, int idNewRole) {
-        boolean result = userRepository.updateUserRole(idUser, idNewRole);
+    public boolean updateUserRole(int userId, int newRoleId) {
+        boolean result = userRepository.updateUserRole(userId, newRoleId);
         return result;
     }
 }
