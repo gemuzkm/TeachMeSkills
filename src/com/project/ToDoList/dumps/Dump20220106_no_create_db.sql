@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `todolist` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `todolist`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: todolist
@@ -39,7 +37,7 @@ CREATE TABLE `task_category` (
 
 LOCK TABLES `task_category` WRITE;
 /*!40000 ALTER TABLE `task_category` DISABLE KEYS */;
-INSERT INTO `task_category` VALUES (1,'cat1'),(2,'cat2'),(3,'default');
+INSERT INTO `task_category` VALUES (2,'cat2'),(3,'default'),(1,'new name cat1');
 /*!40000 ALTER TABLE `task_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +78,7 @@ CREATE TABLE `user_role` (
   `role_name` varchar(30) NOT NULL,
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `user_role_role_id_uindex` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,17 +102,17 @@ CREATE TABLE `user_task` (
   `task_id` int NOT NULL AUTO_INCREMENT,
   `task_name` varchar(50) NOT NULL,
   `user_id` int DEFAULT NULL,
-  `task_status` int DEFAULT NULL,
+  `task_status` int NOT NULL,
   `task_category` int DEFAULT NULL,
   PRIMARY KEY (`task_id`),
   UNIQUE KEY `user_task_task_id_uindex` (`task_id`),
+  KEY `user_task_task_category_category_id_fk` (`task_category`),
   KEY `user_task_users_user_id_fk` (`user_id`),
   KEY `user_task_task_status_status_id_fk` (`task_status`),
-  KEY `user_task_task_category_category_id_fk` (`task_category`),
   CONSTRAINT `user_task_task_category_category_id_fk` FOREIGN KEY (`task_category`) REFERENCES `task_category` (`category_id`),
   CONSTRAINT `user_task_task_status_status_id_fk` FOREIGN KEY (`task_status`) REFERENCES `task_status` (`status_id`),
-  CONSTRAINT `user_task_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `user_task_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +121,7 @@ CREATE TABLE `user_task` (
 
 LOCK TABLES `user_task` WRITE;
 /*!40000 ALTER TABLE `user_task` DISABLE KEYS */;
-INSERT INTO `user_task` VALUES (1,'task1user1',1,1,1),(2,'task2user1',1,2,2);
+INSERT INTO `user_task` VALUES (1,'task1user',1,1,1),(2,'task2user',1,1,2),(12,'test tast1',7,1,1),(13,'test',7,2,3);
 /*!40000 ALTER TABLE `user_task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,8 +140,9 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_user_id_uindex` (`user_id`),
   UNIQUE KEY `users_user_login_uindex` (`user_login`),
-  CONSTRAINT `users_user_role_role_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user_role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `users_user_role_role_id_fk` (`user_role`),
+  CONSTRAINT `users_user_role_role_id_fk` FOREIGN KEY (`user_role`) REFERENCES `user_role` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +151,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user','user',1),(2,'user1','user1',2);
+INSERT INTO `users` VALUES (1,'user','user',1),(2,'manager','manager',2),(7,'user7','user7',1),(12,'user10','user10',1),(13,'user11','user11',2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -165,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 16:30:00
+-- Dump completed on 2022-01-06 11:12:29
