@@ -15,7 +15,7 @@ public class RoleService {
         return repository.getRoleNameFromIdRole(roleId);
     }
 
-    public void listUserRole() {
+    public void printUserRole() {
         HashMap<Integer, String> listUserRole = repository.getListRole();;
         listUserRole.forEach((k, v) -> {
             System.out.println("ID - " + k + ", Название роли - " + v);

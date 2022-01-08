@@ -52,8 +52,8 @@ public class Menu {
     private void showRegistrationMenu() {
         String inputUserLogin = "";
         String inputUserPassword = "";
-        int idRole = -1;
-        String idRoleString = "";
+        int roleId = -1;
+        String roleIdString = "";
         boolean loginIsFree = false;
         boolean passwordIsValid = false;
 
@@ -85,25 +85,25 @@ public class Menu {
 
         while (true && loginIsFree && passwordIsValid) {
             System.out.println("\nВыберите ID роли пользователя:");
-            roleService.listUserRole();
+            roleService.printUserRole();
             System.out.println("\nВведите необходимый ID роли");
 
-            idRoleString = inputUserDataConsole.readString();
-            if (roleValidation.isNumeric(idRoleString)) {
-                idRole = Integer.parseInt(idRoleString);
+            roleIdString = inputUserDataConsole.readString();
+            if (roleValidation.isNumeric(roleIdString)) {
+                roleId = Integer.parseInt(roleIdString);
             } else {
                 System.out.println("\nВведенное ID не существует");
                 continue;
             }
 
-            if (!roleValidation.isValid(idRole)) {
+            if (!roleValidation.isValid(roleId)) {
                 System.out.println("\nВведенное ID не существует");
             } else {
                 break;
             }
         }
 
-        if (userService.addUserToBD(inputUserLogin, inputUserPassword, idRole)) {
+        if (userService.addUserToBD(inputUserLogin, inputUserPassword, roleId)) {
             System.out.println("\nПользователь успешно создан");
         } else {
             System.out.println("\nОшибка во время добавления пользователя");
@@ -113,8 +113,8 @@ public class Menu {
     private void showLoginMenu() {
         String inputUserLogin = "";
         String inputUserPassword = "";
-        int idUser = -1;
-        int idRole = -1;
+        int userId = -1;
+        int roleId = -1;
 
         boolean loginIsValid = false; //валидация пройдена, логин есть в базе
         boolean passwordIsValid = false; //валидация пройдена, пароль не проверен в базе
@@ -148,15 +148,15 @@ public class Menu {
         }
 
         if (loginIsValid && passwordIsValid) {
-            idUser = userService.getUserId(inputUserLogin);
-            idRole = roleService.getRoleId(inputUserLogin);
+            userId = userService.getUserId(inputUserLogin);
+            roleId = roleService.getRoleId(inputUserLogin);
 
-            userService.createAuthorizedUser(idUser, inputUserLogin, inputUserPassword, idRole);
+            userService.createAuthorizedUser(userId, inputUserLogin, inputUserPassword, roleId);
 
-            if (roleService.getNameRole(idRole).toLowerCase().equals("user")) {
+            if (roleService.getNameRole(roleId).toLowerCase().equals("user")) {
                 showUserMenuTitle();
                 showUserMenu();
-            } else if (roleService.getNameRole(idRole).toLowerCase().equals("manager")) {
+            } else if (roleService.getNameRole(roleId).toLowerCase().equals("manager")) {
                 showManagerMenuTitle();
                 showManagerMenu();
             }
@@ -166,11 +166,11 @@ public class Menu {
     private void showManagerMenu() {
         while (true) {
             System.out.println("\n1 - вывод данных текущего пользователя");
-            System.out.println("2 - вывод всех данных (пользователей/task)");
-            System.out.println("3 - вывод данные по ID (пользователя/task)");
+            System.out.println("2 - вывод всех данных (пользователей/задания)");
+            System.out.println("3 - вывод данные по ID (пользователя/задания)");
             System.out.println("4 - работа с пользователями (добавление/удаление/изменение(логин, пароль, role))");
-            System.out.println("5 - работа с task (добавление/удаление/изменение статуса)");
-            System.out.println("6 - работа с category (добавление/удаление/изменение)");
+            System.out.println("5 - работа с заданиями (добавление/удаление/изменение статуса)");
+            System.out.println("6 - работа с категориями (добавление/удаление/изменение)");
             System.out.println("7 - завершить сессию пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
@@ -199,8 +199,8 @@ public class Menu {
     private void showUserMenu() {
         while (true) {
             System.out.println("\n1 - вывод данных текущего пользователя");
-            System.out.println("2 - вывод всех task пользователя");
-            System.out.println("3 - работа с task");
+            System.out.println("2 - вывод всех заданий пользователя");
+            System.out.println("3 - работа с заданиями");
             System.out.println("4 - изменить данные пользователя");
             System.out.println("5 - завершить сессию пользователя\n");
             System.out.println("Введите цифру нужного меню:");
@@ -210,7 +210,7 @@ public class Menu {
             if (inputUserItemMenu.equals("1")) {
                 printUserInfo();
             } else if (inputUserItemMenu.equals("2")) {
-                taskService.listUserTasks(userService.getAuthorizedUserID());
+                taskService.listUserTasks(userService.getAuthorizedUserId());
             } else if (inputUserItemMenu.equals("3")) {
                 showTaskUserMenuTitle();
                 showTaskUserMenu();
@@ -227,16 +227,16 @@ public class Menu {
 
     private void showTaskUserMenu() {
         while (true) {
-            System.out.println("\n1 - вывод всех task пользователя");
-            System.out.println("2 - вывод информации о task по ID task");
-            System.out.println("3 - изменение статуса task");
+            System.out.println("\n1 - вывод всех заданий пользователя");
+            System.out.println("2 - вывод информации о задании по ID задания");
+            System.out.println("3 - изменение статуса задания");
             System.out.println("4 - выход в главное меню пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
             inputUserItemMenu = inputUserDataConsole.readString();
 
             if (inputUserItemMenu.equals("1")) {
-                taskService.listUserTasks(userService.getAuthorizedUserID());
+                taskService.listUserTasks(userService.getAuthorizedUserId());
             } else if (inputUserItemMenu.equals("2")) {
                 printTaskInfoFromIdTaskByUser();
             } else if (inputUserItemMenu.equals("3")) {
@@ -301,7 +301,7 @@ public class Menu {
     private void showPrintAllUserAndAllTaskInfoMenu() {
         while (true) {
             System.out.println("\n1 - вывод информации о всех пользователях");
-            System.out.println("2 - вывод информации о всех task");
+            System.out.println("2 - вывод информации о всех заданиях");
             System.out.println("3 - выход в главное меню пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
@@ -322,7 +322,7 @@ public class Menu {
     private void showPrintUserAndTaskInfoByIdMenu() {
         while (true) {
             System.out.println("\n1 - вывод информации о пользователе по ID");
-            System.out.println("2 - вывод информации о task по ID");
+            System.out.println("2 - вывод информации о задании по ID");
             System.out.println("3 - выход в главное меню пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
@@ -354,7 +354,7 @@ public class Menu {
                 showRegistrationMenuTitle();
                 showRegistrationMenu();
             } else if (inputUserItemMenu.equals("2")) {
-                deleteUserByID();
+                deleteUserById();
             } else if (inputUserItemMenu.equals("3")) {
                 showEditUserForManagerMenu();
             } else if (inputUserItemMenu.equals("4")) {
@@ -367,9 +367,9 @@ public class Menu {
 
     public void showTaskAddDelEditMenu() {
         while (true) {
-            System.out.println("\n1 - добавление task");
-            System.out.println("2 - удаление task");
-            System.out.println("3 - изменение task");
+            System.out.println("\n1 - добавление задания");
+            System.out.println("2 - удаление задания");
+            System.out.println("3 - изменение задания");
             System.out.println("4 - выход в главное меню пользователя\n");
             System.out.println("Введите цифру нужного меню:");
 
@@ -478,10 +478,10 @@ public class Menu {
         String taskInfoFromId = "";
         int inputNewTaskId = -1;
 
-        System.out.println("\nИзменением статуса task");
+        System.out.println("\nИзменением статуса задания");
 
         while (true) {
-            System.out.println("\nВведите ID task для смены статуса");
+            System.out.println("\nВведите ID задания для смены статуса");
             inputUserIdTaskForEditStatusString = inputUserDataConsole.readString();
             if (!taskValidation.isNumeric(inputUserIdTaskForEditStatusString)) {
                 System.out.println("\nНеобходимо ввести число");
@@ -489,14 +489,14 @@ public class Menu {
                 System.out.println("\nЗадания с таким ID не существует");
             } else {
                 inputUserIdTaskForEditStatus = Integer.parseInt(inputUserIdTaskForEditStatusString);
-                taskInfoFromId = taskService.getTaskInfoByUserIdAndTaskId(userService.getAuthorizedUserID(), inputUserIdTaskForEditStatus);
+                taskInfoFromId = taskService.getTaskInfoByUserIdAndTaskId(userService.getAuthorizedUserId(), inputUserIdTaskForEditStatus);
                 System.out.println("\n" + taskInfoFromId);
                 break;
             }
         }
 
         if (taskInfoFromId.contains("ID")) {
-            System.out.println("\nСписок поддерживаемых статусов task:");
+            System.out.println("\nСписок поддерживаемых статусов задания:");
             taskService.listTaskStatus();
 
             while (true) {
@@ -522,26 +522,26 @@ public class Menu {
     }
 
     private void printTaskInfoFromIdTaskByUser() {
-        String inputUserTaskID = "";
+        String inputUserTaskId = "";
 
         while (true) {
             System.out.println("\nВведите ID задания:");
-            inputUserTaskID = inputUserDataConsole.readString();
+            inputUserTaskId = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputUserTaskID)) {
+            if (!taskValidation.isNumeric(inputUserTaskId)) {
                 System.out.println("\nВведите ID задания");
             } else {
                 break;
             }
         }
 
-        String taskInfoFromId = taskService.getTaskInfoByUserIdAndTaskId(userService.getAuthorizedUserID(), Integer.parseInt(inputUserTaskID));
+        String taskInfoFromId = taskService.getTaskInfoByUserIdAndTaskId(userService.getAuthorizedUserId(), Integer.parseInt(inputUserTaskId));
         System.out.println("\n" + taskInfoFromId);
     }
 
     private void printUserInfo() {
         System.out.println("\nВывод информации о пользователе:");
-        String userInfo = userService.getUserInfo(userService.getAuthorizedUserID());
+        String userInfo = userService.getUserInfo(userService.getAuthorizedUserId());
         System.out.println(userInfo);
     }
 
@@ -573,18 +573,18 @@ public class Menu {
         int inputTaskId = -1;
 
         while (true) {
-            System.out.println("\nВведите ID task");
+            System.out.println("\nВведите ID задания");
             inputTaskIdString = inputUserDataConsole.readString();
 
             if (!taskValidation.isNumeric(inputTaskIdString)) {
                 System.out.println("\nВведите число");
                 continue;
             } else if (taskService.getTaskId(Integer.parseInt(inputTaskIdString)) == -1) {
-                System.out.println("\nНет task с таким ID");
+                System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
                 inputTaskId = Integer.parseInt(inputTaskIdString);
-                System.out.println("\nИнформация о task с ID - " + inputTaskId + ":");
+                System.out.println("\nИнформация о задании с ID - " + inputTaskId + ":");
                 System.out.printf(taskService.getTaskInfo(inputTaskId) + "\n");
                 break;
             }
@@ -594,6 +594,7 @@ public class Menu {
     private void changeUserLogin() {
         System.out.println("\nВведите желаемый логин:");
         String newLogin = inputUserDataConsole.readString();
+
         if (!loginValidation.isValidMinLength(newLogin)) {
             System.out.println("\nОшибка. Минимальная дли логина 2 символа, может состоять только из En букв и цифр!");
         } else if (userService.getUserId(newLogin) != -1) {
@@ -676,6 +677,7 @@ public class Menu {
     private void changeUserPassword() {
         System.out.println("\nВведите желаемый пароль:");
         String newPassword = inputUserDataConsole.readString();
+
         if (!passwordValidation.isValidMinLength(newPassword)) {
             System.out.println("\nОшибка. Минимальная длина пароля 2 символа, может состоять только из En букв и цифр!");
         } else if (userService.updateAuthorizedUserPassword(newPassword)) {
@@ -686,8 +688,8 @@ public class Menu {
     private void changeUserRoleForManager() {
         String inputUserIdString = "";
         int inputUserId = -1;
-        String newIdRoleString = "";
-        int newIdRole = -1;
+        String newRoleIdString = "";
+        int newRoleId = -1;
 
         while (true) {
             System.out.println("\nВведите ID пользователя");
@@ -710,25 +712,25 @@ public class Menu {
         } else {
             while (true) {
                 System.out.println("\nВыберите ID роли пользователя:");
-                roleService.listUserRole();
+                roleService.printUserRole();
                 System.out.println("\nВведите необходимый ID роли");
+                newRoleIdString = inputUserDataConsole.readString();
 
-                newIdRoleString = inputUserDataConsole.readString();
-                if (roleValidation.isNumeric(newIdRoleString)) {
-                    newIdRole = Integer.parseInt(newIdRoleString);
+                if (roleValidation.isNumeric(newRoleIdString)) {
+                    newRoleId = Integer.parseInt(newRoleIdString);
                 } else {
                     System.out.println("\nВведенное ID не существует");
                     continue;
                 }
 
-                if (!roleValidation.isValid(newIdRole)) {
+                if (!roleValidation.isValid(newRoleId)) {
                     System.out.println("\nВведенное ID не существует");
                 } else {
                     break;
                 }
             }
 
-            if (userService.updateUserRole(inputUserId, newIdRole)) {
+            if (userService.updateUserRole(inputUserId, newRoleId)) {
                 System.out.println("\nRole пользователя успешно изменена");
             } else {
                 System.out.println("\nОшибка при изменении Role пользователя");
@@ -736,9 +738,9 @@ public class Menu {
         }
     }
 
-    private void deleteUserByID() {
+    private void deleteUserById() {
         System.out.println("\nУдаление пользователя по ID");
-        System.out.println("ВНИМАНИЕ! При удалении пользователя удалятся и все его task");
+        System.out.println("ВНИМАНИЕ! При удалении пользователя удалятся и все его задания");
 
         String inputUserIdString = "";
         int inputUserId = -1;
@@ -753,11 +755,12 @@ public class Menu {
             } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
-            } else if (userService.getAuthorizedUserID() == Integer.parseInt(inputUserIdString)) {
+            } else if (userService.getAuthorizedUserId() == Integer.parseInt(inputUserIdString)) {
                 System.out.println("\nНевозможно удалить самого себя!");
                 continue;
             } else {
                 inputUserId = Integer.parseInt(inputUserIdString);
+
                 if (userService.deleteUser(inputUserId)) {
                     System.out.println("\nПользователь с ID - " + inputUserId + " успешно удален");
                 } else {
@@ -772,28 +775,28 @@ public class Menu {
         System.out.println("\nДобавление task");
 
         String inputTaskNameString = "";
-        String inputIdUserForTaskString = "";
-        int inputIdUserForTask = -1;
-        String inputIdStatusForTaskString = "";
-        int inputIdStatusForTask = -1;
-        String inputIdCategoryForTaskString = "";
-        int inputIdCategoryForTask = -1;
+        String inputUserIdForTaskString = "";
+        int inputUserIdForTask = -1;
+        String inputStatusIdForTaskString = "";
+        int inputStatusIdForTask = -1;
+        String inputCategoryIdForTaskString = "";
+        int inputCategoryIdForTask = -1;
 
         while (true) {
             System.out.println("\nВведите ID пользователя, для которого добавляется task");
-            inputIdUserForTaskString = inputUserDataConsole.readString();
+            inputUserIdForTaskString = inputUserDataConsole.readString();
 
-            if (!roleValidation.isNumeric(inputIdUserForTaskString)) {
+            if (!roleValidation.isNumeric(inputUserIdForTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserId(Integer.parseInt(inputIdUserForTaskString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdForTaskString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
-            } else if (roleService.getNameRole(Integer.parseInt(inputIdUserForTaskString)).toLowerCase().equals("manager")) {
+            } else if (roleService.getNameRole(Integer.parseInt(inputUserIdForTaskString)).toLowerCase().equals("manager")) {
                 System.out.println("\n Для Manager нельзя добавлять task");
                 continue;
             } else {
-                inputIdUserForTask = Integer.parseInt(inputIdUserForTaskString);
+                inputUserIdForTask = Integer.parseInt(inputUserIdForTaskString);
                 break;
             }
         }
@@ -802,8 +805,8 @@ public class Menu {
             System.out.println("\nВведите название task");
             inputTaskNameString = inputUserDataConsole.readString();
 
-            if (taskService.checkTaskNameByUser(inputTaskNameString, inputIdUserForTask)) {
-                System.out.println("\nTask с таким названием уже существует у пользователя с ID - " + inputIdUserForTask);
+            if (taskService.checkTaskNameByUser(inputTaskNameString, inputUserIdForTask)) {
+                System.out.println("\nTask с таким названием уже существует у пользователя с ID - " + inputUserIdForTask);
                 continue;
             } else {
                 break;
@@ -811,53 +814,53 @@ public class Menu {
         }
 
         //для всех task начальное значение "to do", если нужно другое, то реализовать ввод id статуса
-        inputIdStatusForTaskString = "to do";
-        inputIdStatusForTask = taskService.getIdForStatusName(inputIdStatusForTaskString);
+        inputStatusIdForTaskString = "to do";
+        inputStatusIdForTask = taskService.getIdForStatusName(inputStatusIdForTaskString);
 
         while (true) {
             System.out.println("\nВыберите ID категории:");
             taskService.printListCategory();
             System.out.println("\nВведите необходимый ID категории или нажмите Enter (будет назначена категория default):");
 
-            inputIdCategoryForTaskString = inputUserDataConsole.readString();
+            inputCategoryIdForTaskString = inputUserDataConsole.readString();
 
-            if (inputIdCategoryForTaskString.equals("")) {
-                inputIdCategoryForTask = taskService.getIdForCategoryName("default");
+            if (inputCategoryIdForTaskString.equals("")) {
+                inputCategoryIdForTask = taskService.getIdForCategoryName("default");
                 break;
-            } else if (!taskValidation.isNumeric(inputIdCategoryForTaskString)) {
+            } else if (!taskValidation.isNumeric(inputCategoryIdForTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryForTaskString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputCategoryIdForTaskString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
             } else {
-                inputIdCategoryForTask = Integer.parseInt(inputIdCategoryForTaskString);
+                inputCategoryIdForTask = Integer.parseInt(inputCategoryIdForTaskString);
                 break;
             }
         }
 
-        if (taskService.addTaskToDB(inputTaskNameString, inputIdUserForTask, inputIdStatusForTask, inputIdCategoryForTask)) {
-            System.out.println("\nTask успешно создан для пользователя с ID - " + inputIdUserForTask);
+        if (taskService.addTaskToDB(inputTaskNameString, inputUserIdForTask, inputStatusIdForTask, inputCategoryIdForTask)) {
+            System.out.println("\nЗадание успешно создан для пользователя с ID - " + inputUserIdForTask);
         } else {
-            System.out.println("\nОшибка при добавлении Task");
+            System.out.println("\nОшибка при добавлении задания");
         }
     }
 
     private void delTaskForManagerMenu() {
-        System.out.println("\nУдаление task");
+        System.out.println("\nУдаление задания");
 
         String inputIdTaskString = "";
         int inputIdTask = -1;
 
         while (true) {
-            System.out.println("\nВведите ID task для удаления");
+            System.out.println("\nВведите ID задания для удаления");
             inputIdTaskString = inputUserDataConsole.readString();
 
             if (!taskValidation.isNumeric(inputIdTaskString)) {
                 System.out.println("\nВведите число");
                 continue;
             } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
-                System.out.println("\nНет task с таким ID");
+                System.out.println("\nНет задаиня с таким ID");
                 continue;
             } else {
                 inputIdTask = Integer.parseInt(inputIdTaskString);
@@ -866,31 +869,31 @@ public class Menu {
         }
 
         if (taskService.delTaskByIdTask(inputIdTask)) {
-            System.out.println("\nTask c ID - " + inputIdTask + " успешно удалено");
+            System.out.println("\nЗадание c ID - " + inputIdTask + " успешно удалено");
         } else {
-            System.out.println("\nОшибка при удалении Task с ID - " + inputIdTask);
+            System.out.println("\nОшибка при удалении задания с ID - " + inputIdTask);
         }
     }
 
     private void changeTaskNameForTask() {
         System.out.println("\nИзменение название задания");
 
-        String inputIdTaskString = "";
+        String inputTaskIdString = "";
         String inputNewTaskName = "";
         int inputIdTask = -1;
 
         while (true) {
             System.out.println("\nВведите ID задания, для которого нужно изменить имя");
-            inputIdTaskString = inputUserDataConsole.readString();
+            inputTaskIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdTaskString)) {
+            if (!taskValidation.isNumeric(inputTaskIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputTaskIdString)) == -1) {
                 System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
-                inputIdTask = Integer.parseInt(inputIdTaskString);
+                inputIdTask = Integer.parseInt(inputTaskIdString);
                 break;
             }
         }
@@ -908,56 +911,56 @@ public class Menu {
     private void changeUserIdForTask() {
         System.out.println("\nИзменение владельца задания");
 
-        String inputIdTaskString = "";
-        String inputIdUserString = "";
-        int inputIdTask = -1;
-        int inputIdUser = -1;
+        String inputTaskIdString = "";
+        String inputUserIdString = "";
+        int inputTaskId = -1;
+        int inputUserId = -1;
 
         while (true) {
             System.out.println("\nВведите ID задания, для которого нужно изменить владельца");
-            inputIdTaskString = inputUserDataConsole.readString();
+            inputTaskIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdTaskString)) {
+            if (!taskValidation.isNumeric(inputTaskIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputTaskIdString)) == -1) {
                 System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
-                inputIdTask = Integer.parseInt(inputIdTaskString);
+                inputTaskId = Integer.parseInt(inputTaskIdString);
                 break;
             }
         }
 
         while (true) {
             System.out.println("\nВведите ID пользователя, которому нужно добавить задание");
-            inputIdUserString = inputUserDataConsole.readString();
+            inputUserIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdUserString)) {
+            if (!taskValidation.isNumeric(inputUserIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (userService.getUserId(Integer.parseInt(inputIdUserString)) == -1) {
+            } else if (userService.getUserId(Integer.parseInt(inputUserIdString)) == -1) {
                 System.out.println("\nНет пользователя с таким ID");
                 continue;
-            } else if (roleService.getNameRole(Integer.parseInt(inputIdUserString)).toLowerCase().equals("manager")) {
+            } else if (roleService.getNameRole(Integer.parseInt(inputUserIdString)).toLowerCase().equals("manager")) {
                 System.out.println("\nДля Manager нельзя добавлять задания");
                 continue;
             } else {
-                inputIdUser = Integer.parseInt(inputIdUserString);
+                inputUserId = Integer.parseInt(inputUserIdString);
                 break;
             }
         }
 
-        if (taskService.updateUserIdForTask(inputIdTask, inputIdUser)) {
-            System.out.println("\nИзменение владельца для задания с ID - " + inputIdTask + " прошло успешно");
+        if (taskService.updateUserIdForTask(inputTaskId, inputUserId)) {
+            System.out.println("\nИзменение владельца для задания с ID - " + inputTaskId + " прошло успешно");
         } else {
-            System.out.println("\nОшибка изменения названия для задания с ID - " + inputIdTask);
+            System.out.println("\nОшибка изменения названия для задания с ID - " + inputTaskId);
         }
     }
 
     private void changeStatusForTask() {
-        String inputUserIdTaskForEditStatusString = "";
-        int inputUserIdTaskForEditStatus = -1;
+        String inputUserTaskIdForEditStatusString = "";
+        int inputUserTaskIdForEditStatus = -1;
         String inputNewTaskStatusIdString = "";
         String taskInfoFromId = "";
         int inputNewTaskId = -1;
@@ -965,22 +968,22 @@ public class Menu {
         System.out.println("\nИзменением статуса задания");
 
         while (true) {
-            System.out.println("\nВведите ID task для смены статуса");
-            inputUserIdTaskForEditStatusString = inputUserDataConsole.readString();
-            if (!taskValidation.isNumeric(inputUserIdTaskForEditStatusString)) {
+            System.out.println("\nВведите ID задания для смены статуса");
+            inputUserTaskIdForEditStatusString = inputUserDataConsole.readString();
+            if (!taskValidation.isNumeric(inputUserTaskIdForEditStatusString)) {
                 System.out.println("\nНеобходимо ввести число");
-            } else if (taskService.getTaskId(Integer.parseInt(inputUserIdTaskForEditStatusString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputUserTaskIdForEditStatusString)) == -1) {
                 System.out.println("\nЗадания с таким ID не существует");
             } else {
-                inputUserIdTaskForEditStatus = Integer.parseInt(inputUserIdTaskForEditStatusString);
-                taskInfoFromId = taskService.getTaskInfo(inputUserIdTaskForEditStatus);
+                inputUserTaskIdForEditStatus = Integer.parseInt(inputUserTaskIdForEditStatusString);
+                taskInfoFromId = taskService.getTaskInfo(inputUserTaskIdForEditStatus);
                 System.out.println("\n" + taskInfoFromId);
                 break;
             }
         }
 
         if (taskInfoFromId.contains("ID")) {
-            System.out.println("\nСписок поддерживаемых статусов task:");
+            System.out.println("\nСписок поддерживаемых статусов задания:");
             taskService.listTaskStatus();
 
             while (true) {
@@ -992,7 +995,7 @@ public class Menu {
                     System.out.println("\nВведите ID нового статуса из списка");
                 } else {
                     inputNewTaskId = Integer.parseInt(inputNewTaskStatusIdString);
-                    int resultUpdate = taskService.updateTaskStatus(inputUserIdTaskForEditStatus, inputNewTaskId);
+                    int resultUpdate = taskService.updateTaskStatus(inputUserTaskIdForEditStatus, inputNewTaskId);
 
                     if (resultUpdate == -1) {
                         System.out.println("\nОшибка, во время смены статуса задания");
@@ -1008,47 +1011,47 @@ public class Menu {
     private void changeCategoryForTask() {
         System.out.println("\nИзменением категории задания");
 
-        String inputIdTaskString = "";
-        String inputIdCategoryString = "";
-        int inputIdTask = -1;
-        int inputIdCategory = -1;
+        String inputTaskIdString = "";
+        String inputCategoryIdString = "";
+        int inputTaskId = -1;
+        int inputCategoryId = -1;
 
         while (true) {
             System.out.println("\nВведите ID задания, для которого нужно изменить категорию");
-            inputIdTaskString = inputUserDataConsole.readString();
+            inputTaskIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdTaskString)) {
+            if (!taskValidation.isNumeric(inputTaskIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getTaskId(Integer.parseInt(inputIdTaskString)) == -1) {
+            } else if (taskService.getTaskId(Integer.parseInt(inputTaskIdString)) == -1) {
                 System.out.println("\nНет задания с таким ID");
                 continue;
             } else {
-                inputIdTask = Integer.parseInt(inputIdTaskString);
+                inputTaskId = Integer.parseInt(inputTaskIdString);
                 break;
             }
         }
 
         while (true) {
             System.out.println("\nВведите ID категории, на которую нужно сменить");
-            inputIdCategoryString = inputUserDataConsole.readString();
+            inputCategoryIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdCategoryString)) {
+            if (!taskValidation.isNumeric(inputCategoryIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputCategoryIdString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
             } else {
-                inputIdCategory = Integer.parseInt(inputIdCategoryString);
+                inputCategoryId = Integer.parseInt(inputCategoryIdString);
                 break;
             }
         }
 
-        if (taskService.updateCategoryIdForTask(inputIdTask, inputIdCategory)) {
-            System.out.println("\nИзменение категории для задания с ID - " + inputIdTask + " прошло успешно");
+        if (taskService.updateCategoryIdForTask(inputTaskId, inputCategoryId)) {
+            System.out.println("\nИзменение категории для задания с ID - " + inputTaskId + " прошло успешно");
         } else {
-            System.out.println("\nОшибка изменения категории для задания с ID - " + inputIdTask);
+            System.out.println("\nОшибка изменения категории для задания с ID - " + inputTaskId);
         }
     }
 
@@ -1065,7 +1068,7 @@ public class Menu {
                 System.out.println("\nТакая категория уже существует");
                 continue;
             } else {
-                 break;
+                break;
             }
         }
 
@@ -1079,58 +1082,59 @@ public class Menu {
     private void delCategory() {
         System.out.println("\nУдаление категории");
 
-        String inputIdCategoryString = "";
-        int inputIdCategory = -1;
+        String inputCategoryIdString = "";
+        int inputCategoryId = -1;
 
         while (true) {
             System.out.println("\nВведите ID категории для удаления");
-            inputIdCategoryString = inputUserDataConsole.readString();
+            inputCategoryIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdCategoryString)) {
+            if (!taskValidation.isNumeric(inputCategoryIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputCategoryIdString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
-            } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputIdCategoryString)).equals("default")) {
+            } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputCategoryIdString)).equals("default")) {
                 System.out.println("\nНевозможно удалить категорию по умолчанию");
                 continue;
             } else {
-                inputIdCategory = Integer.parseInt(inputIdCategoryString);
+                inputCategoryId = Integer.parseInt(inputCategoryIdString);
                 break;
             }
         }
 
-        int idDefaultCategory = taskService.getIdForCategoryName("default");
-        if (taskService.delCategory(inputIdCategory, idDefaultCategory)) {
-            System.out.println("\nКатегория с ID - " + inputIdCategory + " успешно удалена");
+        int defaultCategoryId = taskService.getIdForCategoryName("default");
+
+        if (taskService.delCategory(inputCategoryId, defaultCategoryId)) {
+            System.out.println("\nКатегория с ID - " + inputCategoryId + " успешно удалена");
         } else {
-            System.out.println("\nОшибка при удалении категории с ID - " + inputIdCategory);
+            System.out.println("\nОшибка при удалении категории с ID - " + inputCategoryId);
         }
     }
 
     private void changeCategory() {
         System.out.println("\nИзменение категории");
 
-        String inputIdCategoryString = "";
+        String inputCategoryIdString = "";
         String inputNewCategoryName = "";
-        int inputIdCategory = -1;
+        int inputCategoryId = -1;
 
         while (true) {
             System.out.println("\nВведите ID категории для изменения");
-            inputIdCategoryString = inputUserDataConsole.readString();
+            inputCategoryIdString = inputUserDataConsole.readString();
 
-            if (!taskValidation.isNumeric(inputIdCategoryString)) {
+            if (!taskValidation.isNumeric(inputCategoryIdString)) {
                 System.out.println("\nВведите число");
                 continue;
-            } else if (taskService.getCategoryId(Integer.parseInt(inputIdCategoryString)) == -1) {
+            } else if (taskService.getCategoryId(Integer.parseInt(inputCategoryIdString)) == -1) {
                 System.out.println("\nНет категории с таким ID");
                 continue;
-            } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputIdCategoryString)).equals("default")) {
+            } else if (taskService.getNameCategoryForIdCategory(Integer.parseInt(inputCategoryIdString)).equals("default")) {
                 System.out.println("\nНевозможно изменить категорию по умолчанию");
                 continue;
             } else {
-                inputIdCategory = Integer.parseInt(inputIdCategoryString);
+                inputCategoryId = Integer.parseInt(inputCategoryIdString);
                 break;
             }
         }
@@ -1138,7 +1142,7 @@ public class Menu {
         System.out.println("\nВведите новое название категории");
         inputNewCategoryName = inputUserDataConsole.readString();
 
-        if (taskService.updateCategoryName(inputIdCategory,inputNewCategoryName )) {
+        if (taskService.updateCategoryName(inputCategoryId, inputNewCategoryName)) {
             System.out.println("\nНазвание категории успешно изменено");
         } else {
             System.out.println("\nОшибка во время изменения названия категории");

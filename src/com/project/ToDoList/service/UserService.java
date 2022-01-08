@@ -32,7 +32,7 @@ public class UserService {
         return user.getLogin();
     }
 
-    public int getAuthorizedUserID() {
+    public int getAuthorizedUserId() {
         return user.getId();
     }
 
