@@ -76,7 +76,7 @@ public class Menu {
 
             inputUserPassword = inputUserDataConsole.readString();
             if (!passwordValidation.isValidMinLength(inputUserPassword)) {
-                System.out.println("\nОшибка. Минимальная дли пароля 2 символа, может состоять только из En букв и цифр!\n");
+                System.out.println("\nОшибка. Минимальная длина пароля 2 символа, может состоять только из En букв и цифр!\n");
             } else {
                 passwordIsValid = true;
                 break;
