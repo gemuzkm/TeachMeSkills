@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>e55148fd-c09b-4a6f-9960-000453237324.SCHEMA:todolist</OriginalElement>
+  <OriginalElement>ce810a75-8c5e-4508-9152-928cc88b9a0c.SCHEMA:todolist</OriginalElement>
   <nodes>
-    <node x="256.0" y="127.0">e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.users</node>
-    <node x="56.0" y="149.0">e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.task_category</node>
-    <node x="452.0" y="149.0">e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.task_status</node>
-    <node x="267.5" y="0.0">e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.user_role</node>
-    <node x="267.0" y="298.0">e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.user_task</node>
+    <node x="439.0" y="0.0">ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.user_role</node>
+    <node x="238.0" y="298.0">ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.user_task</node>
+    <node x="38.5" y="149.0">ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.task_status</node>
+    <node x="225.5" y="149.0">ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.task_category</node>
+    <node x="426.5" y="127.0">ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.users</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.users" target="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.user_role" relationship="REFERENCES">
+    <edge source="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.user_task" target="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.task_category" relationship="REFERENCES">
+      <point x="0.0" y="-71.5" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.user_task" target="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.users" relationship="REFERENCES">
+      <point x="78.0" y="0.0" />
+      <point x="516.0" y="369.5" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.users" target="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.user_role" relationship="REFERENCES">
       <point x="0.0" y="-60.5" />
       <point x="0.0" y="38.5" />
     </edge>
-    <edge source="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.user_task" target="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.task_status" relationship="REFERENCES">
-      <point x="51.33333333333334" y="-71.5" />
-      <point x="395.33333333333337" y="273.0" />
-      <point x="534.0" y="273.0" />
-      <point x="0.0" y="38.5" />
-    </edge>
-    <edge source="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.user_task" target="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.users" relationship="REFERENCES">
-      <point x="0.0" y="-71.5" />
-      <point x="0.0" y="60.5" />
-    </edge>
-    <edge source="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.user_task" target="e55148fd-c09b-4a6f-9960-000453237324.TABLE:todolist.task_category" relationship="REFERENCES">
-      <point x="-51.33333333333334" y="-71.5" />
-      <point x="292.6666666666667" y="273.0" />
-      <point x="146.0" y="273.0" />
+    <edge source="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.user_task" target="ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.task_status" relationship="REFERENCES">
+      <point x="-78.0" y="0.0" />
+      <point x="122.0" y="369.5" />
       <point x="0.0" y="38.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="328.0" y="220.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="322.0" y="220.5" />
+  <SelectedNodes>
+    <node>ce810a75-8c5e-4508-9152-928cc88b9a0c.TABLE:todolist.users</node>
+  </SelectedNodes>
   <Categories>
     <Category>Columns</Category>
     <Category>Comments</Category>
