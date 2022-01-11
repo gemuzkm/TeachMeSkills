@@ -4,7 +4,7 @@
 
 Пользователи:
 уровень User - login/pass: user
-уровень manager - logon/pass: manager
+уровень manager - login/pass: manager
 категория по умолчанию - default
 
 Два дампа. Один с созданием БД (_create_db). Второй - без (_no_create_db)
